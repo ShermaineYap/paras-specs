@@ -1,6 +1,6 @@
-# Paras
+# Waterline
 
-**See the last flood line in your own home, and lift what matters above it.**
+**See the real flood height in your own home, and lift what matters above it.**
 A Lens for Snap SPECS, built for Devpost's **Learn AR with SPECS**, Round 2
 (Nov 10 – Dec 7, 2026).
 
