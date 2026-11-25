@@ -1,0 +1,109 @@
+/**
+ * WaterlineRoomDetails — regular, repeated detail on the stand-in room (not semantic objects):
+ * floor tile joints and rain streaks running down outside the window.
+ *
+ * Owns: the generated joint lines and rain streaks. Expects: the authored Floor and WindowGlass
+ * objects. Must not: create furniture, belongings or anything the flow depends on.
+ * Child names start with "NC_" so the water's contact line ignores them.
+ */
+import {makeMeshChild, tintedMaterial} from "./WaterlineGeometry"
+
+@component
+export class WaterlineRoomDetails extends BaseScriptComponent {
+  @ui.label('<span style="color: #60A5FA;">WaterlineRoomDetails – tile joints + window rain</span>')
+  @ui.separator
+  @ui.group_start("References")
+  @input
+  @hint("Authored floor (its scale is the floor size)")
+  floor!: SceneObject
+  @input
+  @hint("Authored window glass (its scale is the opening size)")
+  windowGlass!: SceneObject
+  @input
+  @hint("1 cm unit box mesh")
+  boxMesh!: RenderMesh
+  @input
+  @hint("Unlit base material for joints and rain")
+  glowMaterial!: Material
+  @ui.group_end
+  @ui.separator
+  @ui.group_start("Settings")
+  @input
+  @hint("Floor tile size (cm)")
+  @widget(new SliderWidget(20, 100, 5))
+  tileSizeCm: number = 60
+  @input
+  @hint("Rain streaks visible through the window")
+  @widget(new SliderWidget(0, 80, 1))
+  rainStreaks: number = 34
+  @input
+  @hint("Rain fall speed (cm/s)")
+  @widget(new SliderWidget(50, 600, 10))
+  rainSpeed: number = 260
+  @ui.group_end
+
+  private streaks: {so: SceneObject; x: number; y: number; len: number; v: number}[] = []
+  private winW = 0
+  private winH = 0
+
+  onAwake() {
+    this.buildTileJoints()
+    this.buildRain()
+    this.createEvent("UpdateEvent").bind(() => this.updateRain())
+  }
+
+  private buildTileJoints(): void {
+    const ft = this.floor.getTransform()
+    const size = ft.getWorldScale()
+    const c = ft.getWorldPosition()
+    const topY = c.y + size.y / 2 + 0.05
+    const mat = tintedMaterial(this.glowMaterial, new vec4(0.78, 0.74, 0.66, 1), false)
+    const root = global.scene.createSceneObject("NC_TileJoints")
+    root.setParent(this.getSceneObject())
+    for (let x = c.x - size.x / 2 + this.tileSizeCm; x < c.x + size.x / 2; x += this.tileSizeCm) {
+      const so = makeMeshChild(root, "NC_JointX", vec3.zero(), vec3.one(), this.boxMesh, mat)
+      so.getTransform().setWorldPosition(new vec3(x, topY, c.z))
+      so.getTransform().setWorldScale(new vec3(0.5, 0.1, size.z))
+    }
+    for (let z = c.z - size.z / 2 + this.tileSizeCm; z < c.z + size.z / 2; z += this.tileSizeCm) {
+      const so = makeMeshChild(root, "NC_JointZ", vec3.zero(), vec3.one(), this.boxMesh, mat)
+      so.getTransform().setWorldPosition(new vec3(c.x, topY, z))
+      so.getTransform().setWorldScale(new vec3(size.x, 0.1, 0.5))
+    }
+  }
+
+  private buildRain(): void {
+    const s = this.windowGlass.getTransform().getWorldScale()
+    this.winW = s.x
+    this.winH = s.y
+    const mat = tintedMaterial(this.glowMaterial, new vec4(0.85, 0.95, 1.0, 0.55))
+    const root = global.scene.createSceneObject("NC_WindowRain")
+    root.setParent(this.windowGlass.getParent())
+    const gp = this.windowGlass.getTransform().getLocalPosition()
+    root.getTransform().setLocalPosition(new vec3(gp.x, gp.y, gp.z - 0.6))
+    for (let i = 0; i < this.rainStreaks; i++) {
+      const len = 5 + Math.random() * 9
+      const so = makeMeshChild(root, "NC_Streak", vec3.zero(), new vec3(0.22, len, 0.1), this.boxMesh, mat)
+      this.streaks.push({
+        so,
+        x: (Math.random() - 0.5) * (this.winW - 4),
+        y: (Math.random() - 0.5) * this.winH,
+        len,
+        v: this.rainSpeed * (0.75 + Math.random() * 0.5),
+      })
+    }
+  }
+
+  private updateRain(): void {
+    const dt = getDeltaTime()
+    const half = this.winH / 2
+    for (const r of this.streaks) {
+      r.y -= r.v * dt
+      if (r.y < -half + r.len / 2) {
+        r.y = half - r.len / 2
+        r.x = (Math.random() - 0.5) * (this.winW - 4)
+      }
+      r.so.getTransform().setLocalPosition(new vec3(r.x, r.y, 0))
+    }
+  }
+}

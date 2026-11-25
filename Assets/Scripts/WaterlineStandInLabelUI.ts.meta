@@ -1,0 +1,59 @@
+- !<AssetImportMetadata/809079d8-a4a6-49f8-874b-0f4b3aead3bf>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> b5db9b0d-7b20-444b-b1e9-f27ea2cad2eb
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> b5db9b0d-7b20-444b-b1e9-f27ea2cad2eb
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 7a02784a-afcc-4cfd-90db-186fa927f493
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/7a02784a-afcc-4cfd-90db-186fa927f493>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: b46a0595-4006-43b9-b35e-66703ec6e547
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    bodyText: false
+    readingDistanceCm: false
+    titleColor: false
+    titleText: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - titleText: PREVIEW STAND-IN
+      bodyText: "Room, belongings, cabinet and switch. Pinch each belonging to tag it."
+      readingDistanceCm: !<float> 200.000000
+      titleColor: !<Vec4> {x: 1.000000, y: 0.860000, z: 0.550000, w: 1.000000}
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WaterlineStandInLabelUI – \"preview stand-in\" wall label</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input string titleText = "PREVIEW STAND-IN" {"hint":"First line"}'
+    - '// @input string bodyText = "Room, belongings, cabinet and switch. Pinch each belonging to tag it." {"hint":"Second line"}'
+    - '// @input float readingDistanceCm = 200 {"hint":"Distance the label is read from (cm) — scales the text", "widget":"slider", "min":60, "max":300, "step":5}'
+    - '// @input vec4 titleColor = "{1.0, 0.86, 0.55, 1.0}" {"hint":"Title colour (keep light)", "widget":"color"}'
+    - '// @ui {"widget":"group_end"}'

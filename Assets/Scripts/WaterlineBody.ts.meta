@@ -1,0 +1,74 @@
+- !<AssetImportMetadata/05d09de6-50a4-4e34-826a-14291982756e>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 906d105c-21a2-4b9a-b70e-fa35432206e4
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 906d105c-21a2-4b9a-b70e-fa35432206e4
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 18332aaa-7c3a-4c26-8967-56ed6f538574
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/18332aaa-7c3a-4c26-8967-56ed6f538574>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: db8dffcf-de6d-4a1c-9f4f-0f5fb82727ea
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    hud: false
+    levelLookDegrees: false
+    ringColor: false
+    ringMaterial: false
+    ringRadiusCm: false
+    underwaterTint: false
+    upToToleranceCm: false
+    water: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - water: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      hud: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      underwaterTint: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      ringMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      ringRadiusCm: !<float> 14.000000
+      ringColor: !<Vec4> {x: 0.950000, y: 1.000000, z: 1.000000, w: 0.900000}
+      levelLookDegrees: !<float> 25.000000
+      upToToleranceCm: !<float> 5.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WaterlineBody – ring, depth tag, underwater</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input AssignableType_1 water {"hint":"The water (level + floor height)"}'
+    - '// @input AssignableType_2 hud {"hint":"HUD module that shows the depth tag"}'
+    - '// @input SceneObject underwaterTint {"hint":"Authored cool tint in front of the camera, shown while the eyes are under"}'
+    - '// @input Asset.Material ringMaterial {"hint":"Unlit base material for the ring"}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float ringRadiusCm = 14 {"hint":"Ring outer radius on the surface (cm)", "widget":"slider", "min":4, "max":40, "step":1}'
+    - '// @input vec4 ringColor = "{0.95, 1.0, 1.0, 0.9}" {"hint":"Ring colour", "widget":"color"}'
+    - '// @input float levelLookDegrees = 25 {"hint":"Depth tag shows only while looking within this many degrees of level", "widget":"slider", "min":5, "max":60, "step":1}'
+    - "// @input float upToToleranceCm = 5 {\"hint\":\"'Up to your …' when the water is within this many cm of the body landmark\", \"widget\":\"slider\", \"min\":0, \"max\":15, \"step\":0.5}"
+    - '// @ui {"widget":"group_end"}'

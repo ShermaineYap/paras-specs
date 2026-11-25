@@ -1,0 +1,74 @@
+- !<AssetImportMetadata/dc5609ff-d588-4e51-9aa8-79052e8660e4>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> dbae0b69-410d-4d9c-89b2-ae02a7f69619
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> dbae0b69-410d-4d9c-89b2-ae02a7f69619
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 8d96d2df-488d-459a-86c8-0fd8816b1ff3
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/8d96d2df-488d-459a-86c8-0fd8816b1ff3>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 01ba92ce-8c0e-481a-9b86-cfc8931dbab7
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    boxMesh: false
+    displayName: false
+    glowMaterial: false
+    heightCm: false
+    hitPaddingCm: false
+    safeSpot: false
+    sizeCm: false
+    tickColor: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - safeSpot: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      glowMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      boxMesh: !<reference.RenderMesh> 00000000-0000-0000-0000-000000000000
+      displayName: Belonging
+      heightCm: !<float> 0.000000
+      sizeCm: !<Vec3> {x: 30.000000, y: 30.000000, z: 30.000000}
+      hitPaddingCm: !<float> 8.000000
+      tickColor: !<Vec4> {x: 0.550000, y: 1.000000, z: 0.600000, w: 1.000000}
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WaterlineBelonging – a preview stand-in belonging</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input SceneObject safeSpot {"hint":"Authored anchor on the cabinet top where this item is safe (its pin stands here)"}'
+    - '// @input Asset.Material glowMaterial {"hint":"Unlit base material cloned for the outline and tick"}'
+    - '// @input Asset.RenderMesh boxMesh {"hint":"1 cm unit box mesh used for outline edges and the tick"}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input string displayName = "Belonging" {"hint":"Name used in logs and tests"}'
+    - "// @input float heightCm {\"hint\":\"Height of the item's base above the floor where it was tagged (cm). Drives flagging.\"}"
+    - '// @input vec3 sizeCm = {30,30,30} {"hint":"Item size in cm (width, height, depth) — must match the authored visuals"}'
+    - '// @input float hitPaddingCm = 8 {"hint":"Extra size added to the grab/pinch collider so the target is easy to hit (cm)", "widget":"slider", "min":0, "max":20, "step":1}'
+    - "// @input vec4 tickColor = \"{0.55, 1.0, 0.6, 1.0}\" {\"hint\":\"Colour of the 'tagged' tick\", \"widget\":\"color\"}"
+    - '// @ui {"widget":"group_end"}'

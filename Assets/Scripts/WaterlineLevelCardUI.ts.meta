@@ -1,0 +1,62 @@
+- !<AssetImportMetadata/75ab3432-0360-4b4e-9d17-a70c9a2d496d>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 97ec6dcd-9bea-4ac8-b3c9-10814ea7cfd9
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 97ec6dcd-9bea-4ac8-b3c9-10814ea7cfd9
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 8011da09-e3e8-46dc-b466-fa4b25a8ef89
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/8011da09-e3e8-46dc-b466-fa4b25a8ef89>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 8b8ba01f-7bae-4c27-9f5c-164b31b846b0
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    buttonHeightCm: false
+    buttonWidthCm: false
+    heightTextColor: false
+    subtitleText: false
+    titleText: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - titleText: River alert
+      subtitleText: Sungai Bentong. Choose the water level.
+      buttonWidthCm: 10.500000
+      buttonHeightCm: 6.500000
+      heightTextColor: !<Vec4> {x: 0.750000, y: 0.950000, z: 1.000000, w: 1.000000}
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WaterlineLevelCardUI – river-alert card</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input string titleText = "River alert" {"hint":"Card title"}'
+    - '// @input string subtitleText = "Sungai Bentong. Choose the water level." {"hint":"Line under the title"}'
+    - '// @input float buttonWidthCm = 10.5 {"hint":"Width of each level button (cm)", "widget":"slider", "min":6, "max":16, "step":0.5}'
+    - '// @input float buttonHeightCm = 6.5 {"hint":"Height of each level button (cm) — big targets", "widget":"slider", "min":4, "max":10, "step":0.5}'
+    - '// @input vec4 heightTextColor = "{0.75, 0.95, 1.0, 1.0}" {"hint":"Colour of the height line on each button", "widget":"color"}'
+    - '// @ui {"widget":"group_end"}'

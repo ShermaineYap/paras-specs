@@ -1,0 +1,59 @@
+- !<AssetImportMetadata/092030bf-f75a-4e9a-8ec1-fe6854452ffd>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> c3c094fb-1e52-4898-b053-f962021b26a0
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> c3c094fb-1e52-4898-b053-f962021b26a0
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 7b8e25a9-a9fe-4865-9b2e-4ed9cc51c7c6
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/7b8e25a9-a9fe-4865-9b2e-4ed9cc51c7c6>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 69e7b533-54ae-4df5-8910-e689b915ecde
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    glow: false
+    hitSizeCm: false
+    rocker: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - glow: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      rocker: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      hitSizeCm: !<Vec3> {x: 20.000000, y: 22.000000, z: 8.000000}
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WaterlineSwitch – mains switch</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input SceneObject glow {"hint":"Glow plate behind the switch, shown only when every flagged item is safe"}'
+    - '// @input SceneObject rocker {"hint":"The rocker that flips when pressed"}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input vec3 hitSizeCm = {20,22,8} {"hint":"Pinch collider size (cm) — a big target"}'
+    - '// @ui {"widget":"group_end"}'

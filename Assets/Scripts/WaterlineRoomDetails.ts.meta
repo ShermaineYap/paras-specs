@@ -1,0 +1,71 @@
+- !<AssetImportMetadata/f3049072-0760-4d9a-a271-1b8ddca6114d>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 7e919f18-c2fb-41a2-aa86-53f291ec2536
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 7e919f18-c2fb-41a2-aa86-53f291ec2536
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 3d2e130c-b711-456b-99c8-12d9553fc65a
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/3d2e130c-b711-456b-99c8-12d9553fc65a>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 24e5c556-7a21-4d9d-9dcb-5bf7cc29a7ee
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    boxMesh: false
+    floor: false
+    glowMaterial: false
+    rainSpeed: false
+    rainStreaks: false
+    tileSizeCm: false
+    windowGlass: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - floor: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      windowGlass: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      boxMesh: !<reference.RenderMesh> 00000000-0000-0000-0000-000000000000
+      glowMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      tileSizeCm: !<float> 60.000000
+      rainStreaks: !<float> 34.000000
+      rainSpeed: !<float> 260.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WaterlineRoomDetails – tile joints + window rain</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input SceneObject floor {"hint":"Authored floor (its scale is the floor size)"}'
+    - '// @input SceneObject windowGlass {"hint":"Authored window glass (its scale is the opening size)"}'
+    - '// @input Asset.RenderMesh boxMesh {"hint":"1 cm unit box mesh"}'
+    - '// @input Asset.Material glowMaterial {"hint":"Unlit base material for joints and rain"}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float tileSizeCm = 60 {"hint":"Floor tile size (cm)", "widget":"slider", "min":20, "max":100, "step":5}'
+    - '// @input float rainStreaks = 34 {"hint":"Rain streaks visible through the window", "widget":"slider", "min":0, "max":80, "step":1}'
+    - '// @input float rainSpeed = 260 {"hint":"Rain fall speed (cm/s)", "widget":"slider", "min":50, "max":600, "step":10}'
+    - '// @ui {"widget":"group_end"}'

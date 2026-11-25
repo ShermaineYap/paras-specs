@@ -1,0 +1,50 @@
+- !<AssetImportMetadata/b7d6eb01-63df-4d82-a3f1-f3c985a9aae9>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 6652e76a-93ff-464e-8507-017630bf8831
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 6652e76a-93ff-464e-8507-017630bf8831
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 7dbf110d-7043-4991-8d43-c5e913460d13
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/7dbf110d-7043-4991-8d43-c5e913460d13>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 46e00478-6e21-4a43-9dc1-fbbfb75a261e
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    stage: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - stage: !<string> off
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WaterlineDemoDirector – hold a key moment for screenshots</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input string stage = "off" {"hint":"Moment to drive to on preview start", "widget":"combobox", "values":[{"label":"off", "value":"off"}, {"label":"room", "value":"room"}, {"label":"card", "value":"card"}, {"label":"danger", "value":"danger"}, {"label":"depthtag", "value":"depthtag"}, {"label":"amber", "value":"amber"}, {"label":"arrow", "value":"arrow"}, {"label":"underwater", "value":"underwater"}, {"label":"summary", "value":"summary"}]}'
+    - '// @ui {"widget":"group_end"}'

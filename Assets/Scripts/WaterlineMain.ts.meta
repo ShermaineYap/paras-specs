@@ -1,0 +1,116 @@
+- !<AssetImportMetadata/2106ef01-5451-4905-939b-2cebdd1915c2>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 8c3d713e-fdc0-4a00-913e-0d361feb05b2
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 8c3d713e-fdc0-4a00-913e-0d361feb05b2
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 1bf8a1e2-57b7-431a-b263-bb56dc765329
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/1bf8a1e2-57b7-431a-b263-bb56dc765329>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: b6f53288-c13e-4e14-ae40-d3775543e602
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    alertHeightCm: false
+    alertName: false
+    audio: false
+    belongingsRoot: false
+    body: false
+    dangerHeightCm: false
+    dangerName: false
+    debugLogs: false
+    drainSeconds: false
+    eyeHeightCm: false
+    guidance: false
+    hud: false
+    levelCard: false
+    mainsSwitch: false
+    riseSeconds: false
+    snapRadiusCm: false
+    summarySeconds: false
+    warningHeightCm: false
+    warningName: false
+    water: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - levelCard: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      hud: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      water: !<MappingBased.AssignableType_3> 00000000-0000-0000-0000-000000000000
+      body: !<MappingBased.AssignableType_4> 00000000-0000-0000-0000-000000000000
+      guidance: !<MappingBased.AssignableType_5> 00000000-0000-0000-0000-000000000000
+      mainsSwitch: !<MappingBased.AssignableType_6> 00000000-0000-0000-0000-000000000000
+      audio: !<MappingBased.AssignableType_7> 00000000-0000-0000-0000-000000000000
+      belongingsRoot: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      alertName: Alert
+      alertHeightCm: !<float> 30.000000
+      warningName: Warning
+      warningHeightCm: !<float> 80.000000
+      dangerName: Danger
+      dangerHeightCm: !<float> 150.000000
+      eyeHeightCm: !<float> 160.000000
+      riseSeconds: !<float> 4.000000
+      drainSeconds: !<float> 3.000000
+      summarySeconds: !<float> 4.000000
+      snapRadiusCm: !<float> 10.000000
+      debugLogs: true
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WaterlineMain – flood-night flow</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input AssignableType_1 levelCard {"hint":"River-alert card"}'
+    - '// @input AssignableType_2 hud {"hint":"Depth tag + summary line"}'
+    - '// @input AssignableType_3 water {"hint":"The water"}'
+    - '// @input AssignableType_4 body {"hint":"Ring, depth tag rule, underwater"}'
+    - '// @input AssignableType_5 guidance {"hint":"Amber item, dotted line, pin, edge arrow"}'
+    - '// @input AssignableType_6 mainsSwitch {"hint":"Wall mains switch"}'
+    - '// @input AssignableType_7 audio {"hint":"Placed sound cues"}'
+    - '// @input SceneObject belongingsRoot {"hint":"Parent of the five belongings"}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Levels"}'
+    - '// @input string alertName = "Alert" {"hint":"Level 1 name (river gauge)"}'
+    - '// @input float alertHeightCm = 30 {"hint":"Level 1 in-room height (cm, sample data)", "widget":"slider", "min":5, "max":200, "step":1}'
+    - '// @input string warningName = "Warning" {"hint":"Level 2 name"}'
+    - '// @input float warningHeightCm = 80 {"hint":"Level 2 in-room height (cm, sample data)", "widget":"slider", "min":5, "max":200, "step":1}'
+    - '// @input string dangerName = "Danger" {"hint":"Level 3 name"}'
+    - '// @input float dangerHeightCm = 150 {"hint":"Level 3 in-room height (cm) — the reported 2021 depth in a Bentong home", "widget":"slider", "min":5, "max":200, "step":1}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Timing"}'
+    - '// @input float eyeHeightCm = 160 {"hint":"Eye height above the floor at start (cm) — the preview floor is 160 cm below the eyes", "widget":"slider", "min":100, "max":200, "step":1}'
+    - '// @input float riseSeconds = 4 {"hint":"Water rises from the floor over this many seconds", "widget":"slider", "min":1, "max":10, "step":0.5}'
+    - '// @input float drainSeconds = 3 {"hint":"Water drains to the floor over this many seconds", "widget":"slider", "min":1, "max":10, "step":0.5}'
+    - '// @input float summarySeconds = 4 {"hint":"Summary line stays this many seconds", "widget":"slider", "min":1, "max":10, "step":0.5}'
+    - '// @input float snapRadiusCm = 10 {"hint":"Released within this distance of the safe spot, an item snaps into place (cm)", "widget":"slider", "min":2, "max":30, "step":1}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Debug"}'
+    - '// @input bool debugLogs = true {"hint":"Print state changes to the log"}'
+    - '// @ui {"widget":"group_end"}'

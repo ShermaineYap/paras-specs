@@ -1,0 +1,53 @@
+- !<AssetImportMetadata/b9e0f1a8-ca36-435e-8bbf-125a212a344f>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 53edfc7a-98e4-4c88-be50-b8dbd5e1b8d9
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 53edfc7a-98e4-4c88-be50-b8dbd5e1b8d9
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 8d697924-c395-4962-8096-1eb101fc5395
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/8d697924-c395-4962-8096-1eb101fc5395>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 335b82bc-a30d-4bc0-bf6c-b72be5607973
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    runOnStart: false
+    scenarioIds: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - runOnStart: false
+      scenarioIds: ""
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WaterlineLeafRunner – run LEAF scenarios on preview start</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input bool runOnStart {"hint":"Run scenarios automatically after the preview resets"}'
+    - '// @input string scenarioIds {"hint":"Comma-separated scenario ids to run, in order (empty = all registered)"}'
+    - '// @ui {"widget":"group_end"}'

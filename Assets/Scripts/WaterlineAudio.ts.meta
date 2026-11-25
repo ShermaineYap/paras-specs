@@ -1,0 +1,71 @@
+- !<AssetImportMetadata/4d78c5df-6c29-40d5-81f5-0c50cf57b7dd>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 5451cb6b-52ca-439f-a352-5f4fd72a8e14
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 5451cb6b-52ca-439f-a352-5f4fd72a8e14
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 44b3941f-18d5-4777-9c76-3cd59a76d912
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/44b3941f-18d5-4777-9c76-3cd59a76d912>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 508ad959-d066-4b90-90ae-4877fa69d2b6
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    birds: false
+    birdsVolume: false
+    cueVolume: false
+    safeTick: false
+    splash: false
+    switchClick: false
+    tagPop: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - tagPop: !<reference.AudioTrackAsset> 00000000-0000-0000-0000-000000000000
+      safeTick: !<reference.AudioTrackAsset> 00000000-0000-0000-0000-000000000000
+      splash: !<reference.AudioTrackAsset> 00000000-0000-0000-0000-000000000000
+      switchClick: !<reference.AudioTrackAsset> 00000000-0000-0000-0000-000000000000
+      birds: !<reference.AudioTrackAsset> 00000000-0000-0000-0000-000000000000
+      cueVolume: 0.900000
+      birdsVolume: 0.700000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WaterlineAudio – placed one-shot cues</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input Asset.AudioTrackAsset tagPop {"hint":"Soft pop when a belonging is tagged"}'
+    - '// @input Asset.AudioTrackAsset safeTick {"hint":"Soft tick when an item snaps onto its safe spot"}'
+    - "// @input Asset.AudioTrackAsset splash {\"hint\":\"Soft splash from the next item's direction\"}"
+    - '// @input Asset.AudioTrackAsset switchClick {"hint":"Mains switch click"}'
+    - '// @input Asset.AudioTrackAsset birds {"hint":"Morning birds after the water drains"}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float cueVolume = 0.9 {"hint":"Volume of the one-shot cues", "widget":"slider", "min":0, "max":1, "step":0.05}'
+    - '// @input float birdsVolume = 0.7 {"hint":"Volume of the morning birds", "widget":"slider", "min":0, "max":1, "step":0.05}'
+    - '// @ui {"widget":"group_end"}'

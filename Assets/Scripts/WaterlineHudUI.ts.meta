@@ -1,0 +1,59 @@
+- !<AssetImportMetadata/03f667b3-c53a-4ed3-8758-ce711566e65f>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> eeaab3f6-8eff-40ce-beb6-46b731771f56
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> eeaab3f6-8eff-40ce-beb6-46b731771f56
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 3aa131c1-b970-4ee8-90f9-84185fafbd0d
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/3aa131c1-b970-4ee8-90f9-84185fafbd0d>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 5bdf097f-1f04-43e8-9edb-258d2feacfe8
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    depthTagDistanceCm: false
+    depthTagDropCm: false
+    depthTextColor: false
+    summaryDistanceCm: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - depthTagDistanceCm: !<float> 60.000000
+      depthTagDropCm: !<float> 9.000000
+      summaryDistanceCm: !<float> 75.000000
+      depthTextColor: !<Vec4> {x: 0.800000, y: 0.970000, z: 1.000000, w: 1.000000}
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WaterlineHudUI – depth tag + summary line</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float depthTagDistanceCm = 60 {"hint":"Depth tag distance in front of the eyes (cm) — brief: about 60", "widget":"slider", "min":40, "max":100, "step":1}'
+    - '// @input float depthTagDropCm = 9 {"hint":"How far below eye level the depth tag sits (cm)", "widget":"slider", "min":0, "max":30, "step":0.5}'
+    - '// @input float summaryDistanceCm = 75 {"hint":"Summary line distance in front of the eyes (cm)", "widget":"slider", "min":40, "max":120, "step":1}'
+    - '// @input vec4 depthTextColor = "{0.8, 0.97, 1.0, 1.0}" {"hint":"Depth tag text colour (keep light)", "widget":"color"}'
+    - '// @ui {"widget":"group_end"}'

@@ -1,0 +1,80 @@
+- !<AssetImportMetadata/fe80e104-e6b3-4f26-a6b7-28a9d8d2ebb4>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 61d73f21-7b6f-4e24-85d6-c21962b97377
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 61d73f21-7b6f-4e24-85d6-c21962b97377
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> edba5615-02db-4db8-bd18-1a88b7f17169
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/edba5615-02db-4db8-bd18-1a88b7f17169>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: aa803993-54f3-4549-b71c-efe445381c95
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    amberColor: false
+    arrowOffsetCm: false
+    audio: false
+    dotSpacingCm: false
+    edgeArrow: false
+    glowMaterial: false
+    greenColor: false
+    greenSeconds: false
+    sphereMesh: false
+    viewMargin: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - glowMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      sphereMesh: !<reference.RenderMesh> 00000000-0000-0000-0000-000000000000
+      edgeArrow: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      audio: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      amberColor: !<Vec3> {x: 1.000000, y: 0.700000, z: 0.180000}
+      greenColor: !<Vec3> {x: 0.450000, y: 1.000000, z: 0.550000}
+      greenSeconds: !<float> 1.000000
+      dotSpacingCm: !<float> 6.000000
+      arrowOffsetCm: !<float> 13.000000
+      viewMargin: 0.080000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WaterlineGuidance – amber item, dotted line, pin, edge arrow</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input Asset.Material glowMaterial {"hint":"Unlit base material cloned for dots and the arrow"}'
+    - '// @input Asset.RenderMesh sphereMesh {"hint":"1 cm unit sphere mesh for the dotted line"}'
+    - '// @input SceneObject edgeArrow {"hint":"Authored edge arrow object (mesh is built at runtime)"}'
+    - '// @input AssignableType_1 audio {"hint":"Placed one-shot cues (splash)"}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input vec3 amberColor = "{1.0, 0.7, 0.18}" {"hint":"Amber: the one item to lift next", "widget":"color"}'
+    - '// @input vec3 greenColor = "{0.45, 1.0, 0.55}" {"hint":"Green flash when an item snaps onto its safe spot", "widget":"color"}'
+    - '// @input float greenSeconds = 1 {"hint":"How long the green stays before fading (s)", "widget":"slider", "min":0.2, "max":3, "step":0.1}'
+    - '// @input float dotSpacingCm = 6 {"hint":"Gap between dots on the dotted line (cm)", "widget":"slider", "min":2, "max":15, "step":0.5}'
+    - '// @input float arrowOffsetCm = 13 {"hint":"Edge arrow distance from the centre of view (cm, at 60 cm ahead)", "widget":"slider", "min":4, "max":25, "step":0.5}'
+    - '// @input float viewMargin = 0.08 {"hint":"Screen margin: an item this close to the edge counts as out of view (0-0.4)", "widget":"slider", "min":0, "max":0.4, "step":0.01}'
+    - '// @ui {"widget":"group_end"}'

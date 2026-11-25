@@ -1,0 +1,92 @@
+- !<AssetImportMetadata/2e376ee2-0d0e-4ab8-801d-3ff8125e739b>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 99ace9ff-4293-40e7-9d54-5003bbc679f5
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 99ace9ff-4293-40e7-9d54-5003bbc679f5
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> b719b21b-22f7-4bff-84e8-37a7b5acedcd
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/b719b21b-22f7-4bff-84e8-37a7b5acedcd>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: cf16b119-e20b-4059-bc2c-9119d0aae083
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    ambienceVolume: false
+    belongingsRoot: false
+    boxMesh: false
+    contactLineColor: false
+    glowMaterial: false
+    rainRingCount: false
+    rainTrack: false
+    rippleAmplitudeCm: false
+    rippleSpeed: false
+    roomRoot: false
+    rushTrack: false
+    surfaceMaterial: false
+    underwaterTrack: false
+    waterColor: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - surfaceMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      glowMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      boxMesh: !<reference.RenderMesh> 00000000-0000-0000-0000-000000000000
+      roomRoot: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      belongingsRoot: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      rainTrack: !<reference.AudioTrackAsset> 00000000-0000-0000-0000-000000000000
+      rushTrack: !<reference.AudioTrackAsset> 00000000-0000-0000-0000-000000000000
+      underwaterTrack: !<reference.AudioTrackAsset> 00000000-0000-0000-0000-000000000000
+      waterColor: !<Vec4> {x: 0.620000, y: 0.930000, z: 1.000000, w: 0.340000}
+      contactLineColor: !<Vec4> {x: 0.900000, y: 1.000000, z: 1.000000, w: 0.950000}
+      rippleAmplitudeCm: 0.450000
+      rippleSpeed: !<float> 1.000000
+      rainRingCount: !<float> 22.000000
+      ambienceVolume: 0.700000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WaterlineWater – surface, contact line, rain, surface sound</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input Asset.Material surfaceMaterial {"hint":"Lit material for the surface (cloned; made transparent at runtime)"}'
+    - '// @input Asset.Material glowMaterial {"hint":"Unlit base material cloned for the contact line and ripple rings"}'
+    - '// @input Asset.RenderMesh boxMesh {"hint":"1 cm unit box mesh (contact-line bars)"}'
+    - '// @input SceneObject roomRoot {"hint":"Stand-in room root — its meshes get a contact line where the water meets them"}'
+    - '// @input SceneObject belongingsRoot {"hint":"Belongings root — its meshes get a contact line too"}'
+    - '// @input Asset.AudioTrackAsset rainTrack {"hint":"Rain loop played at the surface"}'
+    - '// @input Asset.AudioTrackAsset rushTrack {"hint":"Low rushing-water loop played at the surface"}'
+    - '// @input Asset.AudioTrackAsset underwaterTrack {"hint":"Muffled loop heard while the eyes are under the surface"}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input vec4 waterColor = "{0.62, 0.93, 1.0, 0.34}" {"hint":"Surface colour and see-through amount (alpha). Keep it pale: black shows as transparent.", "widget":"color"}'
+    - '// @input vec4 contactLineColor = "{0.9, 1.0, 1.0, 0.95}" {"hint":"Bright line where the water meets walls and furniture", "widget":"color"}'
+    - '// @input float rippleAmplitudeCm = 0.45 {"hint":"Ripple height (cm)", "widget":"slider", "min":0, "max":2, "step":0.05}'
+    - '// @input float rippleSpeed = 1 {"hint":"Ripple speed multiplier (1 = slow, calm swell)", "widget":"slider", "min":0.1, "max":3, "step":0.1}'
+    - '// @input float rainRingCount = 22 {"hint":"Rain-drop rings on the surface at once", "widget":"slider", "min":0, "max":40, "step":1}'
+    - '// @input float ambienceVolume = 0.7 {"hint":"Surface sound volume (rain + rush)", "widget":"slider", "min":0, "max":1, "step":0.05}'
+    - '// @ui {"widget":"group_end"}'
