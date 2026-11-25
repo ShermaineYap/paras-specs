@@ -5,13 +5,14 @@
  *  1. Start flash: every frame of the first 8 s after the restart (recorded by WaterlineMain from
  *     its first frame), with no input, may draw only the tagging step's first-time hint line and
  *     its bottom chevron — never the level card, depth tag, summary, water or any other panel.
- *  2. The first tag hides the hint and the chevron; each tick fades within 2 s; nothing else shows.
+ *  2. The first tag hides the hint and the chevron; each tick fades within 2 s. From the third tag
+ *     on, while anything is still untagged and out of view, the edge cue points to it.
  *  3. After the fifth tag, the level card appears on its own.
  */
 import {Scenario} from "Leaf.lspkg/Scenarios/scenario/Scenario"
 import {expect} from "Leaf.lspkg/Utils/common/Expect"
 import {sleep, nextFrame} from "Leaf.lspkg/Utils/common/Utils"
-import {CameraRig, item, ITEM_OBJECTS, main, pinch, waitUntil} from "./WaterlineTestKit"
+import {CameraRig, guidance, item, ITEM_OBJECTS, main, pinch, waitUntil} from "./WaterlineTestKit"
 
 /** Allowed during the untouched start: the tagging step's first-time guidance. */
 const START_ALLOWED = ["StartHint", "StartChevron"]
@@ -62,7 +63,16 @@ export class WaterlineC5bQuietStartScenario extends Scenario {
         const shown = item(name).isTickVisible()
         const t = await waitUntil(() => !item(name).isTickVisible(), 3)
         worstTickS = Math.max(worstTickS, t)
-        const others = m.getRenderedLensElements().filter((e) => e !== "LevelCard" && !e.startsWith("Outline:"))
+        const nTagged = ITEM_OBJECTS.filter((n) => item(n).tagged).length
+        const left = ITEM_OBJECTS.filter((n) => !item(n).tagged)
+        const leftInView = left.some((n) => guidance().isInView(item(n).getCenterWorldPos()))
+        const drawn = m.getRenderedLensElements()
+        if (nTagged >= 3 && left.length > 0 && !leftInView) {
+          print(`[C5b] after tag ${nTagged}: ${left.length} untagged, out of view; cue drawn=${drawn.indexOf("StartChevron") >= 0} (${guidance().getArrowMode()})`)
+          expect(drawn.indexOf("StartChevron") >= 0, `after tag ${nTagged}, a cue points to the untagged belongings`).toBe(true)
+        }
+        const others = drawn.filter((e) => e !== "LevelCard" && e !== "StartChevron" && !e.startsWith("Outline:"))
+        if (nTagged < 3) expect(drawn.indexOf("StartChevron") < 0, `no cue after tag ${nTagged}`).toBe(true)
         print(`[C5b] tagged ${name}: tick shown=${shown}, faded after ${t.toFixed(2)} s; other Lens elements: [${others.join(", ")}]`)
         expect(shown, `${name}: tick appears on pinch`).toBe(true)
         expect(t >= 0 && t <= 2.1, `${name}: tick fades within 2 s`).toBe(true)

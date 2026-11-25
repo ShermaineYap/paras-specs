@@ -97,6 +97,7 @@ export class WaterlineHudUI extends BaseScriptComponent {
   private wantSummary = false
   private hintRoot!: SceneObject
   private hintPlate!: BackPlate
+  private summaryPlate!: BackPlate
   private wantHint = false
 
   onAwake() {
@@ -108,6 +109,7 @@ export class WaterlineHudUI extends BaseScriptComponent {
 
     this.summaryRoot = this.makePanel("SummaryLine", new vec3(0, -4, -this.summaryDistanceCm), 24, 3.2)
     this.summaryText = this.addLine(this.lastContent, "", "HeadlineXL", 95, 20, 3.0, new vec4(1, 1, 1, 1))
+    this.summaryPlate = this.lastPlate
 
     const hk = 0.8
     this.hintRoot = this.makePanel("StartHint", new vec3(0, -this.hintDropCm, -this.hintDistanceCm), 21 * hk, 2.4 * hk)
@@ -124,6 +126,9 @@ export class WaterlineHudUI extends BaseScriptComponent {
         this.started = true
         this.lightenPlate(this.depthPlate, this.depthPlateColor)
         this.lightenPlate(this.hintPlate, this.depthPlateColor)
+        // body-relative panels are drawn on top of everything (like the edge arrow), so furniture
+        // never cuts them off when you stand close to it
+        for (const p of [this.depthPlate, this.hintPlate, this.summaryPlate]) this.drawOnTop(p)
         this.depthRoot.enabled = this.wantDepth
         this.summaryRoot.enabled = this.wantSummary
         this.hintRoot.enabled = this.wantHint
@@ -237,6 +242,18 @@ export class WaterlineHudUI extends BaseScriptComponent {
     return root
   }
 
+  /** No depth test on the plate: it is never hidden or cut by furniture, the water or the walls. */
+  private drawOnTop(plate: BackPlate): void {
+    const rmv = plate.getSceneObject().getComponent("Component.RenderMeshVisual") as RenderMeshVisual
+    if (rmv && rmv.mainMaterial) rmv.mainMaterial.mainPass.depthTest = false
+  }
+
+  /** True if the depth tag's plate draws on top of everything (for the tests). */
+  isDepthOnTop(): boolean {
+    const rmv = this.depthRoot.getComponent("Component.RenderMeshVisual") as RenderMeshVisual
+    return !!rmv && !!rmv.mainMaterial && !rmv.mainMaterial.mainPass.depthTest && !this.depthText.depthTest
+  }
+
   /** Lighter look: a flat, pale, see-through plate instead of the default dark gradient. */
   private lightenPlate(plate: BackPlate, color: vec4): void {
     plate.style = "simple"
@@ -252,7 +269,7 @@ export class WaterlineHudUI extends BaseScriptComponent {
     so.setParent(parent)
     const t = so.createComponent("Component.Text") as Text
     t.text = s
-    t.depthTest = true
+    t.depthTest = false // drawn on top of everything, like its plate
     t.setRenderOrder(1001)
     applyTextRole(t, role, distanceCm)
     t.textFill.color = color

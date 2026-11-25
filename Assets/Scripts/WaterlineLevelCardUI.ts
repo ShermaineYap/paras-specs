@@ -136,6 +136,28 @@ export class WaterlineLevelCardUI extends BaseScriptComponent {
 
   isShown(): boolean { return this.wantVisible }
 
+  /**
+   * Show the card in front of the user, wherever they are facing: 80 cm along the line of sight
+   * (at least 60 cm out horizontally), between 90 cm above the floor and just below eye level,
+   * turned to face the eyes. Looking down at belongings, that is about 110 cm high, as in the brief.
+   */
+  showInFront(eye: vec3, look: vec3, floorY: number): void {
+    const flat = new vec3(look.x, 0, look.z)
+    const fwd = flat.length > 0.001 ? flat.normalize() : new vec3(0, 0, -1)
+    const pitch = Math.asin(Math.max(-1, Math.min(1, look.normalize().y)))
+    const D = 80
+    const horiz = Math.max(60, D * Math.cos(pitch))
+    const y = Math.max(floorY + 90, Math.min(eye.y - 8, eye.y + D * Math.sin(pitch)))
+    const p = new vec3(eye.x + fwd.x * horiz, y, eye.z + fwd.z * horiz)
+    const t = this.getSceneObject().getTransform()
+    t.setWorldPosition(p)
+    t.setWorldRotation(quat.lookAt(eye.sub(p).normalize(), vec3.up()))
+    this.show()
+  }
+
+  /** Where the card is (world): for tests and the playthrough. */
+  getWorldPosition(): vec3 { return this.getSceneObject().getTransform().getWorldPosition() }
+
   /** True if the card is actually drawn this frame (enabled and not shrunk away). */
   isRendered(): boolean {
     return !!this.card && this.card.isEnabledInHierarchy && this.card.getTransform().getWorldScale().x > 0.01

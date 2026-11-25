@@ -86,6 +86,8 @@ export class WaterlineGuidance extends BaseScriptComponent {
   private arrowMode = "" // "side" | "below"
   private greenItem: WaterlineBelonging | null = null
   private startCueItems: WaterlineBelonging[] | null = null
+  private switchCuePos: vec3 | null = null
+  private switchCueShown = false
   private greenT = 0
   private t = 0
 
@@ -164,6 +166,8 @@ export class WaterlineGuidance extends BaseScriptComponent {
     for (const d of this.dots) d.enabled = false
     this.edgeArrow.enabled = false
     this.arrowShown = false
+    this.switchCuePos = null
+    this.switchCueShown = false
   }
 
   isArrowVisible(): boolean { return this.edgeArrow.enabled }
@@ -177,6 +181,17 @@ export class WaterlineGuidance extends BaseScriptComponent {
   }
 
   isStartCueOn(): boolean { return this.startCueItems !== null }
+
+  /**
+   * Once every flagged item is safe: the edge arrow (and a soft splash from the switch) whenever the
+   * glowing mains switch is out of view. Pass null to turn it off.
+   */
+  setSwitchCue(switchPos: vec3 | null): void {
+    this.switchCuePos = switchPos
+    this.switchCueShown = false
+  }
+
+  isSwitchCueOn(): boolean { return this.switchCuePos !== null }
   isDottedLineVisible(): boolean { return this.dots.length > 0 && this.dots[0].enabled }
   isPinVisible(item: WaterlineBelonging): boolean {
     const pin = this.findPin(item)
@@ -272,6 +287,26 @@ export class WaterlineGuidance extends BaseScriptComponent {
 
   getArrowMode(): string { return this.arrowMode }
 
+  /** Edge arrow toward the glowing switch while it is out of view, with a soft splash from it. */
+  private updateSwitchCue(): boolean {
+    const p = this.switchCuePos!
+    if (this.isInView(p)) {
+      if (this.switchCueShown) {
+        this.switchCueShown = false
+        this.audio.playSplash(p) // faced it: soft splash from the switch
+      }
+      return false
+    }
+    const camC = WorldCameraFinderProvider.getInstance().getComponent()
+    this.placeEdgeCue(camC, camC.getTransform(), p)
+    setAlpha(this.arrowMat, 0.85 + 0.15 * Math.sin(this.t * 5))
+    if (!this.switchCueShown) {
+      this.switchCueShown = true
+      this.audio.playSplash(p) // attention cue from the switch's direction
+    }
+    return true
+  }
+
   /**
    * Places the first-time cue toward the untagged belonging nearest the line of sight (at the start:
    * the low ones straight ahead, below the view, so it is the bottom chevron). Hidden once any
@@ -318,7 +353,7 @@ export class WaterlineGuidance extends BaseScriptComponent {
     const tgt = this.target
     if (!tgt) {
       for (const d of this.dots) if (d.enabled) d.enabled = false
-      this.edgeArrow.enabled = this.updateStartCue()
+      this.edgeArrow.enabled = this.switchCuePos ? this.updateSwitchCue() : this.updateStartCue()
       return
     }
 

@@ -255,12 +255,19 @@ export class WaterlineMain extends BaseScriptComponent {
     this.pendingNextAt = -1
     if (this.items.every((i) => i.tagged)) {
       this.setState("choose")
-      this.levelCard.show()
+      this.showCardInFront()
     } else {
       this.setState("tagging")
       this.levelCard.hide()
     }
     this.setStartGuidance(this.state === "tagging" && !this.items.some((i) => i.tagged))
+  }
+
+  /** The river-alert card, in front of the user wherever they are facing. */
+  private showCardInFront(): void {
+    const camT = WorldCameraFinderProvider.getInstance().getComponent().getTransform()
+    const floorY = this.water.getSceneObject().getTransform().getWorldPosition().y
+    this.levelCard.showInFront(camT.getWorldPosition(), camT.forward.uniformScale(-1), floorY)
   }
 
   /** First-time guidance: the hint line and the chevron toward the belongings. Off after the first tag. */
@@ -275,12 +282,16 @@ export class WaterlineMain extends BaseScriptComponent {
     if (this.state !== "tagging" && this.state !== "choose") return
     const first = !b.tagged
     b.showTagged()
-    this.setStartGuidance(false)
+    // first-time guidance: the hint goes after the first tag; from the third tag on, the edge cue
+    // points to whatever is still untagged (e.g. the sideboard) until all five are tagged
+    const nTagged = this.items.filter((i) => i.tagged).length
+    this.hud.setStartHint(false)
+    this.guidance.setStartCue(nTagged >= 3 && nTagged < this.items.length ? this.items : null)
     this.audio.playTagPop(b.getCenterWorldPos())
     if (first) this.log(`tagged ${b.displayName}`)
     if (this.state === "tagging" && this.items.every((i) => i.tagged)) {
       this.setState("choose")
-      this.levelCard.show()
+      this.showCardInFront()
     }
   }
 
@@ -323,6 +334,7 @@ export class WaterlineMain extends BaseScriptComponent {
     } else {
       this.guidance.setTarget(null)
       this.mainsSwitch.setArmed(true)
+      this.guidance.setSwitchCue(this.mainsSwitch.getSceneObject().getTransform().getWorldPosition())
       this.setState("allSafe")
     }
   }
@@ -330,6 +342,7 @@ export class WaterlineMain extends BaseScriptComponent {
   private onMainsPressed(): void {
     if (this.state !== "allSafe") return
     this.runSeconds = getTime() - this.runStart
+    this.guidance.setSwitchCue(null)
     this.audio.playSwitchClick(this.mainsSwitch.getSceneObject().getTransform().getWorldPosition())
     this.water.animateTo(0, this.drainSeconds)
     this.water.setRain(false)
@@ -363,7 +376,7 @@ export class WaterlineMain extends BaseScriptComponent {
         this.hud.hideSummary()
         for (const it of this.items) it.resetHome()
         this.guidance.clearAll(this.items)
-        this.levelCard.show()
+        this.showCardInFront()
         this.setState("choose")
       }
     }

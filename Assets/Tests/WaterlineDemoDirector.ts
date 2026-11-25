@@ -64,7 +64,7 @@ export class WaterlineDemoDirector extends BaseScriptComponent {
     }
     await readyAtLevelCard()
     if (s === "card") {
-      CameraRig.setPose(this.eye(0, 0), 0, -20)
+      // readyAtLevelCard leaves the head facing the card, which appears in front of wherever you looked
       await LeafHandInteractor.get("right").hand.hide()
       await LeafHandInteractor.get("left").hand.hide()
       this.hideHands()

@@ -113,14 +113,14 @@ export async function readyAtLevelCard(): Promise<void> {
     }
   }
   if (m.getState() !== "choose") throw new Error(`expected state 'choose' after tagging, got '${m.getState()}'`)
-  // face the level card
-  CameraRig.setPose(CameraRig.standingAt(0, 0), 0, -30)
+  // face the level card (it appears in front of wherever you were looking)
+  CameraRig.lookAt(CameraRig.standingAt(0, 0), m.levelCard.getWorldPosition())
   await sleep(300)
 }
 
 /** Press a level button; returns getTime() at the press. */
 export async function pressLevel(level: "Alert" | "Warning" | "Danger"): Promise<number> {
-  CameraRig.setPose(CameraRig.standingAt(0, 0), 0, -30)
+  CameraRig.lookAt(CameraRig.standingAt(0, 0), main().levelCard.getWorldPosition())
   await nextFrame()
   const it = findInteractableByName(`${level}Button`, undefined, true)
   if (!it) throw new Error(`${level}Button not found / not enabled`)

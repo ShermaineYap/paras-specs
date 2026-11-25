@@ -106,6 +106,9 @@ export class WaterlinePlaythroughScenario extends Scenario {
     const rest = ITEM_OBJECTS.filter((n) => !item(n).tagged)
     if (rest.length > 0) {
       const seen = rest.filter((n) => this.inView(item(n).getCenterWorldPos()))
+      if (seen.length === 0 && guidance().isArrowVisible()) {
+        print(`[Play] ${this.now()} ${rest.length} more to tag, out of view; the edge cue (${guidance().getArrowMode()}) points to them`)
+      }
       if (seen.length === 0 && !guidance().isArrowVisible()) {
         this.problem("tagged-low", `after tagging the ${low.length} low belongings, ${rest.length} more (${rest.map((n) => item(n).displayName).join(", ")}) are out of view and nothing tells me they exist or where they are`)
         await this.search()
@@ -144,7 +147,8 @@ export class WaterlinePlaythroughScenario extends Scenario {
 
     // ---- water rises ----
     await sleep(500)
-    await this.lookAt(this.pos.add(this.forward().uniformScale(200)).add(new vec3(0, -10, 0)))
+    // watch the water come up, looking level (the brief's "seeing the water" look)
+    await this.lookAt(this.pos.add(this.flatForward().uniformScale(200)).add(new vec3(0, -10, 0)))
     await this.checkpoint("rising")
     await waitUntil(() => m.getState() === "lifting" || m.getState() === "allSafe", 8)
     this.step(`water rising to ${m.getLevelCm()} cm`)
@@ -163,7 +167,9 @@ export class WaterlinePlaythroughScenario extends Scenario {
     const sw = m.mainsSwitch.getSceneObject().getTransform().getWorldPosition()
     await this.checkpoint("all-safe")
     await sleep(REACT_S * 1000)
-    if (!this.inView(sw)) {
+    if (!this.inView(sw) && guidance().isArrowVisible()) {
+      print(`[Play] ${this.now()} the switch glows ${this.angleTo(sw).toFixed(0)}° away; the edge cue (${guidance().getArrowMode()}) points to it`)
+    } else if (!this.inView(sw)) {
       this.problem("all-safe", `every item is safe and the switch glows, but it is ${this.angleTo(sw).toFixed(0)}° away from where I am looking and nothing points to it`)
       await this.search()
     }
@@ -384,7 +390,11 @@ export class WaterlinePlaythroughScenario extends Scenario {
         }
       }
     }
-    print(`[Play] ${this.now()} checkpoint ${id}: drawn [${main().getRenderedLensElements().join(", ")}]`)
+    const drawn = main().getRenderedLensElements()
+    if (drawn.indexOf("DepthTag") >= 0 && !main().hud.isDepthOnTop()) {
+      this.problem(id, "the depth tag is drawn with depth testing on, so furniture can cut it off")
+    }
+    print(`[Play] ${this.now()} checkpoint ${id}: drawn [${drawn.join(", ")}]`)
     if (id === this.stopAt) {
       await LeafHandInteractor.get("right").hand.hide()
       await LeafHandInteractor.get("left").hand.hide()
