@@ -30,8 +30,12 @@
   ScriptInputsHidden:
     ambienceVolume: false
     belongingsRoot: false
+    bobCm: false
+    bodyTintColor: false
     boxMesh: false
+    contactGlowAlpha: false
     contactLineColor: false
+    floatersRoot: false
     glowMaterial: false
     rainRingCount: false
     rainTrack: false
@@ -39,9 +43,11 @@
     rippleSpeed: false
     roomRoot: false
     rushTrack: false
+    sparkleCount: false
     surfaceMaterial: false
     underwaterTrack: false
     waterColor: false
+    waterGlow: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -59,9 +65,15 @@
       rainTrack: !<reference.AudioTrackAsset> 00000000-0000-0000-0000-000000000000
       rushTrack: !<reference.AudioTrackAsset> 00000000-0000-0000-0000-000000000000
       underwaterTrack: !<reference.AudioTrackAsset> 00000000-0000-0000-0000-000000000000
+      floatersRoot: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       waterColor: !<Vec4> {x: 0.620000, y: 0.930000, z: 1.000000, w: 0.340000}
       contactLineColor: !<Vec4> {x: 0.900000, y: 1.000000, z: 1.000000, w: 0.950000}
+      contactGlowAlpha: 0.350000
       rippleAmplitudeCm: 0.450000
+      bodyTintColor: !<Vec4> {x: 0.420000, y: 0.800000, z: 1.000000, w: 0.300000}
+      waterGlow: !<Vec3> {x: 0.160000, y: 0.380000, z: 0.500000}
+      sparkleCount: !<float> 40.000000
+      bobCm: 0.900000
       rippleSpeed: !<float> 1.000000
       rainRingCount: !<float> 22.000000
       ambienceVolume: 0.700000
@@ -80,12 +92,18 @@
     - '// @input Asset.AudioTrackAsset rainTrack {"hint":"Rain loop played at the surface"}'
     - '// @input Asset.AudioTrackAsset rushTrack {"hint":"Low rushing-water loop played at the surface"}'
     - '// @input Asset.AudioTrackAsset underwaterTrack {"hint":"Muffled loop heard while the eyes are under the surface"}'
+    - '// @input SceneObject floatersRoot {"hint":"Authored floating things (slipper, leaves): each child bobs on the surface at its authored X/Z"}'
     - '// @ui {"widget":"group_end"}'
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
-    - '// @input vec4 waterColor = "{0.62, 0.93, 1.0, 0.34}" {"hint":"Surface colour and see-through amount (alpha). Keep it pale: black shows as transparent.", "widget":"color"}'
-    - '// @input vec4 contactLineColor = "{0.9, 1.0, 1.0, 0.95}" {"hint":"Bright line where the water meets walls and furniture", "widget":"color"}'
-    - '// @input float rippleAmplitudeCm = 0.45 {"hint":"Ripple height (cm)", "widget":"slider", "min":0, "max":2, "step":0.05}'
+    - '// @input vec4 waterColor = "{0.5, 0.84, 1.0, 0.42}" {"hint":"Surface colour and see-through amount (alpha). Keep it pale: black shows as transparent.", "widget":"color"}'
+    - '// @input vec4 contactLineColor = "{0.85, 1.0, 1.0, 1.0}" {"hint":"Bright line where the water meets walls and furniture", "widget":"color"}'
+    - '// @input float contactGlowAlpha = 0.35 {"hint":"Soft glow around the contact line (alpha)", "widget":"slider", "min":0, "max":1, "step":0.05}'
+    - '// @input float rippleAmplitudeCm = 0.8 {"hint":"Ripple height (cm)", "widget":"slider", "min":0, "max":2, "step":0.05}'
+    - '// @input vec4 bodyTintColor = "{0.42, 0.8, 1.0, 0.3}" {"hint":"Unlit cyan-blue body tint under the lit surface (alpha = how see-through)", "widget":"color"}'
+    - '// @input vec3 waterGlow = "{0.16, 0.38, 0.5}" {"hint":"Cyan glow the water adds on its own (keeps it light on an additive display)", "widget":"color"}'
+    - '// @input float sparkleCount = 40 {"hint":"Small sparkles twinkling on the surface around the viewer", "widget":"slider", "min":0, "max":80, "step":1}'
+    - '// @input float bobCm = 0.9 {"hint":"Floating things bob up and down by this much (cm)", "widget":"slider", "min":0, "max":3, "step":0.1}'
     - '// @input float rippleSpeed = 1 {"hint":"Ripple speed multiplier (1 = slow, calm swell)", "widget":"slider", "min":0.1, "max":3, "step":0.1}'
     - '// @input float rainRingCount = 22 {"hint":"Rain-drop rings on the surface at once", "widget":"slider", "min":0, "max":40, "step":1}'
     - '// @input float ambienceVolume = 0.7 {"hint":"Surface sound volume (rain + rush)", "widget":"slider", "min":0, "max":1, "step":0.05}'

@@ -140,7 +140,8 @@ export async function waitUntil(pred: () => boolean, timeoutS: number): Promise<
 
 /**
  * Grab the item and carry it so its base lands at `targetBase`, release. Closed-loop: each drag
- * moves by the remaining offset, repeated until within `tolCm` (max 4 grabs).
+ * moves by the remaining offset, repeated until within `tolCm` (max 8 grabs — the cabinet is
+ * ~250 cm from the start, and one simulated drag covers roughly 40-55 cm).
  * Returns the final distance from the target.
  */
 export async function carryTo(objName: string, targetBase: vec3, tolCm: number = 2): Promise<number> {
@@ -148,7 +149,7 @@ export async function carryTo(objName: string, targetBase: vec3, tolCm: number =
   const it = findInteractableByName(objName, undefined, true)
   if (!it) throw new Error(`Interactable "${objName}" not found`)
   const hand = LeafHandInteractor.get("right")
-  for (let attempt = 0; attempt < 4; attempt++) {
+  for (let attempt = 0; attempt < 8; attempt++) {
     const remaining = targetBase.sub(b.getBaseWorldPos())
     if (remaining.length <= tolCm || b.safe || !b.isGrabbable()) break
     // look at the item so the hand ray can reach it
@@ -182,7 +183,13 @@ export async function liftCurrentTarget(): Promise<string> {
   const t = g.getTarget()
   if (!t) throw new Error("no amber target to lift")
   const objName = t.getSceneObject().name
-  await carryTo(objName, t.getSafeSpotWorldPos())
+  // like a user, walk halfway between the item and the cabinet before lifting (standing height)
+  const a = t.getCenterWorldPos(), b = t.getSafeSpotWorldPos()
+  CameraRig.setPose(CameraRig.standingAt((a.x + b.x) / 2, (a.z + b.z) / 2 + 60), 0, -20)
+  await nextFrame()
+  for (let round = 0; round < 3 && !t.safe; round++) {
+    await carryTo(objName, t.getSafeSpotWorldPos())
+  }
   await sleep(1500) // green fades after 1 s, then the next lights up
   return objName
 }

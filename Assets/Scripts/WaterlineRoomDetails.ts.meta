@@ -29,10 +29,14 @@
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
     boxMesh: false
+    fanBlades: false
+    fanTurnsPerSecond: false
     floor: false
     glowMaterial: false
+    inlayColor: false
     rainSpeed: false
     rainStreaks: false
+    tileAccentColor: false
     tileSizeCm: false
     windowGlass: false
   ScriptTypesHidden:
@@ -46,9 +50,13 @@
   DefaultScriptInputs:
     - floor: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       windowGlass: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      fanBlades: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       boxMesh: !<reference.RenderMesh> 00000000-0000-0000-0000-000000000000
       glowMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
       tileSizeCm: !<float> 60.000000
+      tileAccentColor: !<Vec4> {x: 0.990000, y: 0.870000, z: 0.780000, w: 1.000000}
+      inlayColor: !<Vec4> {x: 0.740000, y: 0.880000, z: 0.920000, w: 1.000000}
+      fanTurnsPerSecond: 0.350000
       rainStreaks: !<float> 34.000000
       rainSpeed: !<float> 260.000000
   ScriptTypes:
@@ -60,12 +68,16 @@
     - '// @ui {"widget":"group_start", "label":"References"}'
     - '// @input SceneObject floor {"hint":"Authored floor (its scale is the floor size)"}'
     - '// @input SceneObject windowGlass {"hint":"Authored window glass (its scale is the opening size)"}'
+    - '// @input SceneObject fanBlades {"hint":"Ceiling fan blades root (spins slowly); optional"}'
     - '// @input Asset.RenderMesh boxMesh {"hint":"1 cm unit box mesh"}'
     - '// @input Asset.Material glowMaterial {"hint":"Unlit base material for joints and rain"}'
     - '// @ui {"widget":"group_end"}'
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
     - '// @input float tileSizeCm = 60 {"hint":"Floor tile size (cm)", "widget":"slider", "min":20, "max":100, "step":5}'
+    - '// @input vec4 tileAccentColor = "{0.99, 0.87, 0.78, 1.0}" {"hint":"Every other floor tile (light terracotta)", "widget":"color"}'
+    - '// @input vec4 inlayColor = "{0.74, 0.88, 0.92, 1.0}" {"hint":"Small diamond inlay where four tiles meet (light teal)", "widget":"color"}'
+    - '// @input float fanTurnsPerSecond = 0.35 {"hint":"Ceiling fan speed (turns per second)", "widget":"slider", "min":0, "max":2, "step":0.05}'
     - '// @input float rainStreaks = 34 {"hint":"Rain streaks visible through the window", "widget":"slider", "min":0, "max":80, "step":1}'
     - '// @input float rainSpeed = 260 {"hint":"Rain fall speed (cm/s)", "widget":"slider", "min":50, "max":600, "step":10}'
     - '// @ui {"widget":"group_end"}'

@@ -29,10 +29,14 @@
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
     amberColor: false
-    arrowOffsetCm: false
+    arcRiseCm: false
+    arrowDistanceCm: false
+    arrowSizeCm: false
     audio: false
+    chevronSizeCm: false
     dotSpacingCm: false
     edgeArrow: false
+    edgeInsetCm: false
     glowMaterial: false
     greenColor: false
     greenSeconds: false
@@ -55,7 +59,11 @@
       greenColor: !<Vec3> {x: 0.450000, y: 1.000000, z: 0.550000}
       greenSeconds: !<float> 1.000000
       dotSpacingCm: !<float> 6.000000
-      arrowOffsetCm: !<float> 13.000000
+      arcRiseCm: !<float> 22.000000
+      arrowDistanceCm: !<float> 60.000000
+      edgeInsetCm: 1.800000
+      arrowSizeCm: 2.800000
+      chevronSizeCm: 2.200000
       viewMargin: 0.080000
   ScriptTypes:
     -
@@ -75,6 +83,10 @@
     - '// @input vec3 greenColor = "{0.45, 1.0, 0.55}" {"hint":"Green flash when an item snaps onto its safe spot", "widget":"color"}'
     - '// @input float greenSeconds = 1 {"hint":"How long the green stays before fading (s)", "widget":"slider", "min":0.2, "max":3, "step":0.1}'
     - '// @input float dotSpacingCm = 6 {"hint":"Gap between dots on the dotted line (cm)", "widget":"slider", "min":2, "max":15, "step":0.5}'
-    - '// @input float arrowOffsetCm = 13 {"hint":"Edge arrow distance from the centre of view (cm, at 60 cm ahead)", "widget":"slider", "min":4, "max":25, "step":0.5}'
+    - "// @input float arcRiseCm = 22 {\"hint\":\"How high the dotted line arcs above the pin head, so it clears the cabinet's front edge (cm)\", \"widget\":\"slider\", \"min\":0, \"max\":60, \"step\":1}"
+    - '// @input float arrowDistanceCm = 60 {"hint":"Distance ahead of the eyes the edge arrow is drawn at (cm)", "widget":"slider", "min":30, "max":120, "step":1}'
+    - "// @input float edgeInsetCm = 1.8 {\"hint\":\"How far inside the true edge of the view the arrow's centre sits (cm, at the arrow distance)\", \"widget\":\"slider\", \"min\":0.5, \"max\":6, \"step\":0.1}"
+    - '// @input float arrowSizeCm = 2.8 {"hint":"Side arrow size (cm)", "widget":"slider", "min":1, "max":6, "step":0.1}'
+    - '// @input float chevronSizeCm = 2.2 {"hint":"Bottom-edge chevron size (cm) — shown when the next item is below the view", "widget":"slider", "min":1, "max":6, "step":0.1}'
     - '// @input float viewMargin = 0.08 {"hint":"Screen margin: an item this close to the edge counts as out of view (0-0.4)", "widget":"slider", "min":0, "max":0.4, "step":0.01}'
     - '// @ui {"widget":"group_end"}'

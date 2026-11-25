@@ -10,6 +10,7 @@ import {FlexLayout} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex
 import {FlexItem} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexItem"
 import {FlexAlign, FlexDirection, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
 import {BackPlate} from "SpectaclesUIKit.lspkg/Scripts/BackPlate"
+import {RoundedRectangle} from "SpectaclesUIKit.lspkg/Scripts/Visuals/RoundedRectangle/RoundedRectangle"
 
 const FONT_SIZE_SCALE = 1.0
 type TextRole = "Title1" | "Title2" | "HeadlineXL" | "Headline1" | "Headline2" | "Subheadline" | "Button" | "Callout" | "Body" | "Caption"
@@ -40,7 +41,19 @@ export class WaterlineHudUI extends BaseScriptComponent {
   @input
   @hint("How far below eye level the depth tag sits (cm)")
   @widget(new SliderWidget(0, 30, 0.5))
-  depthTagDropCm: number = 9
+  depthTagDropCm: number = 7
+  @input
+  @hint("Sideways offset of the depth tag (cm, negative = left of centre)")
+  @widget(new SliderWidget(-15, 15, 0.5))
+  depthTagOffsetXCm: number = -7
+  @input
+  @hint("Depth tag size relative to the original panel (0.7 = 30% smaller)")
+  @widget(new SliderWidget(0.4, 1.2, 0.05))
+  depthTagScale: number = 0.7
+  @input("vec4", "{0.42, 0.58, 0.72, 0.55}")
+  @hint("Depth tag panel colour (light and see-through, so it never hides what is behind it)")
+  @widget(new ColorWidget())
+  depthPlateColor: vec4 = new vec4(0.42, 0.58, 0.72, 0.55)
   @input
   @hint("Summary line distance in front of the eyes (cm)")
   @widget(new SliderWidget(40, 120, 1))
@@ -57,13 +70,18 @@ export class WaterlineHudUI extends BaseScriptComponent {
   private summaryText!: Text
   private started = false
   private lastContent!: SceneObject
+  private lastPlate!: BackPlate
+  private depthPlate!: BackPlate
+  private depthSlot = 0
   private wantDepth = false
   private wantSummary = false
 
   onAwake() {
     // Depth tag (live text) — sized for the longest phrase: "Water here: 150 cm, above your ankles"
-    this.depthRoot = this.makePanel("DepthTag", new vec3(0, -this.depthTagDropCm, -this.depthTagDistanceCm), 16, 2.2)
-    this.depthText = this.addLine(this.lastContent, "Water here: 150 cm, up to your chin", "Headline2", 85, 16, 2.2, this.depthTextColor)
+    const k = this.depthTagScale
+    this.depthRoot = this.makePanel("DepthTag", new vec3(this.depthTagOffsetXCm, -this.depthTagDropCm, -this.depthTagDistanceCm), 16 * k, 2.2 * k)
+    this.depthText = this.addLine(this.lastContent, "Water here: 150 cm, up to your chin", "Headline2", 85 * k, 16 * k, 2.2 * k, this.depthTextColor)
+    this.depthPlate = this.lastPlate
 
     this.summaryRoot = this.makePanel("SummaryLine", new vec3(0, -4, -this.summaryDistanceCm), 24, 3.2)
     this.summaryText = this.addLine(this.lastContent, "5 of 5 above water, 1:48", "HeadlineXL", 95, 20, 3.0, new vec4(1, 1, 1, 1))
@@ -72,6 +90,7 @@ export class WaterlineHudUI extends BaseScriptComponent {
       const d = this.createEvent("DelayedCallbackEvent") as DelayedCallbackEvent
       d.bind(() => {
         this.started = true
+        this.lightenPlate(this.depthPlate, this.depthPlateColor)
         this.depthRoot.enabled = this.wantDepth
         this.summaryRoot.enabled = this.wantSummary
       })
@@ -86,6 +105,37 @@ export class WaterlineHudUI extends BaseScriptComponent {
   }
 
   getDepthText(): string { return this.depthText.text }
+
+  /**
+   * Where the depth tag sits. 0 = slightly below-left of centre (default); 1 = below-right;
+   * 2 = lower-left; 3 = lower-right. WaterlineBody picks the slot that keeps the dotted line and pin clear.
+   */
+  setDepthSlot(slot: number): void {
+    if (slot === this.depthSlot) return
+    this.depthSlot = slot
+    const c = this.slotCentre(slot)
+    this.depthRoot.getTransform().setLocalPosition(new vec3(c.x, c.y, -this.depthTagDistanceCm))
+  }
+
+  getDepthSlot(): number { return this.depthSlot }
+
+  /** Panel rectangle for a slot in the tag's plane (cm): (minX, minY, maxX, maxY). */
+  getDepthRect(slot: number): vec4 {
+    const c = this.slotCentre(slot)
+    const hw = (16 * this.depthTagScale) / 2 + 1.2, hh = (2.2 * this.depthTagScale) / 2 + 0.7
+    return new vec4(c.x - hw, c.y - hh, c.x + hw, c.y + hh)
+  }
+
+  private slotCentre(slot: number): vec2 {
+    const x = Math.abs(this.depthTagOffsetXCm)
+    const y = -this.depthTagDropCm
+    switch (slot) {
+      case 1: return new vec2(x, y)
+      case 2: return new vec2(-x * 1.3, y - 5)
+      case 3: return new vec2(x * 1.3, y - 5)
+      default: return new vec2(-x, y)
+    }
+  }
 
   setDepthVisible(on: boolean): void {
     this.wantDepth = on
@@ -117,6 +167,8 @@ export class WaterlineHudUI extends BaseScriptComponent {
     root.getTransform().setLocalPosition(localPos)
     root.createComponent("Component.Canvas")
     const plate = root.createComponent(BackPlate.getTypeName()) as BackPlate
+    plate.renderOrder = 1000 // after the water and the underwater tint, so the text stays crisp under water
+    this.lastPlate = plate
     const content = global.scene.createSceneObject("Content")
     content.setParent(root)
     content.getTransform().setLocalPosition(new vec3(0, 0, 0.6))
@@ -137,12 +189,23 @@ export class WaterlineHudUI extends BaseScriptComponent {
     return root
   }
 
+  /** Lighter look: a flat, pale, see-through plate instead of the default dark gradient. */
+  private lightenPlate(plate: BackPlate, color: vec4): void {
+    plate.style = "simple"
+    const rr = plate.getSceneObject().getComponent(RoundedRectangle.getTypeName()) as RoundedRectangle
+    if (rr) {
+      rr.gradient = false
+      rr.backgroundColor = color
+    }
+  }
+
   private addLine(parent: SceneObject, s: string, role: TextRole, distanceCm: number, w: number, h: number, color: vec4): Text {
     const so = global.scene.createSceneObject("Line")
     so.setParent(parent)
     const t = so.createComponent("Component.Text") as Text
     t.text = s
     t.depthTest = true
+    t.setRenderOrder(1001)
     applyTextRole(t, role, distanceCm)
     t.textFill.color = color
     t.horizontalAlignment = HorizontalAlignment.Center

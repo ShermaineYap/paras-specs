@@ -11,7 +11,7 @@
 import WorldCameraFinderProvider from "SpectaclesInteractionKit.lspkg/Providers/CameraProvider/WorldCameraFinderProvider"
 import {WaterlineBelonging} from "./WaterlineBelonging"
 import {WaterlineAudio} from "./WaterlineAudio"
-import {buildChevronMesh, setAlpha, tintedMaterial} from "./WaterlineGeometry"
+import {buildChevronMesh, buildVChevronMesh, setAlpha, tintedMaterial} from "./WaterlineGeometry"
 
 @component
 export class WaterlineGuidance extends BaseScriptComponent {
@@ -50,9 +50,25 @@ export class WaterlineGuidance extends BaseScriptComponent {
   @widget(new SliderWidget(2, 15, 0.5))
   dotSpacingCm: number = 6
   @input
-  @hint("Edge arrow distance from the centre of view (cm, at 60 cm ahead)")
-  @widget(new SliderWidget(4, 25, 0.5))
-  arrowOffsetCm: number = 13
+  @hint("How high the dotted line arcs above the pin head, so it clears the cabinet's front edge (cm)")
+  @widget(new SliderWidget(0, 60, 1))
+  arcRiseCm: number = 22
+  @input
+  @hint("Distance ahead of the eyes the edge arrow is drawn at (cm)")
+  @widget(new SliderWidget(30, 120, 1))
+  arrowDistanceCm: number = 60
+  @input
+  @hint("How far inside the true edge of the view the arrow's centre sits (cm, at the arrow distance)")
+  @widget(new SliderWidget(0.5, 6, 0.1))
+  edgeInsetCm: number = 1.8
+  @input
+  @hint("Side arrow size (cm)")
+  @widget(new SliderWidget(1, 6, 0.1))
+  arrowSizeCm: number = 2.8
+  @input
+  @hint("Bottom-edge chevron size (cm) — shown when the next item is below the view")
+  @widget(new SliderWidget(1, 6, 0.1))
+  chevronSizeCm: number = 2.2
   @input
   @hint("Screen margin: an item this close to the edge counts as out of view (0-0.4)")
   @widget(new SliderWidget(0, 0.4, 0.01))
@@ -64,6 +80,10 @@ export class WaterlineGuidance extends BaseScriptComponent {
   private dotMat!: Material
   private arrowMat!: Material
   private arrowShown = false
+  private arrowRmv!: RenderMeshVisual
+  private arrowMesh!: RenderMesh
+  private chevronMesh!: RenderMesh
+  private arrowMode = "" // "side" | "below"
   private greenItem: WaterlineBelonging | null = null
   private greenT = 0
   private t = 0
@@ -83,10 +103,12 @@ export class WaterlineGuidance extends BaseScriptComponent {
     this.arrowMat = tintedMaterial(this.glowMaterial, new vec4(this.amberColor.x, this.amberColor.y, this.amberColor.z, 0.95))
     this.arrowMat.mainPass.depthTest = false // the arrow is a view cue: never hidden by the water or furniture
     const rmv = this.edgeArrow.createComponent("Component.RenderMeshVisual") as RenderMeshVisual
-    rmv.mesh = buildChevronMesh()
+    this.arrowMesh = buildChevronMesh()
+    this.chevronMesh = buildVChevronMesh()
+    rmv.mesh = this.arrowMesh
     rmv.mainMaterial = this.arrowMat
     rmv.setRenderOrder(1000) // after the transparent water sheet, so the cue is never tinted
-    this.edgeArrow.getTransform().setWorldScale(new vec3(3.2, 3.2, 3.2))
+    this.arrowRmv = rmv
     this.edgeArrow.enabled = false
     this.createEvent("LateUpdateEvent").bind(() => this.update())
   }
@@ -107,6 +129,20 @@ export class WaterlineGuidance extends BaseScriptComponent {
   }
 
   getTarget(): WaterlineBelonging | null { return this.target }
+
+  /**
+   * Point at t (0 = item top, 1 = pin head) on the dotted line: a gentle arc whose control point
+   * sits `arcRiseCm` above the pin head, halfway out, so the line clears the cabinet's front edge.
+   */
+  getPathPoint(t: number): vec3 {
+    const tgt = this.target
+    if (!tgt) return vec3.zero()
+    const a = tgt.getTopWorldPos()
+    const b = tgt.getSafeSpotWorldPos().add(new vec3(0, 10, 0))
+    const c = new vec3((a.x + b.x) / 2, Math.max(a.y, b.y) + this.arcRiseCm, (a.z + b.z) / 2)
+    const u = 1 - t
+    return a.uniformScale(u * u).add(c.uniformScale(2 * u * t)).add(b.uniformScale(t * t))
+  }
 
   /** Green with a soft tick; the green fades after `greenSeconds`. */
   markSafe(item: WaterlineBelonging): void {
@@ -162,6 +198,69 @@ export class WaterlineGuidance extends BaseScriptComponent {
     if (pin) pin.enabled = on
   }
 
+  /**
+   * Put the cue on the edge of the view, `arrowDistanceCm` ahead, `edgeInsetCm` inside the edge.
+   * Item below the view (but horizontally inside it): small chevron on the bottom edge, offset
+   * toward the item's side (never mid-view, so it can't sit on the depth tag). Otherwise: an arrow
+   * on the edge where the line from the centre toward the item leaves the view.
+   */
+  private placeEdgeCue(camC: Camera, camT: Transform, target: vec3): void {
+    const D = this.arrowDistanceCm
+    const inv = camT.getInvertedWorldTransform()
+    // half-size of the view at distance D, measured from the camera itself (true edge)
+    const edgeR = inv.multiplyPoint(camC.screenSpaceToWorldSpace(new vec2(1, 0.5), D))
+    const edgeB = inv.multiplyPoint(camC.screenSpaceToWorldSpace(new vec2(0.5, 1), D))
+    const depth = -edgeR.z
+    const halfW = Math.abs(edgeR.x) * (D / depth)
+    const halfH = Math.abs(edgeB.y) * (D / depth)
+    const local = inv.multiplyPoint(target)
+    // direction in view-plane tangent units (x right, y up)
+    let px: number, py: number
+    if (local.z < -1) {
+      px = (local.x / -local.z) * D
+      py = (local.y / -local.z) * D
+    } else {
+      const l = Math.max(0.001, Math.sqrt(local.x * local.x + local.y * local.y))
+      px = (local.x / l) * 1000
+      py = (local.y / l) * 1000
+    }
+    const ex = halfW - this.edgeInsetCm
+    const ey = halfH - this.edgeInsetCm
+    let x: number, y: number, angle: number
+    let mode: string
+    if (py < -ey && Math.abs(px) <= halfW) {
+      mode = "below"
+      // follows the item sideways along the bottom edge
+      const side = Math.max(-0.8 * ex, Math.min(0.8 * ex, px))
+      x = side
+      y = -ey
+      angle = -Math.PI / 2
+    } else {
+      mode = "side"
+      const k = Math.min(ex / Math.max(0.0001, Math.abs(px)), ey / Math.max(0.0001, Math.abs(py)))
+      x = px * k
+      y = py * k
+      angle = Math.atan2(py, px)
+    }
+    if (mode !== this.arrowMode) {
+      this.arrowMode = mode
+      this.arrowRmv.mesh = mode === "below" ? this.chevronMesh : this.arrowMesh
+    }
+    const s = mode === "below" ? this.chevronSizeCm : this.arrowSizeCm
+    const t = this.edgeArrow.getTransform()
+    t.setWorldPosition(camT.getWorldTransform().multiplyPoint(new vec3(x, y, -D)))
+    t.setWorldRotation(camT.getWorldRotation().multiply(quat.angleAxis(angle, vec3.forward())))
+    t.setWorldScale(new vec3(s, s, s))
+  }
+
+  /** Where the edge cue sits, in camera space (cm): for tests and screenshots. */
+  getArrowLocal(): vec3 {
+    const camT = WorldCameraFinderProvider.getInstance().getComponent().getTransform()
+    return camT.getInvertedWorldTransform().multiplyPoint(this.edgeArrow.getTransform().getWorldPosition())
+  }
+
+  getArrowMode(): string { return this.arrowMode }
+
   private update(): void {
     const dt = getDeltaTime()
     this.t += dt
@@ -193,10 +292,10 @@ export class WaterlineGuidance extends BaseScriptComponent {
       pin.getTransform().setLocalScale(new vec3(s, 1, s))
     }
 
-    // dotted line: item top → pin head (10 cm above the spot)
+    // dotted line: item top → pin head, arcing over the cabinet's front edge
     const a = tgt.getTopWorldPos()
     const b = tgt.getSafeSpotWorldPos().add(new vec3(0, 10, 0))
-    const len = a.distance(b)
+    const len = a.distance(b) * 1.15
     const n = Math.min(this.dots.length, Math.max(2, Math.floor(len / this.dotSpacingCm)))
     const crawl = (this.t * 0.8) % 1
     for (let i = 0; i < this.dots.length; i++) {
@@ -204,33 +303,19 @@ export class WaterlineGuidance extends BaseScriptComponent {
       if (i < n) {
         const k = (i + crawl) / n
         d.enabled = true
-        d.getTransform().setWorldPosition(vec3.lerp(a, b, k))
+        d.getTransform().setWorldPosition(this.getPathPoint(k))
       } else if (d.enabled) {
         d.enabled = false
       }
     }
 
-    // edge arrow when the target is out of view
-    const camT = WorldCameraFinderProvider.getInstance().getComponent().getTransform()
+    // edge arrow when the target is out of view: drawn at the true edge of the view
+    const camC = WorldCameraFinderProvider.getInstance().getComponent()
+    const camT = camC.getTransform()
     const inView = this.isInView(tgt.getCenterWorldPos())
     if (!inView) {
-      const camPos = camT.getWorldPosition()
-      const inv = camT.getInvertedWorldTransform()
-      const local = inv.multiplyPoint(tgt.getCenterWorldPos())
-      let dir = new vec2(local.x, local.y)
-      if (dir.length < 0.001) dir = new vec2(1, 0)
-      dir = dir.normalize()
-      const right = camT.right
-      const up = camT.up
-      const look = camT.forward.uniformScale(-1)
-      const pos = camPos
-        .add(look.uniformScale(60))
-        .add(right.uniformScale(dir.x * this.arrowOffsetCm))
-        .add(up.uniformScale(dir.y * this.arrowOffsetCm * 0.75))
+      this.placeEdgeCue(camC, camT, tgt.getCenterWorldPos())
       this.edgeArrow.enabled = true
-      this.edgeArrow.getTransform().setWorldPosition(pos)
-      const angle = Math.atan2(dir.y, dir.x)
-      this.edgeArrow.getTransform().setWorldRotation(camT.getWorldRotation().multiply(quat.angleAxis(angle, vec3.forward())))
       setAlpha(this.arrowMat, 0.85 + 0.15 * Math.sin(this.t * 5))
       if (!this.arrowShown) {
         this.arrowShown = true

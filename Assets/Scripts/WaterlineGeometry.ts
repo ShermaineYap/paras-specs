@@ -116,3 +116,38 @@ export function buildChevronMesh(): RenderMesh {
   mb.updateMesh()
   return mb.getMesh()
 }
+
+/** Thick ">" chevron (no stem) in the XY plane pointing +X, unit size. The small bottom-edge cue. */
+export function buildVChevronMesh(): RenderMesh {
+  const mb = new MeshBuilder([
+    {name: "position", components: 3},
+    {name: "normal", components: 3},
+  ])
+  mb.topology = MeshTopology.Triangles
+  mb.indexType = MeshIndexType.UInt16
+  // A tip, B/F outer arm ends, C/E inner arm ends, D inner notch
+  const v = [[0.5, 0, 0], [-0.15, 0.5, 0], [-0.45, 0.5, 0], [0.18, 0, 0], [-0.45, -0.5, 0], [-0.15, -0.5, 0]]
+  for (const p of v) mb.appendVerticesInterleaved([p[0], p[1], p[2], 0, 0, 1])
+  mb.appendIndices([1, 0, 3, 1, 3, 2, 0, 5, 4, 0, 4, 3])
+  mb.updateMesh()
+  return mb.getMesh()
+}
+
+/** Flat ellipse disc in the XZ plane (normal +Y), radius 1. Leaves, slipper soles. */
+export function buildDiscMesh(segments: number = 24): RenderMesh {
+  const mb = new MeshBuilder([
+    {name: "position", components: 3},
+    {name: "normal", components: 3},
+    {name: "texture0", components: 2},
+  ])
+  mb.topology = MeshTopology.Triangles
+  mb.indexType = MeshIndexType.UInt16
+  mb.appendVerticesInterleaved([0, 0, 0, 0, 1, 0, 0.5, 0.5])
+  for (let s = 0; s <= segments; s++) {
+    const a = (s / segments) * Math.PI * 2
+    mb.appendVerticesInterleaved([Math.cos(a), 0, Math.sin(a), 0, 1, 0, 0.5 + 0.5 * Math.cos(a), 0.5 + 0.5 * Math.sin(a)])
+  }
+  for (let s = 0; s < segments; s++) mb.appendIndices([0, s + 2, s + 1])
+  mb.updateMesh()
+  return mb.getMesh()
+}

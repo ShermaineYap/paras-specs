@@ -2,20 +2,37 @@
  * WaterlineWater — the water itself.
  *
  * Owns: the water level (cm above the floor) and its rise/drain animation, the rippling
- * see-through surface mesh, the bright contact line where the surface meets walls / furniture
- * / belongings, the rain-drop ripple rings, and the ambient sound at the surface (rain + low
- * rush, crossfading to a muffled loop while the viewer's eyes are under).
+ * see-through surface mesh (sized to the stand-in room's floor), sparkles on the surface, the
+ * bright contact line where the surface meets walls / furniture / belongings, the rain-drop
+ * ripple rings, the floating things bobbing on the surface (authored children of
+ * `floatersRoot`), and the ambient sound at the surface (rain + low rush, crossfading to a
+ * muffled loop while the viewer's eyes are under).
  * Expects: authored on the "Water" SceneObject whose world Y is the floor; `contactRoots`
  * are the room / belongings roots whose meshes get a contact line.
  * Must not: decide levels, track the user's body, or touch UI.
  */
 import WorldCameraFinderProvider from "SpectaclesInteractionKit.lspkg/Providers/CameraProvider/WorldCameraFinderProvider"
-import {buildAnnulusMesh, makeMeshChild, setAlpha, tintedMaterial} from "./WaterlineGeometry"
+import {buildAnnulusMesh, buildDiscMesh, makeMeshChild, setAlpha, tintedMaterial} from "./WaterlineGeometry"
 import {easeInOut} from "./WaterlineState"
 
 interface Solid {
   rmv: RenderMeshVisual
   bars: SceneObject[] | null
+}
+
+interface Sparkle {
+  so: SceneObject
+  mat: Material
+  phase: number
+  speed: number
+  lit: boolean
+}
+
+interface Floater {
+  so: SceneObject
+  home: vec3
+  phase: number
+  baseRot: quat
 }
 
 interface Ripple {
@@ -55,21 +72,44 @@ export class WaterlineWater extends BaseScriptComponent {
   @input
   @hint("Muffled loop heard while the eyes are under the surface")
   underwaterTrack!: AudioTrackAsset
+  @input
+  @hint("Authored floating things (slipper, leaves): each child bobs on the surface at its authored X/Z")
+  floatersRoot!: SceneObject
   @ui.group_end
   @ui.separator
   @ui.group_start("Settings")
-  @input("vec4", "{0.62, 0.93, 1.0, 0.34}")
+  @input("vec4", "{0.5, 0.84, 1.0, 0.42}")
   @hint("Surface colour and see-through amount (alpha). Keep it pale: black shows as transparent.")
   @widget(new ColorWidget())
-  waterColor: vec4 = new vec4(0.62, 0.93, 1.0, 0.34)
-  @input("vec4", "{0.9, 1.0, 1.0, 0.95}")
+  waterColor: vec4 = new vec4(0.5, 0.84, 1.0, 0.42)
+  @input("vec4", "{0.85, 1.0, 1.0, 1.0}")
   @hint("Bright line where the water meets walls and furniture")
   @widget(new ColorWidget())
-  contactLineColor: vec4 = new vec4(0.9, 1.0, 1.0, 0.95)
+  contactLineColor: vec4 = new vec4(0.85, 1.0, 1.0, 1.0)
+  @input
+  @hint("Soft glow around the contact line (alpha)")
+  @widget(new SliderWidget(0, 1, 0.05))
+  contactGlowAlpha: number = 0.35
   @input
   @hint("Ripple height (cm)")
   @widget(new SliderWidget(0, 2, 0.05))
-  rippleAmplitudeCm: number = 0.45
+  rippleAmplitudeCm: number = 0.8
+  @input("vec4", "{0.42, 0.8, 1.0, 0.3}")
+  @hint("Unlit cyan-blue body tint under the lit surface (alpha = how see-through)")
+  @widget(new ColorWidget())
+  bodyTintColor: vec4 = new vec4(0.42, 0.8, 1.0, 0.3)
+  @input("vec3", "{0.16, 0.38, 0.5}")
+  @hint("Cyan glow the water adds on its own (keeps it light on an additive display)")
+  @widget(new ColorWidget())
+  waterGlow: vec3 = new vec3(0.16, 0.38, 0.5)
+  @input
+  @hint("Small sparkles twinkling on the surface around the viewer")
+  @widget(new SliderWidget(0, 80, 1))
+  sparkleCount: number = 40
+  @input
+  @hint("Floating things bob up and down by this much (cm)")
+  @widget(new SliderWidget(0, 3, 0.1))
+  bobCm: number = 0.9
   @input
   @hint("Ripple speed multiplier (1 = slow, calm swell)")
   @widget(new SliderWidget(0.1, 3, 0.1))
@@ -84,13 +124,13 @@ export class WaterlineWater extends BaseScriptComponent {
   ambienceVolume: number = 0.7
   @ui.group_end
 
-  // Room interior the sheet spans (local XZ, cm) — matches the authored stand-in room walls.
-  private readonly minX = -202
-  private readonly maxX = 172
-  private readonly minZ = -205
-  private readonly maxZ = 132
-  private readonly nx = 46
-  private readonly nz = 42
+  // Room interior the sheet spans (local XZ, cm) — read from the authored Floor in onAwake.
+  private minX = -258
+  private maxX = 170
+  private minZ = -246
+  private maxZ = 155
+  private readonly nx = 52
+  private readonly nz = 48
 
   private levelCm = 0
   private fromCm = 0
@@ -108,6 +148,9 @@ export class WaterlineWater extends BaseScriptComponent {
   private solids: Solid[] = []
   private ripples: Ripple[] = []
   private ringMesh!: RenderMesh
+  private glowMat!: Material
+  private sparkles: Sparkle[] = []
+  private floaters: Floater[] = []
 
   private audioRoot!: SceneObject
   private rain!: AudioComponent
@@ -124,13 +167,39 @@ export class WaterlineWater extends BaseScriptComponent {
     this.surfaceMat.mainPass.twoSided = true
     ;(this.surfaceMat.mainPass as any).roughness = 0.12
     ;(this.surfaceMat.mainPass as any).metallic = 0.0
+    // light cyan glow of its own, so the water reads cyan-blue (not grey) on an additive display
+    ;(this.surfaceMat.mainPass as any).Port_Emissive_N006 = this.waterGlow
 
     this.contactMat = tintedMaterial(this.glowMaterial, this.contactLineColor)
+    this.glowMat = tintedMaterial(this.glowMaterial, new vec4(this.contactLineColor.x, this.contactLineColor.y, this.contactLineColor.z, this.contactGlowAlpha))
     this.ringMesh = buildAnnulusMesh(0.9, 40)
 
+    this.fitToFloor()
     this.surface = global.scene.createSceneObject("WaterSurface")
     this.surface.setParent(this.getSceneObject())
     this.buildSurfaceMesh()
+
+    const disc = buildDiscMesh(10)
+    for (let i = 0; i < this.sparkleCount; i++) {
+      const so = global.scene.createSceneObject(`Sparkle${i}`)
+      so.setParent(this.surface)
+      const rmv = so.createComponent("Component.RenderMeshVisual") as RenderMeshVisual
+      rmv.mesh = disc
+      const mat = tintedMaterial(this.glowMaterial, new vec4(1, 1, 1, 0))
+      rmv.mainMaterial = mat
+      rmv.setRenderOrder(800)
+      so.enabled = false
+      this.sparkles.push({so, mat, phase: Math.random() * Math.PI * 2, speed: 1.5 + Math.random() * 2.5, lit: false})
+    }
+
+    if (this.floatersRoot) {
+      for (let i = 0; i < this.floatersRoot.getChildrenCount(); i++) {
+        const so = this.floatersRoot.getChild(i)
+        const t = so.getTransform()
+        this.floaters.push({so, home: t.getLocalPosition(), phase: i * 2.1, baseRot: t.getLocalRotation()})
+      }
+      this.floatersRoot.enabled = false
+    }
 
     for (let i = 0; i < this.rainRingCount; i++) {
       const so = global.scene.createSceneObject(`RainRing${i}`)
@@ -211,6 +280,78 @@ export class WaterlineWater extends BaseScriptComponent {
     return a
   }
 
+  /** Size the sheet to the authored stand-in Floor (so moving the room never leaves dry gaps). */
+  private fitToFloor(): void {
+    for (let i = 0; i < this.roomRoot.getChildrenCount(); i++) {
+      const c = this.roomRoot.getChild(i)
+      if (c.name !== "Floor") continue
+      const rmv = c.getComponent("Component.RenderMeshVisual") as RenderMeshVisual
+      if (!rmv) return
+      const inv = this.getSceneObject().getTransform().getInvertedWorldTransform()
+      const a = inv.multiplyPoint(rmv.worldAabbMin())
+      const b = inv.multiplyPoint(rmv.worldAabbMax())
+      this.minX = Math.min(a.x, b.x) + 1
+      this.maxX = Math.max(a.x, b.x) - 1
+      this.minZ = Math.min(a.z, b.z) + 1
+      this.maxZ = Math.max(a.z, b.z) - 1
+      return
+    }
+  }
+
+  private updateSparkles(dt: number, camPos: vec3): void {
+    const up = this.isUp()
+    const rootPos = this.surface.getTransform().getWorldPosition()
+    for (const sp of this.sparkles) {
+      if (!up) {
+        if (sp.so.enabled) sp.so.enabled = false
+        continue
+      }
+      sp.phase += dt * sp.speed
+      const w = Math.sin(sp.phase)
+      if (w <= 0) {
+        // dark half of the twinkle: move it somewhere new around the viewer
+        if (sp.lit || !sp.so.enabled) {
+          const ang = Math.random() * Math.PI * 2
+          const dist = 90 + Math.random() * 180
+          let x = camPos.x + Math.cos(ang) * dist - rootPos.x
+          let z = camPos.z + Math.sin(ang) * dist - rootPos.z
+          x = Math.min(this.maxX - 3, Math.max(this.minX + 3, x))
+          z = Math.min(this.maxZ - 3, Math.max(this.minZ + 3, z))
+          sp.so.getTransform().setLocalPosition(new vec3(x, 0.35, z))
+          const r = 0.45 + Math.random() * 0.6
+          sp.so.getTransform().setLocalScale(new vec3(r, 1, r))
+          sp.lit = false
+        }
+        sp.so.enabled = true
+        setAlpha(sp.mat, 0)
+        continue
+      }
+      sp.lit = true
+      setAlpha(sp.mat, Math.pow(w, 4))
+      // face the viewer so a sparkle is a bright dot, not an edge-on sliver
+      const st = sp.so.getTransform()
+      const toCam = camPos.sub(st.getWorldPosition()).normalize()
+      st.setWorldRotation(quat.rotationFromTo(vec3.up(), toCam))
+    }
+  }
+
+  private updateFloaters(): void {
+    const up = this.isUp()
+    if (!this.floatersRoot) return
+    if (this.floatersRoot.enabled !== up) this.floatersRoot.enabled = up
+    if (!up) return
+    for (const f of this.floaters) {
+      const t = this.time + f.phase
+      const drift = new vec3(Math.sin(t * 0.21) * 7, 0, Math.cos(t * 0.17) * 5)
+      const bob = Math.sin(t * 1.4) * this.bobCm
+      const tr = f.so.getTransform()
+      tr.setLocalPosition(new vec3(f.home.x + drift.x, this.levelCm + 0.4 + bob, f.home.z + drift.z))
+      const tilt = quat.angleAxis(Math.sin(t * 1.1) * 0.09, vec3.right()).multiply(quat.angleAxis(Math.cos(t * 0.9) * 0.07, vec3.forward()))
+      const yaw = quat.angleAxis(t * 0.05, vec3.up())
+      tr.setLocalRotation(yaw.multiply(tilt).multiply(f.baseRot))
+    }
+  }
+
   private walk(so: SceneObject): void {
     const n = so.name
     if (n === "Outline" || n === "TaggedTick" || n.indexOf("NC_") === 0) return
@@ -245,6 +386,15 @@ export class WaterlineWater extends BaseScriptComponent {
     const rmv = this.surface.createComponent("Component.RenderMeshVisual") as RenderMeshVisual
     rmv.mesh = this.mb.getMesh()
     rmv.mainMaterial = this.surfaceMat
+    rmv.setRenderOrder(701)
+    // the body colour: an unlit light cyan-blue layer sharing the rippling mesh, just under the lit sheet
+    const tint = global.scene.createSceneObject("WaterBodyTint")
+    tint.setParent(this.surface)
+    tint.getTransform().setLocalPosition(new vec3(0, -0.15, 0))
+    const trmv = tint.createComponent("Component.RenderMeshVisual") as RenderMeshVisual
+    trmv.mesh = this.mb.getMesh()
+    trmv.mainMaterial = tintedMaterial(this.glowMaterial, this.bodyTintColor)
+    trmv.setRenderOrder(700)
   }
 
   private updateSurfaceMesh(): void {
@@ -284,11 +434,13 @@ export class WaterlineWater extends BaseScriptComponent {
       }
       if (!s.bars) {
         s.bars = []
-        for (let k = 0; k < 4; k++) {
-          s.bars.push(makeMeshChild(this.getSceneObject(), "ContactBar", vec3.zero(), vec3.one(), this.boxMesh, this.contactMat))
+        for (let k = 0; k < 8; k++) {
+          const b = makeMeshChild(this.getSceneObject(), "ContactBar", vec3.zero(), vec3.one(), this.boxMesh, k < 4 ? this.contactMat : this.glowMat)
+          ;(b.getComponent("Component.RenderMeshVisual") as RenderMeshVisual).setRenderOrder(k < 4 ? 850 : 849)
+          s.bars.push(b)
         }
       }
-      const pad = 0.35, th = 0.55, hh = 0.4
+      const pad = 0.35, th = 0.7, hh = 0.5, gw = 2.6
       const cx = (mn.x + mx.x) / 2, cz = (mn.z + mx.z) / 2
       const w = mx.x - mn.x + 2 * pad, d = mx.z - mn.z + 2 * pad
       const y = surfaceY + 0.12
@@ -302,6 +454,11 @@ export class WaterlineWater extends BaseScriptComponent {
       place(s.bars[1], new vec3(cx, y, mx.z + pad), new vec3(w + th, hh, th))
       place(s.bars[2], new vec3(mn.x - pad, y, cz), new vec3(th, hh, d + th))
       place(s.bars[3], new vec3(mx.x + pad, y, cz), new vec3(th, hh, d + th))
+      // soft glow: a wider, see-through band on the surface hugging the core line
+      place(s.bars[4], new vec3(cx, y - 0.05, mn.z - pad), new vec3(w + gw, 0.2, gw))
+      place(s.bars[5], new vec3(cx, y - 0.05, mx.z + pad), new vec3(w + gw, 0.2, gw))
+      place(s.bars[6], new vec3(mn.x - pad, y - 0.05, cz), new vec3(gw, 0.2, d + gw))
+      place(s.bars[7], new vec3(mx.x + pad, y - 0.05, cz), new vec3(gw, 0.2, d + gw))
     }
   }
 
@@ -356,6 +513,8 @@ export class WaterlineWater extends BaseScriptComponent {
 
     const cam = WorldCameraFinderProvider.getInstance().getComponent().getTransform().getWorldPosition()
     this.updateRipples(dt, cam)
+    this.updateSparkles(dt, cam)
+    this.updateFloaters()
 
     // Sound sits on the surface directly under the viewer.
     this.audioRoot.getTransform().setWorldPosition(new vec3(cam.x, surfaceY, cam.z))

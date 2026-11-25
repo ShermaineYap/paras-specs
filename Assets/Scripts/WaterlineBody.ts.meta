@@ -28,11 +28,15 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
+    guidance: false
     hud: false
     levelLookDegrees: false
+    ringBand: false
     ringColor: false
+    ringFillAlpha: false
     ringMaterial: false
     ringRadiusCm: false
+    ringRadiusPerCmBelow: false
     underwaterTint: false
     upToToleranceCm: false
     water: false
@@ -47,9 +51,13 @@
   DefaultScriptInputs:
     - water: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
       hud: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      guidance: !<MappingBased.AssignableType_3> 00000000-0000-0000-0000-000000000000
       underwaterTint: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       ringMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
       ringRadiusCm: !<float> 14.000000
+      ringRadiusPerCmBelow: 0.450000
+      ringBand: 0.140000
+      ringFillAlpha: 0.160000
       ringColor: !<Vec4> {x: 0.950000, y: 1.000000, z: 1.000000, w: 0.900000}
       levelLookDegrees: !<float> 25.000000
       upToToleranceCm: !<float> 5.000000
@@ -62,12 +70,16 @@
     - '// @ui {"widget":"group_start", "label":"References"}'
     - '// @input AssignableType_1 water {"hint":"The water (level + floor height)"}'
     - '// @input AssignableType_2 hud {"hint":"HUD module that shows the depth tag"}'
+    - '// @input AssignableType_3 guidance {"hint":"Guidance (dotted line + pin) — the depth tag steps aside so it never covers them"}'
     - '// @input SceneObject underwaterTint {"hint":"Authored cool tint in front of the camera, shown while the eyes are under"}'
     - '// @input Asset.Material ringMaterial {"hint":"Unlit base material for the ring"}'
     - '// @ui {"widget":"group_end"}'
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
-    - '// @input float ringRadiusCm = 14 {"hint":"Ring outer radius on the surface (cm)", "widget":"slider", "min":4, "max":40, "step":1}'
+    - '// @input float ringRadiusCm = 32 {"hint":"Ring outer radius on the surface (cm)", "widget":"slider", "min":4, "max":60, "step":1}'
+    - '// @input float ringRadiusPerCmBelow = 0.45 {"hint":"Ring radius as a share of the eye-to-surface distance (so it is visible when looking down, and never a band across the view at chin height); clamped to 10 cm … ringRadiusCm", "widget":"slider", "min":0.1, "max":1, "step":0.05}'
+    - '// @input float ringBand = 0.14 {"hint":"Ring band width as a fraction of the radius", "widget":"slider", "min":0.03, "max":0.5, "step":0.01}'
+    - '// @input float ringFillAlpha = 0.16 {"hint":"See-through fill inside the ring (alpha, 0 = none)", "widget":"slider", "min":0, "max":0.5, "step":0.01}'
     - '// @input vec4 ringColor = "{0.95, 1.0, 1.0, 0.9}" {"hint":"Ring colour", "widget":"color"}'
     - '// @input float levelLookDegrees = 25 {"hint":"Depth tag shows only while looking within this many degrees of level", "widget":"slider", "min":5, "max":60, "step":1}'
     - "// @input float upToToleranceCm = 5 {\"hint\":\"'Up to your …' when the water is within this many cm of the body landmark\", \"widget\":\"slider\", \"min\":0, \"max\":15, \"step\":0.5}"

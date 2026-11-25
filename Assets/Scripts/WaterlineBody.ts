@@ -11,7 +11,8 @@
 import WorldCameraFinderProvider from "SpectaclesInteractionKit.lspkg/Providers/CameraProvider/WorldCameraFinderProvider"
 import {WaterlineWater} from "./WaterlineWater"
 import {WaterlineHudUI} from "./WaterlineHudUI"
-import {buildAnnulusMesh, tintedMaterial} from "./WaterlineGeometry"
+import {WaterlineGuidance} from "./WaterlineGuidance"
+import {buildAnnulusMesh, buildDiscMesh, tintedMaterial} from "./WaterlineGeometry"
 import {bodyReading, BodyReading, depthTagText, DEFAULT_LANDMARKS} from "./WaterlineState"
 
 @component
@@ -26,6 +27,9 @@ export class WaterlineBody extends BaseScriptComponent {
   @hint("HUD module that shows the depth tag")
   hud!: WaterlineHudUI
   @input
+  @hint("Guidance (dotted line + pin) — the depth tag steps aside so it never covers them")
+  guidance!: WaterlineGuidance
+  @input
   @hint("Authored cool tint in front of the camera, shown while the eyes are under")
   underwaterTint!: SceneObject
   @input
@@ -36,8 +40,20 @@ export class WaterlineBody extends BaseScriptComponent {
   @ui.group_start("Settings")
   @input
   @hint("Ring outer radius on the surface (cm)")
-  @widget(new SliderWidget(4, 40, 1))
-  ringRadiusCm: number = 14
+  @widget(new SliderWidget(4, 60, 1))
+  ringRadiusCm: number = 32
+  @input
+  @hint("Ring radius as a share of the eye-to-surface distance (so it is visible when looking down, and never a band across the view at chin height); clamped to 10 cm … ringRadiusCm")
+  @widget(new SliderWidget(0.1, 1, 0.05))
+  ringRadiusPerCmBelow: number = 0.45
+  @input
+  @hint("Ring band width as a fraction of the radius")
+  @widget(new SliderWidget(0.03, 0.5, 0.01))
+  ringBand: number = 0.14
+  @input
+  @hint("See-through fill inside the ring (alpha, 0 = none)")
+  @widget(new SliderWidget(0, 0.5, 0.01))
+  ringFillAlpha: number = 0.16
   @input("vec4", "{0.95, 1.0, 1.0, 0.9}")
   @hint("Ring colour")
   @widget(new ColorWidget())
@@ -61,8 +77,16 @@ export class WaterlineBody extends BaseScriptComponent {
     this.ring = global.scene.createSceneObject("HeadRing")
     this.ring.setParent(this.getSceneObject())
     const rmv = this.ring.createComponent("Component.RenderMeshVisual") as RenderMeshVisual
-    rmv.mesh = buildAnnulusMesh(0.82, 56)
+    rmv.mesh = buildAnnulusMesh(1 - this.ringBand, 64)
     rmv.mainMaterial = tintedMaterial(this.ringMaterial, this.ringColor)
+    rmv.setRenderOrder(900) // after the water sheet, so the ring stays bright on top of it
+    const fill = global.scene.createSceneObject("HeadRingFill")
+    fill.setParent(this.ring)
+    fill.getTransform().setLocalPosition(new vec3(0, -0.05, 0))
+    const frmv = fill.createComponent("Component.RenderMeshVisual") as RenderMeshVisual
+    frmv.mesh = buildDiscMesh(48)
+    frmv.mainMaterial = tintedMaterial(this.ringMaterial, new vec4(this.ringColor.x, this.ringColor.y, this.ringColor.z, this.ringFillAlpha))
+    frmv.setRenderOrder(899)
     this.ring.getTransform().setLocalScale(new vec3(this.ringRadiusCm, 1, this.ringRadiusCm))
     this.ring.enabled = false
     this.underwaterTint.enabled = false
@@ -78,6 +102,40 @@ export class WaterlineBody extends BaseScriptComponent {
   getRingWorldPos(): vec3 { return this.ring.getTransform().getWorldPosition() }
   isTintOn(): boolean { return this.underwaterTint.enabled }
 
+  /**
+   * Depth tag slot: 0 = below-left of centre (default), 1 = below-right, 2 = lower-left, 3 = lower-right.
+   * Picks the first slot whose panel would not cover the dotted line or the pin (in the plane the
+   * tag is drawn in).
+   */
+  private pickDepthSlot(): number {
+    const g = this.guidance
+    const tgt = g ? g.getTarget() : null
+    if (!tgt || !g.isDottedLineVisible()) return 0
+    // the tag is drawn in the HUD's frame (at the eyes, yaw only), so test in that frame
+    const inv = this.hud.getSceneObject().getTransform().getInvertedWorldTransform()
+    const D = this.hud.depthTagDistanceCm
+    const toPlane = (w: vec3): vec2 | null => {
+      const l = inv.multiplyPoint(w)
+      if (l.z > -1) return null
+      return new vec2((l.x * D) / -l.z, (l.y * D) / -l.z)
+    }
+    const pts: vec2[] = []
+    for (let i = 0; i <= 30; i++) {
+      const p = toPlane(g.getPathPoint(i / 30))
+      if (p) pts.push(p)
+    }
+    for (let slot = 0; slot < 4; slot++) {
+      const r = this.hud.getDepthRect(slot)
+      const pad = 1.0
+      let hit = false
+      for (const p of pts) {
+        if (p.x > r.x - pad && p.x < r.z + pad && p.y > r.y - pad && p.y < r.w + pad) { hit = true; break }
+      }
+      if (!hit) return slot
+    }
+    return 0
+  }
+
   private tick(): void {
     const camT = WorldCameraFinderProvider.getInstance().getComponent().getTransform()
     const cam = camT.getWorldPosition()
@@ -89,7 +147,11 @@ export class WaterlineBody extends BaseScriptComponent {
 
     // Ring directly under the head, on the surface.
     this.ring.enabled = up
-    if (up) this.ring.getTransform().setWorldPosition(new vec3(cam.x, surfaceY + 0.3, cam.z))
+    if (up) {
+      this.ring.getTransform().setWorldPosition(new vec3(cam.x, surfaceY + 0.3, cam.z))
+      const r = Math.max(10, Math.min(this.ringRadiusCm, (cam.y - surfaceY) * this.ringRadiusPerCmBelow))
+      this.ring.getTransform().setLocalScale(new vec3(r, 1, r))
+    }
 
     // Body word, live.
     this.reading = bodyReading(level, this.eyeCm, DEFAULT_LANDMARKS, this.upToToleranceCm)
@@ -108,6 +170,7 @@ export class WaterlineBody extends BaseScriptComponent {
       hudT.setWorldRotation(quat.angleAxis(yaw, vec3.up()))
     }
     if (up) this.hud.setDepthText(depthTagText(level, this.eyeCm, DEFAULT_LANDMARKS, this.upToToleranceCm))
+    if (up) this.hud.setDepthSlot(this.pickDepthSlot())
     this.hud.setDepthVisible(up && !this.carrying && Math.abs(pitchDeg) <= this.levelLookDegrees)
   }
 }

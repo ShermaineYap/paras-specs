@@ -29,6 +29,7 @@
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
     bodyText: false
+    plateColor: false
     readingDistanceCm: false
     titleColor: false
     titleText: false
@@ -45,6 +46,7 @@
       bodyText: "Room, belongings, cabinet and switch. Pinch each belonging to tag it."
       readingDistanceCm: !<float> 200.000000
       titleColor: !<Vec4> {x: 1.000000, y: 0.860000, z: 0.550000, w: 1.000000}
+      plateColor: !<Vec4> {x: 0.360000, y: 0.470000, z: 0.580000, w: 0.900000}
   ScriptTypes:
     -
       {}
@@ -56,4 +58,5 @@
     - '// @input string bodyText = "Room, belongings, cabinet and switch. Pinch each belonging to tag it." {"hint":"Second line"}'
     - '// @input float readingDistanceCm = 200 {"hint":"Distance the label is read from (cm) — scales the text", "widget":"slider", "min":60, "max":300, "step":5}'
     - '// @input vec4 titleColor = "{1.0, 0.86, 0.55, 1.0}" {"hint":"Title colour (keep light)", "widget":"color"}'
+    - '// @input vec4 plateColor = "{0.36, 0.47, 0.58, 0.9}" {"hint":"Plate colour (a light slate, so it stays visible on an additive display)", "widget":"color"}'
     - '// @ui {"widget":"group_end"}'

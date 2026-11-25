@@ -28,7 +28,9 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
+    pitchDeg: false
     stage: false
+    yawDeg: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -39,6 +41,8 @@
     []
   DefaultScriptInputs:
     - stage: !<string> off
+      yawDeg: !<float> 0.000000
+      pitchDeg: !<float> 0.000000
   ScriptTypes:
     -
       {}
@@ -46,5 +50,7 @@
     - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">WaterlineDemoDirector – hold a key moment for screenshots</span>"}'
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Settings"}'
-    - '// @input string stage = "off" {"hint":"Moment to drive to on preview start", "widget":"combobox", "values":[{"label":"off", "value":"off"}, {"label":"room", "value":"room"}, {"label":"card", "value":"card"}, {"label":"danger", "value":"danger"}, {"label":"depthtag", "value":"depthtag"}, {"label":"amber", "value":"amber"}, {"label":"arrow", "value":"arrow"}, {"label":"underwater", "value":"underwater"}, {"label":"summary", "value":"summary"}]}'
+    - '// @input string stage = "off" {"hint":"Moment to drive to on preview start", "widget":"combobox", "values":[{"label":"off", "value":"off"}, {"label":"start", "value":"start"}, {"label":"room", "value":"room"}, {"label":"card", "value":"card"}, {"label":"below", "value":"below"}, {"label":"danger", "value":"danger"}, {"label":"depthtag", "value":"depthtag"}, {"label":"amber", "value":"amber"}, {"label":"arrow", "value":"arrow"}, {"label":"underwater", "value":"underwater"}, {"label":"summary", "value":"summary"}]}'
+    - "// @input float yawDeg {\"hint\":\"Extra yaw for the 'start' / 'room' stages (deg, + = left) — to look around the room\", \"widget\":\"slider\", \"min\":-180, \"max\":180, \"step\":1}"
+    - "// @input float pitchDeg {\"hint\":\"Pitch for the 'start' / 'room' stages (deg, + = up)\", \"widget\":\"slider\", \"min\":-80, \"max\":60, \"step\":1}"
     - '// @ui {"widget":"group_end"}'

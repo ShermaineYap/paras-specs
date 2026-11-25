@@ -8,6 +8,7 @@ import {FlexLayout} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex
 import {FlexItem} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexItem"
 import {FlexAlign, FlexDirection, FlexJustify} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
 import {BackPlate} from "SpectaclesUIKit.lspkg/Scripts/BackPlate"
+import {RoundedRectangle} from "SpectaclesUIKit.lspkg/Scripts/Visuals/RoundedRectangle/RoundedRectangle"
 
 const FONT_SIZE_SCALE = 1.0
 type TextRole = "Headline2" | "Body" | "Caption"
@@ -40,6 +41,10 @@ export class WaterlineStandInLabelUI extends BaseScriptComponent {
   @hint("Title colour (keep light)")
   @widget(new ColorWidget())
   titleColor: vec4 = new vec4(1.0, 0.86, 0.55, 1.0)
+  @input("vec4", "{0.36, 0.47, 0.58, 0.9}")
+  @hint("Plate colour (a light slate, so it stays visible on an additive display)")
+  @widget(new ColorWidget())
+  plateColor: vec4 = new vec4(0.36, 0.47, 0.58, 0.9)
   @ui.group_end
 
   onAwake() {
@@ -61,6 +66,18 @@ export class WaterlineStandInLabelUI extends BaseScriptComponent {
     flex.paddingRight = 2
     flex.onLayoutComplete.add((r) => {
       plate.size = new vec2(r.containerWidth, r.containerHeight)
+    })
+    this.createEvent("OnStartEvent").bind(() => {
+      const d = this.createEvent("DelayedCallbackEvent") as DelayedCallbackEvent
+      d.bind(() => {
+        plate.style = "simple"
+        const rr = this.getSceneObject().getComponent(RoundedRectangle.getTypeName()) as RoundedRectangle
+        if (rr) {
+          rr.gradient = false
+          rr.backgroundColor = this.plateColor
+        }
+      })
+      d.reset(0.1)
     })
     const k = this.readingDistanceCm / 110
     this.addLine(content, this.titleText, "Headline2", 30 * k * 0.55, 2.6 * k, this.titleColor)

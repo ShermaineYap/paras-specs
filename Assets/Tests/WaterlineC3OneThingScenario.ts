@@ -56,7 +56,7 @@ export class WaterlineC3OneThingScenario extends Scenario {
 
         if (t!.getSceneObject().name === "Item_PhotoAlbum") {
           // As a user who has just put the rice cooker on the cabinet: facing the cabinet.
-          CameraRig.lookAt(CameraRig.standingAt(0, -20), new vec3(-50, water().getSceneObject().getTransform().getWorldPosition().y + 160, -180))
+          CameraRig.lookAt(CameraRig.standingAt(0, -20), new vec3(-60, water().getSceneObject().getTransform().getWorldPosition().y + 150, -223))
           await nextFrame(); await nextFrame()
           const albumInView = g.isInView(t!.getCenterWorldPos())
           const arrowFacingCabinet = g.isArrowVisible()
