@@ -22,6 +22,9 @@ import {flaggedItems, nextItem, summaryLine} from "./WaterlineState"
 /** The room is authored with its floor at this world Y (eyes at 0 in the preview). */
 const AUTHORED_FLOOR_Y = -160
 
+/** How long after the Lens starts the start-flash watch records every frame (s). */
+export const START_WATCH_S = 8
+
 export type RunState = "tagging" | "choose" | "rising" | "lifting" | "allSafe" | "draining" | "summary"
 
 @component
@@ -117,6 +120,11 @@ export class WaterlineMain extends BaseScriptComponent {
   private timer = 0
   private anchored = false
   private pendingNextAt = -1
+  private awakeAt = 0
+  private watchFrames = 0
+  private watchFirstFrameS = -1
+  private watchEntries: string[] = []
+  private watchSeen: {[name: string]: {first: number; last: number; frames: number}} = {}
 
   onAwake() {
     if (!this.validate()) return
@@ -137,8 +145,11 @@ export class WaterlineMain extends BaseScriptComponent {
         it.onReleased.add((b) => this.onItemReleased(b))
       }
       this.levelCard.hide()
+      this.setStartGuidance(this.state === "tagging" && !this.items.some((i) => i.tagged))
     })
     this.createEvent("UpdateEvent").bind(() => this.update())
+    this.awakeAt = getTime()
+    this.createEvent("LateUpdateEvent").bind(() => this.watchStart())
   }
 
   // ---------------- public read API (tests + inspector debugging) ----------------
@@ -161,8 +172,9 @@ export class WaterlineMain extends BaseScriptComponent {
     if (this.body.isRingVisible()) out.push("Ring")
     if (this.hud.isDepthVisible()) out.push("DepthTag")
     if (this.hud.isSummaryVisible()) out.push("Summary")
+    if (this.hud.isStartHintVisible()) out.push("StartHint")
     if (this.body.isTintOn()) out.push("UnderwaterTint")
-    if (this.guidance.isArrowVisible()) out.push("EdgeArrow")
+    if (this.guidance.isArrowVisible()) out.push(this.guidance.isStartCueOn() ? "StartChevron" : "EdgeArrow")
     if (this.guidance.isDottedLineVisible()) out.push("DottedLine")
     if (this.mainsSwitch.isArmed()) out.push("SwitchGlow")
     for (const it of this.items) {
@@ -171,6 +183,59 @@ export class WaterlineMain extends BaseScriptComponent {
       if (this.guidance.isPinVisible(it)) out.push(`Pin:${it.displayName}`)
     }
     return out
+  }
+
+  /**
+   * What the Lens is actually drawing this frame (scene objects enabled and not shrunk away),
+   * as opposed to what it intends to show. Used by the start-flash check.
+   */
+  getRenderedLensElements(): string[] {
+    const out: string[] = []
+    if (this.levelCard.isRendered()) out.push("LevelCard")
+    if (this.water.isSurfaceRendered()) out.push("Water")
+    if (this.body.isRingVisible()) out.push("Ring")
+    if (this.hud.isDepthRendered()) out.push("DepthTag")
+    if (this.hud.isSummaryRendered()) out.push("Summary")
+    if (this.body.isTintOn()) out.push("UnderwaterTint")
+    if (this.hud.isHintRendered()) out.push("StartHint")
+    if (this.guidance.isArrowVisible()) out.push(this.guidance.isStartCueOn() ? "StartChevron" : "EdgeArrow")
+    if (this.guidance.isDottedLineVisible()) out.push("DottedLine")
+    if (this.mainsSwitch.isGlowRendered()) out.push("SwitchGlow")
+    for (const it of this.items) {
+      if (it.isOutlineRendered()) out.push(`Outline:${it.displayName}`)
+      if (it.isTickVisible()) out.push(`Tick:${it.displayName}`)
+      if (this.guidance.isPinVisible(it)) out.push(`Pin:${it.displayName}`)
+    }
+    return out
+  }
+
+  /**
+   * Every frame of the first START_WATCH_S seconds after the Lens starts: what was drawn.
+   * frames = frames sampled; entries = "t s [elements]" whenever the drawn set changed.
+   */
+  getStartWatch(): {done: boolean; frames: number; firstFrameS: number; entries: string[]; seen: {[name: string]: {first: number; last: number; frames: number}}} {
+    return {
+      done: getTime() - this.awakeAt >= START_WATCH_S,
+      frames: this.watchFrames,
+      firstFrameS: this.watchFirstFrameS,
+      entries: this.watchEntries,
+      seen: this.watchSeen,
+    }
+  }
+
+  private watchStart(): void {
+    const t = getTime() - this.awakeAt
+    if (t > START_WATCH_S) return
+    if (this.watchFirstFrameS < 0) this.watchFirstFrameS = t
+    this.watchFrames++
+    const els = this.getRenderedLensElements()
+    for (const e of els) {
+      const s = this.watchSeen[e]
+      if (s) { s.last = t; s.frames++ } else this.watchSeen[e] = {first: t, last: t, frames: 1}
+    }
+    const line = `[${els.join(", ")}]`
+    const prev = this.watchEntries.length ? this.watchEntries[this.watchEntries.length - 1] : ""
+    if (!prev.endsWith(line) && this.watchEntries.length < 60) this.watchEntries.push(`${t.toFixed(2)} s ${line}`)
   }
 
   /**
@@ -195,6 +260,13 @@ export class WaterlineMain extends BaseScriptComponent {
       this.setState("tagging")
       this.levelCard.hide()
     }
+    this.setStartGuidance(this.state === "tagging" && !this.items.some((i) => i.tagged))
+  }
+
+  /** First-time guidance: the hint line and the chevron toward the belongings. Off after the first tag. */
+  private setStartGuidance(on: boolean): void {
+    this.hud.setStartHint(on)
+    this.guidance.setStartCue(on ? this.items : null)
   }
 
   // ---------------- flow ----------------
@@ -203,6 +275,7 @@ export class WaterlineMain extends BaseScriptComponent {
     if (this.state !== "tagging" && this.state !== "choose") return
     const first = !b.tagged
     b.showTagged()
+    this.setStartGuidance(false)
     this.audio.playTagPop(b.getCenterWorldPos())
     if (first) this.log(`tagged ${b.displayName}`)
     if (this.state === "tagging" && this.items.every((i) => i.tagged)) {

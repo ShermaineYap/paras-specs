@@ -85,6 +85,7 @@ export class WaterlineGuidance extends BaseScriptComponent {
   private chevronMesh!: RenderMesh
   private arrowMode = "" // "side" | "below"
   private greenItem: WaterlineBelonging | null = null
+  private startCueItems: WaterlineBelonging[] | null = null
   private greenT = 0
   private t = 0
 
@@ -166,6 +167,16 @@ export class WaterlineGuidance extends BaseScriptComponent {
   }
 
   isArrowVisible(): boolean { return this.edgeArrow.enabled }
+
+  /**
+   * First-time cue before the first tag: the same edge cue, pointing to the untagged belongings
+   * (a chevron on the bottom edge when they are below the view). Pass null to turn it off.
+   */
+  setStartCue(items: WaterlineBelonging[] | null): void {
+    this.startCueItems = items && items.length > 0 ? items : null
+  }
+
+  isStartCueOn(): boolean { return this.startCueItems !== null }
   isDottedLineVisible(): boolean { return this.dots.length > 0 && this.dots[0].enabled }
   isPinVisible(item: WaterlineBelonging): boolean {
     const pin = this.findPin(item)
@@ -261,6 +272,32 @@ export class WaterlineGuidance extends BaseScriptComponent {
 
   getArrowMode(): string { return this.arrowMode }
 
+  /**
+   * Places the first-time cue toward the untagged belonging nearest the line of sight (at the start:
+   * the low ones straight ahead, below the view, so it is the bottom chevron). Hidden once any
+   * untagged belonging is in view. True if it shows.
+   */
+  private updateStartCue(): boolean {
+    if (!this.startCueItems) return false
+    const left = this.startCueItems.filter((b) => !b.tagged)
+    if (left.length === 0) return false
+    const camC = WorldCameraFinderProvider.getInstance().getComponent()
+    const camT = camC.getTransform()
+    const eye = camT.getWorldPosition()
+    const look = camT.forward.uniformScale(-1)
+    let best: vec3 | null = null
+    let bestDot = -2
+    for (const b of left) {
+      const p = b.getCenterWorldPos()
+      if (this.isInView(p)) return false
+      const d = p.sub(eye).normalize().dot(look)
+      if (d > bestDot) { bestDot = d; best = p }
+    }
+    this.placeEdgeCue(camC, camT, best!)
+    setAlpha(this.arrowMat, 0.85 + 0.15 * Math.sin(this.t * 5))
+    return true
+  }
+
   private update(): void {
     const dt = getDeltaTime()
     this.t += dt
@@ -281,7 +318,7 @@ export class WaterlineGuidance extends BaseScriptComponent {
     const tgt = this.target
     if (!tgt) {
       for (const d of this.dots) if (d.enabled) d.enabled = false
-      this.edgeArrow.enabled = false
+      this.edgeArrow.enabled = this.updateStartCue()
       return
     }
 

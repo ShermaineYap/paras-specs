@@ -67,9 +67,14 @@ export class WaterlineStandInLabelUI extends BaseScriptComponent {
     flex.onLayoutComplete.add((r) => {
       plate.size = new vec2(r.containerWidth, r.containerHeight)
     })
+    // Shrunk to nothing until restyled, so the dark default plate never flashes at start.
+    const selfT = this.getSceneObject().getTransform()
+    const authored = selfT.getLocalScale()
+    selfT.setLocalScale(new vec3(0.0001, 0.0001, 0.0001))
     this.createEvent("OnStartEvent").bind(() => {
       const d = this.createEvent("DelayedCallbackEvent") as DelayedCallbackEvent
       d.bind(() => {
+        selfT.setLocalScale(authored)
         plate.style = "simple"
         const rr = this.getSceneObject().getComponent(RoundedRectangle.getTypeName()) as RoundedRectangle
         if (rr) {

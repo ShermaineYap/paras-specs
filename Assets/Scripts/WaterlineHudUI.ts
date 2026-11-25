@@ -1,7 +1,8 @@
 /**
- * WaterlineHudUI — body-relative text: the depth tag and the summary line.
+ * WaterlineHudUI — body-relative text: the depth tag, the summary line and the first-time hint.
  *
- * Owns: two small UIKit BackPlate panels (DepthTag, SummaryLine) and their text. Passive view:
+ * Owns: three small UIKit BackPlate panels (DepthTag, SummaryLine, StartHint) and their text.
+ * Every panel starts shrunk to nothing and disabled, so nothing flashes while the Lens starts. Passive view:
  * WaterlineBody moves this root with the user's head (yaw only) and pushes the depth text;
  * WaterlineMain shows/hides the summary line.
  * Must not: compute the body word or decide when things show.
@@ -27,6 +28,14 @@ function roleSize(role: TextRole, distanceCm: number = 110): number {
 function applyTextRole(t: Text, role: TextRole, distanceCm: number = 110): void {
   t.size = roleSize(role, distanceCm)
   ;(t as Text & {weight?: number}).weight = TYPE_SCALE[role].weight
+}
+
+/** Scale a panel sits at until it is ready: too small to draw. */
+export const HIDDEN_SCALE = new vec3(0.0001, 0.0001, 0.0001)
+
+/** Enabled in the hierarchy and not shrunk to nothing. */
+export function rendered(so: SceneObject): boolean {
+  return !!so && so.isEnabledInHierarchy && so.getTransform().getWorldScale().x > 0.01
 }
 
 @component
@@ -62,6 +71,17 @@ export class WaterlineHudUI extends BaseScriptComponent {
   @hint("Depth tag text colour (keep light)")
   @widget(new ColorWidget())
   depthTextColor: vec4 = new vec4(0.8, 0.97, 1.0, 1.0)
+  @input
+  @hint("First-time hint shown before the first tag")
+  hintText: string = "Look down. Pinch the things you'd save."
+  @input
+  @hint("First-time hint distance in front of the eyes (cm)")
+  @widget(new SliderWidget(40, 100, 1))
+  hintDistanceCm: number = 60
+  @input
+  @hint("How far below eye level the first-time hint sits (cm)")
+  @widget(new SliderWidget(0, 30, 0.5))
+  hintDropCm: number = 6
   @ui.group_end
 
   private depthRoot!: SceneObject
@@ -75,6 +95,9 @@ export class WaterlineHudUI extends BaseScriptComponent {
   private depthSlot = 0
   private wantDepth = false
   private wantSummary = false
+  private hintRoot!: SceneObject
+  private hintPlate!: BackPlate
+  private wantHint = false
 
   onAwake() {
     // Depth tag (live text) — sized for the longest phrase: "Water here: 150 cm, above your ankles"
@@ -84,15 +107,27 @@ export class WaterlineHudUI extends BaseScriptComponent {
     this.depthPlate = this.lastPlate
 
     this.summaryRoot = this.makePanel("SummaryLine", new vec3(0, -4, -this.summaryDistanceCm), 24, 3.2)
-    this.summaryText = this.addLine(this.lastContent, "5 of 5 above water, 1:48", "HeadlineXL", 95, 20, 3.0, new vec4(1, 1, 1, 1))
+    this.summaryText = this.addLine(this.lastContent, "", "HeadlineXL", 95, 20, 3.0, new vec4(1, 1, 1, 1))
+
+    const hk = 0.8
+    this.hintRoot = this.makePanel("StartHint", new vec3(0, -this.hintDropCm, -this.hintDistanceCm), 21 * hk, 2.4 * hk)
+    this.addLine(this.lastContent, this.hintText, "Headline2", 85 * hk, 21 * hk, 2.4 * hk, new vec4(1, 1, 1, 1))
+    this.hintPlate = this.lastPlate
+
+    // UIKit plates must be enabled for a moment to set themselves up (and be restyled light), so the
+    // panels stay enabled but shrunk to nothing until then: nothing is ever drawn before it is asked for.
+    for (const r of [this.depthRoot, this.summaryRoot, this.hintRoot]) r.getTransform().setLocalScale(HIDDEN_SCALE)
 
     this.createEvent("OnStartEvent").bind(() => {
       const d = this.createEvent("DelayedCallbackEvent") as DelayedCallbackEvent
       d.bind(() => {
         this.started = true
         this.lightenPlate(this.depthPlate, this.depthPlateColor)
+        this.lightenPlate(this.hintPlate, this.depthPlateColor)
         this.depthRoot.enabled = this.wantDepth
         this.summaryRoot.enabled = this.wantSummary
+        this.hintRoot.enabled = this.wantHint
+        for (const r of [this.depthRoot, this.summaryRoot, this.hintRoot]) r.getTransform().setLocalScale(vec3.one())
       })
       d.reset(0.15)
     })
@@ -156,6 +191,19 @@ export class WaterlineHudUI extends BaseScriptComponent {
   }
 
   isSummaryVisible(): boolean { return this.wantSummary }
+
+  /** What is actually drawn this frame (enabled and not shrunk away) — for the start-flash check. */
+  isDepthRendered(): boolean { return rendered(this.depthRoot) }
+  isHintRendered(): boolean { return rendered(this.hintRoot) }
+
+  /** First-time hint: "Look down. Pinch the things you'd save." */
+  setStartHint(on: boolean): void {
+    this.wantHint = on
+    if (this.started && this.hintRoot.enabled !== on) this.hintRoot.enabled = on
+  }
+
+  isStartHintVisible(): boolean { return this.wantHint }
+  isSummaryRendered(): boolean { return rendered(this.summaryRoot) }
 
   getSummaryText(): string { return this.summaryText.text }
 

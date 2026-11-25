@@ -183,6 +183,8 @@ export class WaterlineBelonging extends BaseScriptComponent {
   }
 
   isTickVisible(): boolean { return this.tick.enabled }
+  /** True if the outline is actually drawn this frame (amber, green or hover). */
+  isOutlineRendered(): boolean { return this.outline.isEnabledInHierarchy }
 
   // ---- internals ----
 

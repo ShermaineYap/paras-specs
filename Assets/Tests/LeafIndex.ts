@@ -6,6 +6,7 @@ import {WaterlineC2BodyScenario} from "./WaterlineC2BodyScenario"
 import {WaterlineC3OneThingScenario} from "./WaterlineC3OneThingScenario"
 import {WaterlineC4SnapScenario} from "./WaterlineC4SnapScenario"
 import {WaterlineC5EndingScenario} from "./WaterlineC5EndingScenario"
+import {WaterlinePlaythroughScenario} from "./WaterlinePlaythroughScenario"
 
 @component
 export class LeafIndex extends BaseScriptComponent {
@@ -17,5 +18,7 @@ export class LeafIndex extends BaseScriptComponent {
     {id: "c3-one-thing", typename: WaterlineC3OneThingScenario.getTypeName()},
     {id: "c4-snap", typename: WaterlineC4SnapScenario.getTypeName()},
     {id: "c5-ending", typename: WaterlineC5EndingScenario.getTypeName()},
+    // not a pass/fail test: a first-time playthrough with timings and problem log (see the file header)
+    {id: "playthrough", typename: WaterlinePlaythroughScenario.getTypeName(), parameters: {level: "Danger", stopAt: "none"}},
   ]
 }

@@ -66,6 +66,8 @@ export class WaterlineSwitch extends BaseScriptComponent {
   }
 
   isArmed(): boolean { return this.armed }
+  /** True if the glow is actually drawn this frame. */
+  isGlowRendered(): boolean { return this.glow.isEnabledInHierarchy }
 
   private setRocker(off: boolean): void {
     this.rocker.getTransform().setLocalRotation(quat.angleAxis(((off ? -14 : 14) * Math.PI) / 180, vec3.right()))

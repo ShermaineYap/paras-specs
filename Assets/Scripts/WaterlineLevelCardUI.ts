@@ -98,11 +98,18 @@ export class WaterlineLevelCardUI extends BaseScriptComponent {
     this.addText(content, this.subtitleText, "Body", rowW, 1.8, new vec4(1, 1, 1, 0.75))
     this.addButtonRow(content, rowW)
 
+    // The UIKit parts must be enabled for a moment to set themselves up, so the card stays enabled
+    // but shrunk to nothing until then: it is never drawn before the Lens asks for it.
+    const cardT = this.card.getTransform()
+    const authored = cardT.getLocalScale()
+    cardT.setLocalScale(new vec3(0.0001, 0.0001, 0.0001))
+
     this.createEvent("OnStartEvent").bind(() => {
       const d = this.createEvent("DelayedCallbackEvent") as DelayedCallbackEvent
       d.bind(() => {
         this.started = true
         this.card.enabled = this.wantVisible
+        cardT.setLocalScale(authored)
       })
       d.reset(0.15)
     })
@@ -128,6 +135,11 @@ export class WaterlineLevelCardUI extends BaseScriptComponent {
   }
 
   isShown(): boolean { return this.wantVisible }
+
+  /** True if the card is actually drawn this frame (enabled and not shrunk away). */
+  isRendered(): boolean {
+    return !!this.card && this.card.isEnabledInHierarchy && this.card.getTransform().getWorldScale().x > 0.01
+  }
 
   // ---------- layout ----------
 

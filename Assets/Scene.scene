@@ -6,10 +6,10 @@
     - !<own> f5d74682-203a-4970-81ea-9fa7b88c96bb
     - !<own> faf245b8-7c57-4c2b-b7d1-d90f4307c9d0
     - !<own> 6764ba17-f4e9-4261-a5de-7a81f9554c98
-    - !<own> 99598b2f-4b48-4c2d-a3fc-178009a20824
     - !<own> f4740a5f-0bc2-4972-92e5-dac352e18af3
     - !<own> 33abf785-80d2-47ca-a44b-fbbff703c042
     - !<own> 1f700cb7-5490-41ef-9356-fb1bba44ad6a
+    - !<own> ddc52825-edba-43c2-a40d-e9a64bc15905
   layers: !<Layers/267ee9a7-aff2-4f9d-9a49-f71214747d03>
     userLayers:
       - id: 1
@@ -3358,6 +3358,9 @@
     depthPlateColor: true
     summaryDistanceCm: true
     depthTextColor: true
+    hintText: true
+    hintDistanceCm: true
+    hintDropCm: true
   ScriptTypesDefault:
     {}
   ScriptInputs:
@@ -3369,6 +3372,9 @@
       depthPlateColor: !<Vec4> {x: 0.420000, y: 0.580000, z: 0.720000, w: 0.550000}
       summaryDistanceCm: !<float> 75.000000
       depthTextColor: !<Vec4> {x: 0.800000, y: 0.970000, z: 1.000000, w: 1.000000}
+      hintText: "Look down. Pinch the things you'd save."
+      hintDistanceCm: !<float> 60.000000
+      hintDropCm: !<float> 6.000000
   ScriptTypes:
     "":
       {}
@@ -5052,6 +5058,22 @@
   BlendNormals: false
   BlendShapes:
     {}
+- !<ScriptComponent/80cbab2d-b9cf-42b4-b916-103ef90d52b6>
+  PrefabRemaps:
+    []
+  Name: MessagingBridge
+  Enabled: true
+  ScriptAsset: !<reference> 9aa407db-2872-4afc-a162-cf7faf2a0f29
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      {}
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/81263cfe-ebc7-4495-81d1-1634ee990738>
   PrefabRemaps:
     []
@@ -5953,21 +5975,6 @@
     []
   Components:
     - !<own> 146dcc27-e72e-47de-8da8-141a4db6dd51
-- !<SceneObject/99598b2f-4b48-4c2d-a3fc-178009a20824>
-  PrefabRemaps:
-    []
-  Name: LEAF Plugin Bridge
-  Enabled: true
-  Layers: 1
-  LocalTransform: !<TransformEntity>
-    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
-    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
-    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
-    HasSegmentScaleCompensation: false
-  Children:
-    []
-  Components:
-    - !<own> afc43ad7-0dd1-4cca-9b68-93275add13da
 - !<RenderMeshVisual/9ae59eab-9758-4dd5-8aa6-e581244ee3eb>
   PrefabRemaps:
     []
@@ -6867,22 +6874,6 @@
   BlendNormals: false
   BlendShapes:
     {}
-- !<ScriptComponent/afc43ad7-0dd1-4cca-9b68-93275add13da>
-  PrefabRemaps:
-    []
-  Name: MessagingBridge
-  Enabled: true
-  ScriptAsset: !<reference> 9aa407db-2872-4afc-a162-cf7faf2a0f29
-  ScriptInputsDefault:
-    {}
-  ScriptTypesDefault:
-    {}
-  ScriptInputs:
-    "":
-      {}
-  ScriptTypes:
-    "":
-      {}
 - !<SceneObject/b0371832-8d87-4c14-995e-7ed486620e98>
   PrefabRemaps:
     []
@@ -8631,6 +8622,21 @@
     []
   Components:
     - !<own> 372d8128-e2ff-4afc-b3a0-4c73fc177034
+- !<SceneObject/ddc52825-edba-43c2-a40d-e9a64bc15905>
+  PrefabRemaps:
+    []
+  Name: LEAF Plugin Bridge
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 80cbab2d-b9cf-42b4-b916-103ef90d52b6
 - !<SceneObject/ddf4c0ed-e07f-4738-96dd-9e75388a7f3b>
   PrefabRemaps:
     []

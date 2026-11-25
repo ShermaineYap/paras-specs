@@ -242,6 +242,8 @@ export class WaterlineWater extends BaseScriptComponent {
   }
 
   isUp(): boolean { return this.surface.enabled && this.levelCm > 0.5 }
+  /** True if the water surface is actually drawn this frame. */
+  isSurfaceRendered(): boolean { return this.surface.isEnabledInHierarchy }
 
   isAnimating(): boolean { return this.animT < 1 }
 
