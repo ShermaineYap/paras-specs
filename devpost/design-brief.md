@@ -113,3 +113,35 @@ This part is for you, after CLAD finishes.
 5. **Label what you know.** Write "logic proven" next to anything the tests and preview show working, and "feel unproven" next to anything only real glasses could tell you (comfort over time, real hand tracking, real recognition).
 6. **Fix with design notes, not code.** Tell your agent what to change in design terms, for example: "Move the step card 15 cm lower and next to the pan. Make the Next button twice as big. Re-run the tests." If a fix takes under a minute, like nudging a panel, do it yourself in the scene.
 7. **Submit.** Record a video under 3 minutes of your Lens in the preview, public on YouTube. Make your repo public with your Lens Studio project and this `devpost/` folder. Details are on the hackathon site: https://learn-specs.devpost.com/resources
+
+---
+
+## Changes after approval (rounds 1 to 5)
+
+The brief above is the approved plan, unchanged. These are the changes made during the five build rounds, each from a design note after walking the preview, reading the screenshots or a LEAF playthrough. The notes themselves are in `devpost/design-notes.md`; the measured results are in `devpost/leaf-results.md`.
+
+**Where things live**
+- **Start position (round 2):** I start in the middle of a furnished living room, facing the cabinet wall, so the first view shows a room and not a single wall. The belongings stay low in front of me, but they sit about 1 m away rather than 50–80 cm.
+- **The lifting look:** because of that distance and the narrow view, the floor items are 45–60° below eye level from the start, not "about 30°". The amber item and its pin are not in view together; the dotted line and the edge arrow or chevron connect them.
+- **Sideboard:** the album (95 cm) and the IC folder (100 cm) sit on a sideboard to my right, beyond 1.2 m. They start out of view on purpose, so the edge arrow is needed.
+- **Cabinet (round 2):** 200 cm wide, top at 160 cm, with five pins evenly spaced. Each pin stands about 10 cm above the top so it is visible from eye height.
+- **River-alert card (rounds 4–5):** it appears in front of me wherever I am facing (about 1 m ahead), not at a fixed spot. It waits about 1 s after the fifth tick fades, fills about 71% of the view's width, and has wider gaps between the buttons.
+- **Depth tag (rounds 2, 4, 5):** about 100 cm ahead, not 60 cm, on a dark plate with light, larger text. It follows the head with a soft lag instead of being locked to it. It steps aside for the dotted line, the pin and the edge arrow, draws on top of furniture so it is never cut off, and hides while I carry an item.
+- **Stand-in sign (round 2):** small, on the wall by the door, never over a belonging or a safe spot.
+
+**When things show**
+- **Start (round 3):** one line, "Look down. Pinch the things you'd save.", with a chevron pointing down to the belongings. It disappears after the first tag. The brief's "nothing shown" start left first-time users with no cue.
+- **Tagging (round 4):** after the third tag, an edge arrow points to the sideboard items until all five are tagged.
+- **Edge arrow (rounds 2, 4, 5):** about 12° from the centre of view. A side arrow for items to the left or right, a bottom chevron for items below the view. It also points to the mains switch once the switch glows and is out of view, with the same soft splash.
+- **Water (round 2):** ripples, small sparkles, a glowing line where it meets the walls and furniture, and a floating slipper and leaves. Under the surface the tint is bluer.
+- **Amber cue (round 5):** the outline and dotted line draw after the water, so they stay bright amber under it.
+- **Flood mark (round 5):** at Danger only, a thin line on the wall at 150 cm with the label "Dec 2021, reported 1.5 m".
+- **Body words (round 5):** a "hips" landmark at 50% of eye height was added, so 80 cm reads "up to your hips".
+
+**Done criteria and tests**
+- Criterion 5 is tested as two scenarios, the ending (`c5-ending`) and the quiet start (`c5b-quiet-before-level`).
+- A seventh scenario, `playthrough`, plays the whole Lens as a first-time user at Danger and at Alert and checks that every step has a cue. It found the four missing cues fixed in round 4.
+
+**Additive display.** The brief says "nothing dark". The level card, summary line and depth tag use a dark plate behind light text, which reads well in the preview; on real glasses the plate may show as almost nothing. This is listed as feel unproven.
+
+**Still as planned, and still unproven.** Every safe spot is at eye height (160 cm), as the brief specifies. Nobody bent down in a test. The mains switch is the last step, though safety advice is to switch off the mains while things are dry. These are listed as feel unproven in the README.
