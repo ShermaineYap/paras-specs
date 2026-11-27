@@ -6,7 +6,8 @@
  * bright contact line where the surface meets walls / furniture / belongings, the rain-drop
  * ripple rings, the floating things bobbing on the surface (authored children of
  * `floatersRoot`), and the ambient sound at the surface (rain + low rush, crossfading to a
- * muffled loop while the viewer's eyes are under).
+ * muffled loop while the viewer's eyes are under), and the "Dec 2021, reported 1.5 m" mark on the
+ * left wall (shown at Danger only).
  * Expects: authored on the "Water" SceneObject whose world Y is the floor; `contactRoots`
  * are the room / belongings roots whose meshes get a contact line.
  * Must not: decide levels, track the user's body, or touch UI.
@@ -148,6 +149,7 @@ export class WaterlineWater extends BaseScriptComponent {
   private solids: Solid[] = []
   private ripples: Ripple[] = []
   private ringMesh!: RenderMesh
+  private historyMark: SceneObject | null = null
   private glowMat!: Material
   private sparkles: Sparkle[] = []
   private floaters: Floater[] = []
@@ -258,6 +260,60 @@ export class WaterlineWater extends BaseScriptComponent {
   }
 
   setUnderwater(on: boolean): void { this.underwater = on }
+
+  /**
+   * The reported 2021 depth, drawn on the left wall: a thin line at `heightCm` above the floor
+   * along the whole wall, with a small label above it. Drawn after the water so it stays bright.
+   */
+  setHistoryMark(on: boolean, heightCm: number = 150, label: string = "Dec 2021, reported 1.5 m"): void {
+    if (on && !this.historyMark) this.historyMark = this.buildHistoryMark(heightCm, label)
+    if (this.historyMark) this.historyMark.enabled = on
+  }
+
+  isHistoryMarkRendered(): boolean { return !!this.historyMark && this.historyMark.isEnabledInHierarchy }
+
+  private buildHistoryMark(heightCm: number, label: string): SceneObject {
+    const root = global.scene.createSceneObject("HistoryMark2021")
+    root.setParent(this.getSceneObject())
+    // the left wall: inner face and length from the authored wall box
+    let wallX = -260, zMin = -250, zMax = 159
+    for (let i = 0; i < this.roomRoot.getChildrenCount(); i++) {
+      const c = this.roomRoot.getChild(i)
+      if (c.name === "WallLeft") {
+        const t = c.getTransform(), p = t.getWorldPosition(), s = t.getWorldScale()
+        wallX = p.x + s.x / 2
+        zMin = p.z - s.z / 2
+        zMax = p.z + s.z / 2
+      }
+    }
+    const y = this.getSceneObject().getTransform().getWorldPosition().y + heightCm
+    const color = new vec4(1.0, 0.62, 0.5, 1.0)
+    const mat = tintedMaterial(this.glowMaterial, color)
+    const line = makeMeshChild(root, "Line", vec3.zero(), new vec3(0.3, 1.0, zMax - zMin), this.boxMesh, mat)
+    line.getTransform().setWorldPosition(new vec3(wallX + 0.4, y, (zMin + zMax) / 2))
+    ;(line.getComponent("Component.RenderMeshVisual") as RenderMeshVisual).setRenderOrder(960)
+    // label on the wall, above the line, toward the front of the room (seen as soon as you turn left)
+    const lab = global.scene.createSceneObject("Label")
+    lab.setParent(root)
+    lab.createComponent("Component.Canvas")
+    const lt = lab.getTransform()
+    lt.setWorldPosition(new vec3(wallX + 0.6, y + 4, Math.max(zMin + 70, -160)))
+    lt.setWorldRotation(quat.angleAxis(Math.PI / 2, vec3.up())) // text faces +X, into the room
+    const textSo = global.scene.createSceneObject("Text")
+    textSo.setParent(lab)
+    const t = textSo.createComponent("Component.Text") as Text
+    t.text = label
+    t.size = 420 // readable from across the room (about 8 cm tall letters on the wall)
+    t.textFill.color = color
+    t.horizontalAlignment = HorizontalAlignment.Center
+    t.verticalAlignment = VerticalAlignment.Bottom
+    t.horizontalOverflow = HorizontalOverflow.Overflow
+    t.verticalOverflow = VerticalOverflow.Overflow
+    t.layoutRect = Rect.create(-60, 60, 0, 10)
+    t.setRenderOrder(961)
+    root.enabled = false
+    return root
+  }
 
   isMuffled(): boolean { return this.mixUnder > 0.5 && this.muffled.isPlaying() && this.muffled.volume > 0.05 }
 

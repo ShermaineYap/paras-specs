@@ -19,6 +19,6 @@ export class LeafIndex extends BaseScriptComponent {
     {id: "c4-snap", typename: WaterlineC4SnapScenario.getTypeName()},
     {id: "c5-ending", typename: WaterlineC5EndingScenario.getTypeName()},
     // not a pass/fail test: a first-time playthrough with timings and problem log (see the file header)
-    {id: "playthrough", typename: WaterlinePlaythroughScenario.getTypeName(), parameters: {level: "Danger", stopAt: "none"}},
+    {id: "playthrough", typename: WaterlinePlaythroughScenario.getTypeName(), parameters: {level: "Danger", stopAt: "none", view: "none"}},
   ]
 }

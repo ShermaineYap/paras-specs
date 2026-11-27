@@ -35,6 +35,16 @@ export class WaterlineC1LevelsScenario extends Scenario {
         expect(tReach >= 0 && tReach <= 5, `${c.level}: reached ${c.cm}±2 cm within 5 s (took ${tReach.toFixed(2)} s)`).toBe(true)
         expect(Math.abs(surfaceAboveFloor - c.cm), `${c.level}: surface ${surfaceAboveFloor.toFixed(2)} cm`).toBeLessThan(2.01)
         expect(flagged.length, `${c.level}: flagged count`).toBe(c.flagged)
+        const mark = main().getRenderedLensElements().indexOf("HistoryMark") >= 0
+        print(`[C1] ${c.level}: "Dec 2021, reported 1.5 m" wall mark drawn=${mark}`)
+        expect(mark, `${c.level}: the 2021 wall mark shows at Danger only`).toBe(c.level === "Danger")
+        if (c.level === "Warning") {
+          CameraRig.setPose(CameraRig.standingAt(0, 0), 0, -5)
+          await sleep(300)
+          const tag = main().hud.getDepthText()
+          print(`[C1] Warning, standing (eyes 160 cm): "${tag}"`)
+          expect(tag, "80 cm reads up to your hips").toBe("Water here: 80 cm, up to your hips")
+        }
         if (c.level === "Alert") {
           for (const n of flagged) expect(n === "Extension plug" || n === "School bag", `Alert flags only items below 30 cm (got ${n})`).toBe(true)
         }

@@ -35,6 +35,9 @@ const ICON_FLOOD: Texture = requireAsset("../Icons/flood.png") as Texture
 const IMAGE_MATERIAL: Material = requireAsset("../Materials/ImageMaterial.mat") as Material
 const BUTTON_LABEL_Z = 0.08
 
+/** Gap between the three level buttons (cm). Round 5: widened from 1.2 cm. */
+const BUTTON_GAP_CM = 3.0
+
 @component
 export class WaterlineLevelCardUI extends BaseScriptComponent {
   @ui.label('<span style="color: #60A5FA;">WaterlineLevelCardUI – river-alert card</span>')
@@ -68,6 +71,7 @@ export class WaterlineLevelCardUI extends BaseScriptComponent {
   private card!: SceneObject
   private wantVisible = false
   private started = false
+  private cardWidthCm = 40
 
   onAwake() {
     this.card = global.scene.createSceneObject("LevelCardPanel")
@@ -93,7 +97,8 @@ export class WaterlineLevelCardUI extends BaseScriptComponent {
       plate.size = new vec2(r.containerWidth, r.containerHeight)
     })
 
-    const rowW = this.buttonWidthCm * 3 + 2 * 1.2
+    const rowW = this.buttonWidthCm * 3 + 2 * BUTTON_GAP_CM
+    this.cardWidthCm = rowW + 2 * 1.8
     this.addHeaderRow(content, rowW)
     this.addText(content, this.subtitleText, "Body", rowW, 1.8, new vec4(1, 1, 1, 0.75))
     this.addButtonRow(content, rowW)
@@ -137,23 +142,28 @@ export class WaterlineLevelCardUI extends BaseScriptComponent {
   isShown(): boolean { return this.wantVisible }
 
   /**
-   * Show the card in front of the user, wherever they are facing: 80 cm along the line of sight
-   * (at least 60 cm out horizontally), between 90 cm above the floor and just below eye level,
-   * turned to face the eyes. Looking down at belongings, that is about 110 cm high, as in the brief.
+   * Show the card in front of the user, wherever they are facing, along the line of sight, between
+   * 125 cm above the floor and just below eye level, turned to face the eyes. Its distance (at least
+   * 80 cm) keeps the card within `maxViewShare` of the view's width, so there is a clear margin on
+   * both sides. `halfViewRad` is half the view's horizontal angle.
    */
-  showInFront(eye: vec3, look: vec3, floorY: number): void {
+  showInFront(eye: vec3, look: vec3, floorY: number, halfViewRad: number = (16 * Math.PI) / 180, maxViewShare: number = 0.7): void {
     const flat = new vec3(look.x, 0, look.z)
     const fwd = flat.length > 0.001 ? flat.normalize() : new vec3(0, 0, -1)
     const pitch = Math.asin(Math.max(-1, Math.min(1, look.normalize().y)))
-    const D = 80
-    const horiz = Math.max(60, D * Math.cos(pitch))
-    const y = Math.max(floorY + 90, Math.min(eye.y - 8, eye.y + D * Math.sin(pitch)))
+    const D = Math.max(80, this.cardWidthCm / 2 / Math.tan(halfViewRad * maxViewShare))
+    const horiz = Math.max(0.75 * D, D * Math.cos(pitch))
+    // never lower than 125 cm: clear of the sideboard and low furniture (round 5: the card moved further out)
+    const y = Math.max(floorY + 125, Math.min(eye.y - 8, eye.y + D * Math.sin(pitch)))
     const p = new vec3(eye.x + fwd.x * horiz, y, eye.z + fwd.z * horiz)
     const t = this.getSceneObject().getTransform()
     t.setWorldPosition(p)
     t.setWorldRotation(quat.lookAt(eye.sub(p).normalize(), vec3.up()))
     this.show()
   }
+
+  /** Card width (cm), including its padding. */
+  getCardWidthCm(): number { return this.cardWidthCm }
 
   /** Where the card is (world): for tests and the playthrough. */
   getWorldPosition(): vec3 { return this.getSceneObject().getTransform().getWorldPosition() }
@@ -233,7 +243,7 @@ export class WaterlineLevelCardUI extends BaseScriptComponent {
     f.direction = FlexDirection.Row
     f.alignItems = FlexAlign.Center
     f.justifyContent = FlexJustify.Center
-    f.columnGap = 1.2
+    f.columnGap = BUTTON_GAP_CM
     f.width = rowW
     f.height = this.buttonHeightCm
     const rowItem = row.createComponent(FlexItem.getTypeName()) as FlexItem

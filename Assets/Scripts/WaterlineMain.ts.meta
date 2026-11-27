@@ -33,6 +33,7 @@
     audio: false
     belongingsRoot: false
     body: false
+    cardDelayAfterTicksSeconds: false
     dangerHeightCm: false
     dangerName: false
     debugLogs: false
@@ -75,6 +76,7 @@
       riseSeconds: !<float> 4.000000
       drainSeconds: !<float> 3.000000
       summarySeconds: !<float> 4.000000
+      cardDelayAfterTicksSeconds: !<float> 1.000000
       snapRadiusCm: !<float> 10.000000
       debugLogs: true
   ScriptTypes:
@@ -108,6 +110,7 @@
     - '// @input float riseSeconds = 4 {"hint":"Water rises from the floor over this many seconds", "widget":"slider", "min":1, "max":10, "step":0.5}'
     - '// @input float drainSeconds = 3 {"hint":"Water drains to the floor over this many seconds", "widget":"slider", "min":1, "max":10, "step":0.5}'
     - '// @input float summarySeconds = 4 {"hint":"Summary line stays this many seconds", "widget":"slider", "min":1, "max":10, "step":0.5}'
+    - '// @input float cardDelayAfterTicksSeconds = 1 {"hint":"The river-alert card shows this long after the fifth tick has faded (s)", "widget":"slider", "min":0, "max":3, "step":0.1}'
     - '// @input float snapRadiusCm = 10 {"hint":"Released within this distance of the safe spot, an item snaps into place (cm)", "widget":"slider", "min":2, "max":30, "step":1}'
     - '// @ui {"widget":"group_end"}'
     - '// @ui {"widget":"separator"}'

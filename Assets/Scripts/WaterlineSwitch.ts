@@ -31,6 +31,7 @@ export class WaterlineSwitch extends BaseScriptComponent {
   private interactable!: Interactable
   private armed = false
   private t = 0
+  private glowScale = vec3.one()
   private _onPressed = new Event<void>()
   get onPressed(): PublicApi<void> { return this._onPressed.publicApi() }
 
@@ -41,6 +42,7 @@ export class WaterlineSwitch extends BaseScriptComponent {
     col.shape = shape
     col.fitVisual = false
     this.interactable = this.getSceneObject().createComponent(Interactable.getTypeName()) as Interactable
+    this.glowScale = this.glow.getTransform().getLocalScale() // authored size; the pulse scales this
     this.glow.enabled = false
     this.createEvent("OnStartEvent").bind(() => {
       this.interactable.onTriggerEnd.add(() => {
@@ -55,7 +57,8 @@ export class WaterlineSwitch extends BaseScriptComponent {
       if (!this.armed) return
       this.t += getDeltaTime()
       const s = 1 + 0.06 * Math.sin(this.t * 4)
-      this.glow.getTransform().setLocalScale(new vec3(s, s, 1))
+      // pulse around the authored size (it used to overwrite it with ~1 cm, so the glow never showed)
+      this.glow.getTransform().setLocalScale(new vec3(this.glowScale.x * s, this.glowScale.y * s, this.glowScale.z))
     })
   }
 

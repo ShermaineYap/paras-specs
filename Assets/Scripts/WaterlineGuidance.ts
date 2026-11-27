@@ -62,6 +62,10 @@ export class WaterlineGuidance extends BaseScriptComponent {
   @widget(new SliderWidget(0.5, 6, 0.1))
   edgeInsetCm: number = 1.8
   @input
+  @hint("The edge cue sits this many degrees from the centre of view (round 5: about 12°), never past the view edge")
+  @widget(new SliderWidget(4, 20, 0.5))
+  cueAngleDeg: number = 12
+  @input
   @hint("Side arrow size (cm)")
   @widget(new SliderWidget(1, 6, 0.1))
   arrowSizeCm: number = 2.8
@@ -100,6 +104,7 @@ export class WaterlineGuidance extends BaseScriptComponent {
       const rmv = so.createComponent("Component.RenderMeshVisual") as RenderMeshVisual
       rmv.mesh = this.sphereMesh
       rmv.mainMaterial = this.dotMat
+      rmv.setRenderOrder(970) // after the water (700-850) and the underwater tint (950): always bright amber
       so.enabled = false
       this.dots.push(so)
     }
@@ -250,20 +255,23 @@ export class WaterlineGuidance extends BaseScriptComponent {
       px = (local.x / l) * 1000
       py = (local.y / l) * 1000
     }
-    const ex = halfW - this.edgeInsetCm
-    const ey = halfH - this.edgeInsetCm
+    // the cue sits on a circle `cueAngleDeg` from the centre of view, clamped inside the view edge
+    const R = D * Math.tan((this.cueAngleDeg * Math.PI) / 180)
+    const ex = Math.min(R, halfW - this.edgeInsetCm)
+    const ey = Math.min(R, halfH - this.edgeInsetCm)
     let x: number, y: number, angle: number
     let mode: string
     if (py < -ey && Math.abs(px) <= halfW) {
       mode = "below"
-      // follows the item sideways along the bottom edge
-      const side = Math.max(-0.8 * ex, Math.min(0.8 * ex, px))
+      // below the centre, leaning toward the item's side, on the same ~12° circle as the side arrow
+      const side = Math.max(-0.6 * ex, Math.min(0.6 * ex, px))
       x = side
-      y = -ey
+      y = -Math.min(ey, Math.sqrt(Math.max(0, R * R - side * side)))
       angle = -Math.PI / 2
     } else {
       mode = "side"
-      const k = Math.min(ex / Math.max(0.0001, Math.abs(px)), ey / Math.max(0.0001, Math.abs(py)))
+      const len = Math.max(0.0001, Math.sqrt(px * px + py * py))
+      const k = Math.min(R / len, ex / Math.max(0.0001, Math.abs(px)), ey / Math.max(0.0001, Math.abs(py)))
       x = px * k
       y = py * k
       angle = Math.atan2(py, px)

@@ -79,6 +79,9 @@ export class CameraRig {
   static standingAt(x: number, z: number): vec3 { return new vec3(x, floorY() + 160, z) }
 }
 
+/** Filled in by carryTo while an item is held: was the depth tag drawn at any moment? */
+export const carryWatch = {depthTagSeenWhileHeld: false, heldFrames: 0}
+
 // ---------------- flow helpers (all through SIK via LEAF) ----------------
 
 // LEAF destroys its interactors when each scenario finishes, so create one per scenario.
@@ -113,6 +116,8 @@ export async function readyAtLevelCard(): Promise<void> {
     }
   }
   if (m.getState() !== "choose") throw new Error(`expected state 'choose' after tagging, got '${m.getState()}'`)
+  // the card comes ~1 s after the fifth tick fades
+  if ((await waitUntil(() => m.levelCard.isShown(), 6)) < 0) throw new Error("river-alert card did not appear")
   // face the level card (it appears in front of wherever you were looking)
   CameraRig.lookAt(CameraRig.standingAt(0, 0), m.levelCard.getWorldPosition())
   await sleep(300)
@@ -161,6 +166,8 @@ export async function carryTo(objName: string, targetBase: vec3, tolCm: number =
     const total = remaining.length
     const dir = remaining.normalize()
     const unsub = it.onDragUpdate.add(() => {
+      carryWatch.heldFrames++
+      if (main().hud.isDepthRendered()) carryWatch.depthTagSeenWhileHeld = true
       const s = Math.min(stepLen, Math.max(0, total - moved))
       step.x = dir.x * s
       step.y = dir.y * s

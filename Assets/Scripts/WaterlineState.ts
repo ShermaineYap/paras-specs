@@ -12,10 +12,11 @@ export interface BodyLandmark {
   fraction: number // fraction of current eye height above the floor
 }
 
-/** Brief defaults: ankles 10%, knees 30%, waist 60%, chest 78%, chin 92% of eye height. */
+/** Brief defaults: ankles 10%, knees 30%, waist 60%, chest 78%, chin 92% of eye height; plus hips 50% (round 5). */
 export const DEFAULT_LANDMARKS: BodyLandmark[] = [
   {word: "ankles", fraction: 0.1},
   {word: "knees", fraction: 0.3},
+  {word: "hips", fraction: 0.5},
   {word: "waist", fraction: 0.6},
   {word: "chest", fraction: 0.78},
   {word: "chin", fraction: 0.92},

@@ -6,7 +6,7 @@
 import {Scenario} from "Leaf.lspkg/Scenarios/scenario/Scenario"
 import {expect} from "Leaf.lspkg/Utils/common/Expect"
 import {sleep} from "Leaf.lspkg/Utils/common/Utils"
-import {CameraRig, carryTo, fmt, guidance, item, main, pressLevel, readyAtLevelCard, waitUntil} from "./WaterlineTestKit"
+import {CameraRig, carryTo, carryWatch, fmt, guidance, item, main, pressLevel, readyAtLevelCard, waitUntil} from "./WaterlineTestKit"
 
 @component
 export class WaterlineC4SnapScenario extends Scenario {
@@ -38,7 +38,12 @@ export class WaterlineC4SnapScenario extends Scenario {
       // B. Release within 10 cm of the spot: aim 6 cm off the spot.
       const spot = plug.getSafeSpotWorldPos()
       const near = spot.add(new vec3(6, 0.5, 0))
+      carryWatch.depthTagSeenWhileHeld = false
+      carryWatch.heldFrames = 0
       const errB = await carryTo("Item_ExtensionPlug", near, 1.5)
+      print(`[C4] depth tag while holding the plug up to the cabinet (eye level): drawn=${carryWatch.depthTagSeenWhileHeld} over ${carryWatch.heldFrames} held frames`)
+      expect(carryWatch.heldFrames > 0, "the plug was held").toBe(true)
+      expect(carryWatch.depthTagSeenWhileHeld, "depth tag hidden while carrying").toBe(false)
       const tRelease = getTime()
       await sleep(150)
       const snappedDist = plug.distanceToSafeSpot()

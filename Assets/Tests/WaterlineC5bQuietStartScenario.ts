@@ -7,11 +7,13 @@
  *     its bottom chevron — never the level card, depth tag, summary, water or any other panel.
  *  2. The first tag hides the hint and the chevron; each tick fades within 2 s. From the third tag
  *     on, while anything is still untagged and out of view, the edge cue points to it.
- *  3. After the fifth tag, the level card appears on its own.
+ *  3. About 1 s after the fifth tick fades, the level card appears on its own, with a clear
+ *     margin at both sides of the view.
  */
 import {Scenario} from "Leaf.lspkg/Scenarios/scenario/Scenario"
 import {expect} from "Leaf.lspkg/Utils/common/Expect"
 import {sleep, nextFrame} from "Leaf.lspkg/Utils/common/Utils"
+import WorldCameraFinderProvider from "SpectaclesInteractionKit.lspkg/Providers/CameraProvider/WorldCameraFinderProvider"
 import {CameraRig, guidance, item, ITEM_OBJECTS, main, pinch, waitUntil} from "./WaterlineTestKit"
 
 /** Allowed during the untouched start: the tagging step's first-time guidance. */
@@ -47,6 +49,7 @@ export class WaterlineC5bQuietStartScenario extends Scenario {
     CameraRig.take()
     try {
       let worstTickS = 0
+      let lastFadeAt = 0
       let first = true
       for (const name of ITEM_OBJECTS) {
         if (item(name).tagged) continue
@@ -62,6 +65,7 @@ export class WaterlineC5bQuietStartScenario extends Scenario {
         }
         const shown = item(name).isTickVisible()
         const t = await waitUntil(() => !item(name).isTickVisible(), 3)
+        lastFadeAt = getTime()
         worstTickS = Math.max(worstTickS, t)
         const nTagged = ITEM_OBJECTS.filter((n) => item(n).tagged).length
         const left = ITEM_OBJECTS.filter((n) => !item(n).tagged)
@@ -82,8 +86,19 @@ export class WaterlineC5bQuietStartScenario extends Scenario {
         }
       }
 
-      // ---- 3. the level card, on its own ----
-      await sleep(400)
+      // ---- 3. the level card, on its own, ~1 s after the fifth tick fades ----
+      const cardAtFade = m.levelCard.isRendered()
+      await waitUntil(() => m.levelCard.isRendered(), 5)
+      const cardDelay = getTime() - lastFadeAt
+      const cam = WorldCameraFinderProvider.getInstance().getComponent()
+      const halfView = Math.atan(Math.tan(cam.fov / 2) * cam.aspect)
+      const dist = cam.getTransform().getWorldPosition().distance(m.levelCard.getWorldPosition())
+      const share = Math.atan(m.levelCard.getCardWidthCm() / 2 / dist) / halfView
+      print(`[C5b] card shown ${cardDelay.toFixed(2)} s after the fifth tick faded (shown at the fade: ${cardAtFade}); ${dist.toFixed(0)} cm away, ${(share * 100).toFixed(0)}% of the view's width (${(((1 - share) / 2) * 100).toFixed(0)}% margin each side)`)
+      expect(cardAtFade, "no card the moment the fifth tick fades").toBe(false)
+      expect(cardDelay > 0.7 && cardDelay < 1.6, `card ~1 s after the fifth tick fades (${cardDelay.toFixed(2)} s)`).toBe(true)
+      expect(share <= 0.75, `card leaves a margin at both sides (${(share * 100).toFixed(0)}% of the width)`).toBe(true)
+      await sleep(200)
       const beforeLevel = m.getRenderedLensElements().filter((e) => !e.startsWith("Outline:"))
       print(`[C5b] after tagging, before any level: state=${m.getState()} drawn=[${beforeLevel.join(", ")}]; slowest tick fade ${worstTickS.toFixed(2)} s`)
       expect(beforeLevel.join(","), "only the level card before a level is pressed").toBe("LevelCard")

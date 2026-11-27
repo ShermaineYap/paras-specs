@@ -66,12 +66,19 @@ export class WaterlineBody extends BaseScriptComponent {
   @hint("'Up to your …' when the water is within this many cm of the body landmark")
   @widget(new SliderWidget(0, 15, 0.5))
   upToToleranceCm: number = 5
+  @input
+  @hint("Depth tag follows the head with this soft lag (s, time constant for turning); 0 = rigid")
+  @widget(new SliderWidget(0, 1.5, 0.05))
+  followLagSeconds: number = 0.35
   @ui.group_end
 
   private ring!: SceneObject
   private carrying = false
   private reading: BodyReading = {phrase: "", word: "", underwater: false}
   private eyeCm = 160
+  private hudInit = false
+  private hudYaw = 0
+  private hudPos = vec3.zero()
 
   onAwake() {
     this.ring = global.scene.createSceneObject("HeadRing")
@@ -104,13 +111,16 @@ export class WaterlineBody extends BaseScriptComponent {
 
   /**
    * Depth tag slot: 0 = below-left of centre (default), 1 = below-right, 2 = lower-left, 3 = lower-right.
-   * Picks the first slot whose panel would not cover the dotted line or the pin (in the plane the
-   * tag is drawn in).
+   * Picks the first slot whose panel would not cover the dotted line, the pin or the edge arrow (in
+   * the plane the tag is drawn in).
    */
   private pickDepthSlot(): number {
     const g = this.guidance
-    const tgt = g ? g.getTarget() : null
-    if (!tgt || !g.isDottedLineVisible()) return 0
+    if (!g) return 0
+    const tgt = g.getTarget()
+    const lineOn = !!tgt && g.isDottedLineVisible()
+    const arrowOn = g.isArrowVisible()
+    if (!lineOn && !arrowOn) return 0
     // the tag is drawn in the HUD's frame (at the eyes, yaw only), so test in that frame
     const inv = this.hud.getSceneObject().getTransform().getInvertedWorldTransform()
     const D = this.hud.depthTagDistanceCm
@@ -120,9 +130,24 @@ export class WaterlineBody extends BaseScriptComponent {
       return new vec2((l.x * D) / -l.z, (l.y * D) / -l.z)
     }
     const pts: vec2[] = []
-    for (let i = 0; i <= 30; i++) {
-      const p = toPlane(g.getPathPoint(i / 30))
-      if (p) pts.push(p)
+    if (lineOn) {
+      for (let i = 0; i <= 30; i++) {
+        const p = toPlane(g.getPathPoint(i / 30))
+        if (p) pts.push(p)
+      }
+    }
+    if (arrowOn) {
+      // the edge arrow: its centre and a ring around it (its size, plus a little air)
+      const at = g.edgeArrow.getTransform()
+      const c = at.getWorldPosition()
+      const r = at.getWorldScale().x * 0.9 + 0.5
+      const camT = WorldCameraFinderProvider.getInstance().getComponent().getTransform()
+      for (let k = 0; k <= 8; k++) {
+        const a = (k / 8) * Math.PI * 2
+        const w = k === 8 ? c : c.add(camT.right.uniformScale(Math.cos(a) * r)).add(camT.up.uniformScale(Math.sin(a) * r))
+        const p = toPlane(w)
+        if (p) pts.push(p)
+      }
     }
     for (let slot = 0; slot < 4; slot++) {
       const r = this.hud.getDepthRect(slot)
@@ -164,10 +189,23 @@ export class WaterlineBody extends BaseScriptComponent {
     const pitchDeg = (Math.asin(Math.max(-1, Math.min(1, look.y))) * 180) / Math.PI
     const flat = new vec3(look.x, 0, look.z)
     if (flat.length > 0.001) {
+      // soft lag: the tag eases after the head instead of being glued to it
       const yaw = Math.atan2(-flat.x, -flat.z)
+      const dt = Math.max(0, getDeltaTime())
+      if (!this.hudInit || this.followLagSeconds <= 0 || cam.distance(this.hudPos) > 150) {
+        this.hudInit = true
+        this.hudYaw = yaw
+        this.hudPos = cam
+      } else {
+        let dy = yaw - this.hudYaw
+        while (dy > Math.PI) dy -= 2 * Math.PI
+        while (dy < -Math.PI) dy += 2 * Math.PI
+        this.hudYaw += dy * (1 - Math.exp(-dt / this.followLagSeconds))
+        this.hudPos = vec3.lerp(this.hudPos, cam, 1 - Math.exp(-dt / (this.followLagSeconds * 0.5)))
+      }
       const hudT = this.hud.getSceneObject().getTransform()
-      hudT.setWorldPosition(cam)
-      hudT.setWorldRotation(quat.angleAxis(yaw, vec3.up()))
+      hudT.setWorldPosition(this.hudPos)
+      hudT.setWorldRotation(quat.angleAxis(this.hudYaw, vec3.up()))
     }
     if (up) this.hud.setDepthText(depthTagText(level, this.eyeCm, DEFAULT_LANDMARKS, this.upToToleranceCm))
     if (up) this.hud.setDepthSlot(this.pickDepthSlot())

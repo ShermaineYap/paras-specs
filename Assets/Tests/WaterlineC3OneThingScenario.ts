@@ -50,7 +50,10 @@ export class WaterlineC3OneThingScenario extends Scenario {
         CameraRig.setPose(CameraRig.standingAt(0, -20), 180, 0) // facing away
         await nextFrame(); await nextFrame()
         const awayArrow = g.isArrowVisible()
-        print(`[C3] step ${step + 1}: arrow when facing item=${inViewArrow}, when facing away=${awayArrow}`)
+        const a = g.getArrowLocal()
+        const arrowDeg = (Math.atan2(Math.sqrt(a.x * a.x + a.y * a.y), -a.z) * 180) / Math.PI
+        print(`[C3] step ${step + 1}: arrow when facing item=${inViewArrow}, when facing away=${awayArrow} (${g.getArrowMode()}, ${arrowDeg.toFixed(1)}° from the centre of view)`)
+        if (awayArrow) expect(arrowDeg > 10 && arrowDeg < 14, `step ${step + 1}: arrow about 12° from the centre (${arrowDeg.toFixed(1)}°)`).toBe(true)
         expect(inViewArrow, `step ${step + 1}: no arrow while the item is in view`).toBe(false)
         expect(awayArrow, `step ${step + 1}: arrow while the item is out of view`).toBe(true)
 

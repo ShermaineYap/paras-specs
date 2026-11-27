@@ -44,33 +44,37 @@ export class WaterlineHudUI extends BaseScriptComponent {
   @ui.separator
   @ui.group_start("Settings")
   @input
-  @hint("Depth tag distance in front of the eyes (cm) — brief: about 60")
-  @widget(new SliderWidget(40, 100, 1))
-  depthTagDistanceCm: number = 60
+  @hint("Depth tag distance in front of the eyes (cm) — round 5: about 100")
+  @widget(new SliderWidget(40, 150, 1))
+  depthTagDistanceCm: number = 100
   @input
   @hint("How far below eye level the depth tag sits (cm)")
   @widget(new SliderWidget(0, 30, 0.5))
-  depthTagDropCm: number = 7
+  depthTagDropCm: number = 12
   @input
   @hint("Sideways offset of the depth tag (cm, negative = left of centre)")
-  @widget(new SliderWidget(-15, 15, 0.5))
-  depthTagOffsetXCm: number = -7
+  @widget(new SliderWidget(-25, 25, 0.5))
+  depthTagOffsetXCm: number = -12
   @input
-  @hint("Depth tag size relative to the original panel (0.7 = 30% smaller)")
-  @widget(new SliderWidget(0.4, 1.2, 0.05))
-  depthTagScale: number = 0.7
-  @input("vec4", "{0.42, 0.58, 0.72, 0.55}")
-  @hint("Depth tag panel colour (light and see-through, so it never hides what is behind it)")
+  @hint("Depth tag size (physical, relative to the round-1 panel at 60 cm). 1.63 at 100 cm = text about 40% larger to the eye than the round-2 tag (0.7 at 60 cm)")
+  @widget(new SliderWidget(0.4, 3, 0.01))
+  depthTagScale: number = 1.63
+  @input("vec4", "{0.05, 0.08, 0.11, 0.88}")
+  @hint("Depth tag panel colour (round 5: a dark plate behind light text)")
   @widget(new ColorWidget())
-  depthPlateColor: vec4 = new vec4(0.42, 0.58, 0.72, 0.55)
+  depthPlateColor: vec4 = new vec4(0.05, 0.08, 0.11, 0.88)
+  @input("vec4", "{0.42, 0.58, 0.72, 0.55}")
+  @hint("First-time hint panel colour (light and see-through)")
+  @widget(new ColorWidget())
+  hintPlateColor: vec4 = new vec4(0.42, 0.58, 0.72, 0.55)
   @input
   @hint("Summary line distance in front of the eyes (cm)")
   @widget(new SliderWidget(40, 120, 1))
   summaryDistanceCm: number = 75
-  @input("vec4", "{0.8, 0.97, 1.0, 1.0}")
+  @input("vec4", "{0.93, 0.99, 1.0, 1.0}")
   @hint("Depth tag text colour (keep light)")
   @widget(new ColorWidget())
-  depthTextColor: vec4 = new vec4(0.8, 0.97, 1.0, 1.0)
+  depthTextColor: vec4 = new vec4(0.93, 0.99, 1.0, 1.0)
   @input
   @hint("First-time hint shown before the first tag")
   hintText: string = "Look down. Pinch the things you'd save."
@@ -125,7 +129,7 @@ export class WaterlineHudUI extends BaseScriptComponent {
       d.bind(() => {
         this.started = true
         this.lightenPlate(this.depthPlate, this.depthPlateColor)
-        this.lightenPlate(this.hintPlate, this.depthPlateColor)
+        this.lightenPlate(this.hintPlate, this.hintPlateColor)
         // body-relative panels are drawn on top of everything (like the edge arrow), so furniture
         // never cuts them off when you stand close to it
         for (const p of [this.depthPlate, this.hintPlate, this.summaryPlate]) this.drawOnTop(p)
@@ -171,8 +175,8 @@ export class WaterlineHudUI extends BaseScriptComponent {
     const y = -this.depthTagDropCm
     switch (slot) {
       case 1: return new vec2(x, y)
-      case 2: return new vec2(-x * 1.3, y - 5)
-      case 3: return new vec2(x * 1.3, y - 5)
+      case 2: return new vec2(-x * 1.3, y - 5 * (this.depthTagDistanceCm / 60))
+      case 3: return new vec2(x * 1.3, y - 5 * (this.depthTagDistanceCm / 60))
       default: return new vec2(-x, y)
     }
   }

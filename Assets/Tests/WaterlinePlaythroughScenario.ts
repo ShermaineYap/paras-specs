@@ -9,7 +9,9 @@
  * checkpoint, and reach (distance, height) is logged for every pinch, grab and drop.
  *
  * Parameters: level = Danger | Alert | Warning; stopAt = a checkpoint id to stop and hold at
- * (camera kept, LEAF hands hidden) for a screenshot, or "none" to play to the end.
+ * (camera kept, LEAF hands hidden) for a screenshot, or "none" to play to the end;
+ * view = how to frame the held view: "none" (as played), "look:<SceneObjectName>" (stay, look at it)
+ * or "x,z,yaw,pitch[,eyeCm]" (stand there: yaw 0 = facing -Z, +90 = facing -X; pitch + = up).
  * Output: "[Play]" lines — a step timeline, PROBLEM lines (with the checkpoint to stop at), and a
  * final timing table.
  */
@@ -20,7 +22,7 @@ import {findInteractableByName} from "Leaf.lspkg/Interactors/InteractableUtils"
 import {LeafHandInteractor} from "Leaf.lspkg/Interactors/interactor/LeafTwoHandInteractor"
 import WorldCameraFinderProvider from "SpectaclesInteractionKit.lspkg/Providers/CameraProvider/WorldCameraFinderProvider"
 import {BackPlate} from "SpectaclesUIKit.lspkg/Scripts/BackPlate"
-import {CameraRig, floorY, guidance, item, ITEM_OBJECTS, main, pinch, waitUntil} from "./WaterlineTestKit"
+import {CameraRig, floorY, guidance, item, ITEM_OBJECTS, main, pinch, waitUntil, water} from "./WaterlineTestKit"
 import {WaterlineBelonging} from "../Scripts/WaterlineBelonging"
 
 const TURN_DEG_PER_S = 120
@@ -36,6 +38,7 @@ type Rect = {name: string; x0: number; y0: number; x1: number; y1: number}
 export class WaterlinePlaythroughScenario extends Scenario {
   private level = "Danger"
   private stopAt = "none"
+  private view = "none"
   private t0 = 0
   private stepStart = 0
   private steps: string[] = []
@@ -49,6 +52,7 @@ export class WaterlinePlaythroughScenario extends Scenario {
   async run(config?: ScenarioConfig): Promise<void> {
     this.level = (config && config.get("level")) || "Danger"
     this.stopAt = (config && config.get("stopAt")) || "none"
+    this.view = (config && config.get("view")) || "none"
     print(`[Play] ===== first-time playthrough at ${this.level} (stopAt=${this.stopAt}) =====`)
     print(`[Play] pace model: turn ${TURN_DEG_PER_S}°/s, walk ${WALK_CM_PER_S / 100} m/s, react ${REACT_S} s, search +${SEARCH_S} s`)
     await sleep(1000)
@@ -95,10 +99,18 @@ export class WaterlinePlaythroughScenario extends Scenario {
     const lowC = this.centroid(low.map((n) => item(n).getCenterWorldPos()))
     await this.lookAt(lowC)
     await this.checkpoint("looked-down")
+    let k0 = 0
     for (const n of low) {
       if (!this.inView(item(n).getCenterWorldPos())) await this.lookAt(item(n).getCenterWorldPos())
       await this.reachLog(`pinch ${item(n).displayName}`, item(n).getCenterWorldPos())
       await pinch(n)
+      k0++
+      if (k0 === 1) await this.checkpoint("tag1")
+      if (k0 === 2 && this.stopAt === "quiet") {
+        // screenshot runs only: two tagged, ticks faded, nothing from the Lens on screen
+        await waitUntil(() => !ITEM_OBJECTS.some((x) => item(x).isTickVisible()), 4)
+        await this.checkpoint("quiet")
+      }
       await sleep(400)
     }
     await this.checkpoint("tagged-low")
@@ -125,10 +137,13 @@ export class WaterlinePlaythroughScenario extends Scenario {
     await this.checkpoint("tagged-all")
 
     // ---- the river-alert card ----
+    // the card comes ~1 s after the fifth tick fades
+    const waited = await waitUntil(() => m.levelCard.isRendered(), 6)
+    if (waited < 0) this.problem("tagged-all", "the river-alert card did not appear after the fifth tag")
+    else print(`[Play] ${this.now()} the river-alert card appeared ${waited.toFixed(1)} s after the fifth pinch`)
     await sleep(REACT_S * 1000)
     const card = findSceneObjectByName("LevelCardPanel")
     const cardPos = card.getTransform().getWorldPosition()
-    if (!m.levelCard.isRendered()) this.problem("tagged-all", "the river-alert card did not appear after the fifth tag")
     if (!this.inView(cardPos)) {
       this.problem("tagged-all", `the river-alert card appeared ${this.angleTo(cardPos).toFixed(0)}° away from where I am looking (it stays where the start view was), and nothing points to it`)
       await this.search()
@@ -150,6 +165,8 @@ export class WaterlinePlaythroughScenario extends Scenario {
     // watch the water come up, looking level (the brief's "seeing the water" look)
     await this.lookAt(this.pos.add(this.flatForward().uniformScale(200)).add(new vec3(0, -10, 0)))
     await this.checkpoint("rising")
+    await waitUntil(() => water().getLevelCm() >= 0.5 * m.levelHeightFor(this.level), 8)
+    await this.checkpoint("half")
     await waitUntil(() => m.getState() === "lifting" || m.getState() === "allSafe", 8)
     this.step(`water rising to ${m.getLevelCm()} cm`)
     await this.checkpoint("risen")
@@ -396,6 +413,16 @@ export class WaterlinePlaythroughScenario extends Scenario {
     }
     print(`[Play] ${this.now()} checkpoint ${id}: drawn [${drawn.join(", ")}]`)
     if (id === this.stopAt) {
+      // screenshot runs only: hold the water where it is, so a mid-rise shot shows mid-rise
+      // (a very slow animation to the same level: the rise stays "in progress", so nothing else lights up)
+      if (id === "half") water().animateTo(water().getLevelCm(), 1000)
+      // ...and keep a just-snapped item green (the green would fade, and the next light up, within ~1 s)
+      if (id === "summary") main().summarySeconds = 1000 // keep the summary line up for its shot
+      if (id.endsWith("-placed")) {
+        guidance().greenSeconds = 1000
+        main().holdNextForScreenshot()
+      }
+      this.applyView()
       await LeafHandInteractor.get("right").hand.hide()
       await LeafHandInteractor.get("left").hand.hide()
       const hv = findSceneObjectByName("HandVisuals")
@@ -403,8 +430,26 @@ export class WaterlinePlaythroughScenario extends Scenario {
       // screenshot runs only: hide LEAF's own on-screen log (its "PASSED" banner)
       const leafLog = findSceneObjectByName("LeafDebugUICamera")
       if (leafLog) leafLog.enabled = false
-      await sleep(600)
+      // let the depth tag's soft follow settle (a tick fades within 2 s and the green within ~1.4 s,
+      // so those shots are taken sooner)
+      await sleep(id === "tag1" || id.endsWith("-placed") ? 100 : 1200)
       throw new StopHere()
+    }
+  }
+
+  /** Frame the held view for a screenshot (see the `view` parameter). */
+  private applyView(): void {
+    const v = this.view
+    if (!v || v === "none") return
+    if (v.indexOf("look:") === 0) {
+      const so = findSceneObjectByName(v.substring(5))
+      if (so) CameraRig.lookAt(CameraRig.position(), so.getTransform().getWorldPosition())
+      return
+    }
+    const n = v.split(",").map((s) => parseFloat(s))
+    if (n.length >= 4) {
+      const eye = n.length >= 5 ? n[4] : 160
+      CameraRig.setPose(new vec3(n[0], floorY() + eye, n[1]), n[2], n[3])
     }
   }
 

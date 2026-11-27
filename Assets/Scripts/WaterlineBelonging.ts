@@ -96,6 +96,11 @@ export class WaterlineBelonging extends BaseScriptComponent {
 
     this.outlineMat = tintedMaterial(this.glowMaterial, new vec4(1, 0.72, 0.2, 1))
     this.outline = buildOutline(this.getSceneObject(), new vec3(this.sizeCm.x + 3, this.sizeCm.y + 3, this.sizeCm.z + 3), 0.7, this.boxMesh, this.outlineMat)
+    // drawn after the water (700-850) and the underwater tint (950), so the outline stays bright amber
+    for (let i = 0; i < this.outline.getChildrenCount(); i++) {
+      const r = this.outline.getChild(i).getComponent("Component.RenderMeshVisual") as RenderMeshVisual
+      if (r) r.setRenderOrder(970)
+    }
     this.outline.enabled = false
 
     this.tickMat = tintedMaterial(this.glowMaterial, this.tickColor)

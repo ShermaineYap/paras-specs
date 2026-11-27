@@ -100,6 +100,10 @@ export class WaterlineMain extends BaseScriptComponent {
   @widget(new SliderWidget(1, 10, 0.5))
   summarySeconds: number = 4
   @input
+  @hint("The river-alert card shows this long after the fifth tick has faded (s)")
+  @widget(new SliderWidget(0, 3, 0.1))
+  cardDelayAfterTicksSeconds: number = 1.0
+  @input
   @hint("Released within this distance of the safe spot, an item snaps into place (cm)")
   @widget(new SliderWidget(2, 30, 1))
   snapRadiusCm: number = 10
@@ -120,6 +124,8 @@ export class WaterlineMain extends BaseScriptComponent {
   private timer = 0
   private anchored = false
   private pendingNextAt = -1
+  private cardPending = false
+  private cardTicksGoneAt = -1
   private awakeAt = 0
   private watchFrames = 0
   private watchFirstFrameS = -1
@@ -156,6 +162,14 @@ export class WaterlineMain extends BaseScriptComponent {
 
   getState(): RunState { return this.state }
   getLevelCm(): number { return this.levelCm }
+  /** Screenshot runs only: hold the current moment (the next item does not light up). */
+  holdNextForScreenshot(): void { this.pendingNextAt = -1 }
+
+  /** In-room height (cm) for a level name (Alert / Warning / Danger). */
+  levelHeightFor(name: string): number {
+    const i = this.levelNames().indexOf(name)
+    return i >= 0 ? this.levelHeights()[i] : 0
+  }
   getItems(): WaterlineBelonging[] { return this.items }
   getFlaggedNames(): string[] { return this.flagged.map((b) => b.displayName) }
   getTargetName(): string { const t = this.guidance.getTarget(); return t ? t.displayName : "" }
@@ -169,6 +183,7 @@ export class WaterlineMain extends BaseScriptComponent {
     const out: string[] = []
     if (this.levelCard.isShown()) out.push("LevelCard")
     if (this.water.isUp()) out.push("Water")
+    if (this.water.isHistoryMarkRendered()) out.push("HistoryMark")
     if (this.body.isRingVisible()) out.push("Ring")
     if (this.hud.isDepthVisible()) out.push("DepthTag")
     if (this.hud.isSummaryVisible()) out.push("Summary")
@@ -193,6 +208,7 @@ export class WaterlineMain extends BaseScriptComponent {
     const out: string[] = []
     if (this.levelCard.isRendered()) out.push("LevelCard")
     if (this.water.isSurfaceRendered()) out.push("Water")
+    if (this.water.isHistoryMarkRendered()) out.push("HistoryMark")
     if (this.body.isRingVisible()) out.push("Ring")
     if (this.hud.isDepthRendered()) out.push("DepthTag")
     if (this.hud.isSummaryRendered()) out.push("Summary")
@@ -248,6 +264,8 @@ export class WaterlineMain extends BaseScriptComponent {
     this.guidance.clearAll(this.items)
     this.mainsSwitch.setArmed(false)
     this.hud.hideSummary()
+    this.water.setHistoryMark(false)
+    this.cardPending = false
     this.body.setCarrying(false)
     for (const it of this.items) it.resetHome()
     this.flagged = []
@@ -267,7 +285,9 @@ export class WaterlineMain extends BaseScriptComponent {
   private showCardInFront(): void {
     const camT = WorldCameraFinderProvider.getInstance().getComponent().getTransform()
     const floorY = this.water.getSceneObject().getTransform().getWorldPosition().y
-    this.levelCard.showInFront(camT.getWorldPosition(), camT.forward.uniformScale(-1), floorY)
+    const cam = WorldCameraFinderProvider.getInstance().getComponent()
+    const halfView = Math.atan(Math.tan(cam.fov / 2) * cam.aspect)
+    this.levelCard.showInFront(camT.getWorldPosition(), camT.forward.uniformScale(-1), floorY, halfView)
   }
 
   /** First-time guidance: the hint line and the chevron toward the belongings. Off after the first tag. */
@@ -291,7 +311,9 @@ export class WaterlineMain extends BaseScriptComponent {
     if (first) this.log(`tagged ${b.displayName}`)
     if (this.state === "tagging" && this.items.every((i) => i.tagged)) {
       this.setState("choose")
-      this.showCardInFront()
+      // the river-alert card comes ~1 s after the fifth tick has faded (see update())
+      this.cardPending = true
+      this.cardTicksGoneAt = -1
     }
   }
 
@@ -304,6 +326,8 @@ export class WaterlineMain extends BaseScriptComponent {
     this.runStart = getTime()
     this.water.animateTo(this.levelCm, this.riseSeconds)
     this.water.setRain(true)
+    // at Danger only: the reported 2021 depth on the wall
+    this.water.setHistoryMark(index === 2, this.dangerHeightCm)
     this.setState("rising")
   }
 
@@ -356,6 +380,18 @@ export class WaterlineMain extends BaseScriptComponent {
     if (!this.anchored) this.anchorToFloor()
     const dt = getDeltaTime()
 
+    if (this.state === "choose" && this.cardPending) {
+      if (this.items.some((i) => i.isTickVisible())) {
+        this.cardTicksGoneAt = -1
+      } else if (this.cardTicksGoneAt < 0) {
+        this.cardTicksGoneAt = getTime()
+      } else if (getTime() - this.cardTicksGoneAt >= this.cardDelayAfterTicksSeconds) {
+        this.cardPending = false
+        this.showCardInFront()
+        this.log("river-alert card shown")
+      }
+    }
+
     if (this.state === "rising" && !this.water.isAnimating()) {
       this.lightNext()
     }
@@ -374,6 +410,7 @@ export class WaterlineMain extends BaseScriptComponent {
       this.timer += dt
       if (this.timer >= this.summarySeconds) {
         this.hud.hideSummary()
+        this.water.setHistoryMark(false)
         for (const it of this.items) it.resetHome()
         this.guidance.clearAll(this.items)
         this.showCardInFront()
