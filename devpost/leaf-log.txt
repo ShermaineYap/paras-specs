@@ -1,0 +1,701 @@
+Waterline: raw LEAF output, round 5 final run (27 November 2026)
+Lens Studio 5.23.2 preview, SPECS 27 device, "Plane" environment, Start camera (eyes 160 cm).
+Each block below is one scenario run, copied from the Lens Studio log as it finished:
+the scenario's own lines, the Lens's [Waterline] lines and LEAF's result line.
+Only the Lens Studio C++ source prefix is removed from each line.
+
+==================== c5b-quiet-before-level ====================
+I 17:21:25.158 Lens has been reset
+I 17:21:25.169 Lens has been reset
+I 17:21:25.444 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.072s]Register scenario: c5b-quiet-before-level
+I 17:21:25.445 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.072s]Register scenario: c1-levels
+I 17:21:25.445 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.073s]Register scenario: c2-body
+I 17:21:25.445 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.073s]Register scenario: c3-one-thing
+I 17:21:25.445 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.073s]Register scenario: c4-snap
+I 17:21:25.445 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.073s]Register scenario: c5-ending
+I 17:21:25.445 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.073s]Register scenario: playthrough
+I 17:21:25.445 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] found 5 belongings
+I 17:21:25.643 ${CONFIG_DIR}/Bundle/Plugins/[ChatTool] LEAF Plugin@5.23.0@362f6c78a8b5e47e6431049afb6a7109/dist/main.js:805 log] [LeafPlugin][PluginViewModel] Running scenario: c5b-quiet-before-level
+I 17:21:25.663 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.000s]RUNS: c5b-quiet-before-level with args: []
+I 17:21:25.663 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.000s]Running with runner config: {"__leaf__log_level":"INFO","__leaf__timeout_secs":"600","__leaf__diagnostic_policy":"fallback","__leaf__diagnostic_report_duration_ms":"0"}
+I 17:21:33.560 [Preview 1] [Assets/Tests/WaterlineC5bQuietStartScenario.ts:31] [C5b] start watch: 357 frames sampled, first at 0.000 s after start
+I 17:21:33.562 [Preview 1] [Assets/Tests/WaterlineC5bQuietStartScenario.ts:32] [C5b]   0.00 s []
+I 17:21:33.562 [Preview 1] [Assets/Tests/WaterlineC5bQuietStartScenario.ts:32] [C5b]   0.09 s [StartChevron]
+I 17:21:33.562 [Preview 1] [Assets/Tests/WaterlineC5bQuietStartScenario.ts:32] [C5b]   0.16 s [StartHint, StartChevron]
+I 17:21:33.562 [Preview 1] [Assets/Tests/WaterlineC5bQuietStartScenario.ts:36] [C5b]   drawn StartChevron: 356 frames, 0.09–7.99 s
+I 17:21:33.562 [Preview 1] [Assets/Tests/WaterlineC5bQuietStartScenario.ts:36] [C5b]   drawn StartHint: 353 frames, 0.16–7.99 s
+I 17:21:33.696 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Extension plug
+I 17:21:33.916 [Preview 1] [Assets/Tests/WaterlineC5bQuietStartScenario.ts:62] [C5b] after the first tag, guidance still drawn: []
+I 17:21:35.590 [Preview 1] [Assets/Tests/WaterlineC5bQuietStartScenario.ts:80] [C5b] tagged Item_ExtensionPlug: tick shown=true, faded after 1.67 s; other Lens elements: []
+I 17:21:35.709 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged School bag
+I 17:21:37.622 [Preview 1] [Assets/Tests/WaterlineC5bQuietStartScenario.ts:80] [C5b] tagged Item_SchoolBag: tick shown=true, faded after 1.67 s; other Lens elements: []
+I 17:21:37.765 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Rice cooker
+I 17:21:39.673 [Preview 1] [Assets/Tests/WaterlineC5bQuietStartScenario.ts:75] [C5b] after tag 3: 2 untagged, out of view; cue drawn=true (side)
+I 17:21:39.673 [Preview 1] [Assets/Tests/WaterlineC5bQuietStartScenario.ts:80] [C5b] tagged Item_RiceCooker: tick shown=true, faded after 1.67 s; other Lens elements: []
+I 17:21:39.804 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Photo album
+I 17:21:41.702 [Preview 1] [Assets/Tests/WaterlineC5bQuietStartScenario.ts:75] [C5b] after tag 4: 1 untagged, out of view; cue drawn=true (side)
+I 17:21:41.703 [Preview 1] [Assets/Tests/WaterlineC5bQuietStartScenario.ts:80] [C5b] tagged Item_PhotoAlbum: tick shown=true, faded after 1.66 s; other Lens elements: []
+I 17:21:41.830 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged IC and document folder
+I 17:21:41.831 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state tagging -> choose
+I 17:21:43.733 [Preview 1] [Assets/Tests/WaterlineC5bQuietStartScenario.ts:80] [C5b] tagged Item_ICFolder: tick shown=true, faded after 1.66 s; other Lens elements: []
+I 17:21:44.772 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] river-alert card shown
+I 17:21:44.773 [Preview 1] [Assets/Tests/WaterlineC5bQuietStartScenario.ts:97] [C5b] card shown 1.05 s after the fifth tick faded (shown at the fade: false); 101 cm away, 71% of the view's width (15% margin each side)
+I 17:21:45.019 [Preview 1] [Assets/Tests/WaterlineC5bQuietStartScenario.ts:103] [C5b] after tagging, before any level: state=choose drawn=[LevelCard]; slowest tick fade 1.67 s
+I 17:21:45.020 [Preview 1] [Assets/Tests/WaterlineC5bQuietStartScenario.ts:105] [C5b] PASS
+I 17:21:45.029 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [ 19.366s]PASSED: c5b-quiet-before-level
+I 17:21:45.030 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [ 19.367s][c5b-quiet-before-level] PASSED
+I 17:21:45.033 ${CONFIG_DIR}/Bundle/Plugins/[ChatTool] LEAF Plugin@5.23.0@362f6c78a8b5e47e6431049afb6a7109/dist/main.js:805 log] [LeafPlugin][PluginViewModel] ✅ Scenario c5b-quiet-before-level completed successfully.
+
+==================== c1-levels ====================
+I 17:21:55.896 Lens has been reset
+I 17:21:55.916 Lens has been reset
+I 17:21:56.350 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.082s]Register scenario: c5b-quiet-before-level
+I 17:21:56.350 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.082s]Register scenario: c1-levels
+I 17:21:56.350 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.082s]Register scenario: c2-body
+I 17:21:56.350 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.082s]Register scenario: c3-one-thing
+I 17:21:56.350 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.082s]Register scenario: c4-snap
+I 17:21:56.350 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.082s]Register scenario: c5-ending
+I 17:21:56.350 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.082s]Register scenario: playthrough
+I 17:21:56.351 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] found 5 belongings
+I 17:21:56.556 ${CONFIG_DIR}/Bundle/Plugins/[ChatTool] LEAF Plugin@5.23.0@362f6c78a8b5e47e6431049afb6a7109/dist/main.js:805 log] [LeafPlugin][PluginViewModel] Running scenario: c1-levels
+I 17:21:56.577 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.000s]RUNS: c1-levels with args: []
+I 17:21:56.577 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.000s]Running with runner config: {"__leaf__log_level":"INFO","__leaf__timeout_secs":"600","__leaf__diagnostic_policy":"fallback","__leaf__diagnostic_report_duration_ms":"0"}
+I 17:21:58.541 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Extension plug
+I 17:21:58.867 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged School bag
+I 17:21:59.219 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Rice cooker
+I 17:21:59.574 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Photo album
+I 17:21:59.909 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged IC and document folder
+I 17:21:59.909 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state tagging -> choose
+I 17:22:02.833 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] river-alert card shown
+I 17:22:03.297 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] level Danger 150 cm flags [Extension plug, School bag, Rice cooker, Photo album, IC and document folder]
+I 17:22:03.298 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state choose -> rising
+I 17:22:07.390 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: Extension plug
+I 17:22:07.390 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state rising -> lifting
+I 17:22:07.746 [Preview 1] [Assets/Tests/WaterlineC1LevelsScenario.ts:31] [C1] Danger: reached 150±2 cm after 3.70 s; final surface 150.00 cm above floor; flagged 5: [Extension plug, School bag, Rice cooker, Photo album, IC and document folder]
+I 17:22:07.747 [Preview 1] [Assets/Tests/WaterlineC1LevelsScenario.ts:39] [C1] Danger: "Dec 2021, reported 1.5 m" wall mark drawn=true
+I 17:22:07.748 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state lifting -> choose
+I 17:22:08.458 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] level Alert 30 cm flags [Extension plug, School bag]
+I 17:22:08.459 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state choose -> rising
+I 17:22:12.515 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: Extension plug
+I 17:22:12.516 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state rising -> lifting
+I 17:22:12.864 [Preview 1] [Assets/Tests/WaterlineC1LevelsScenario.ts:31] [C1] Alert: reached 30±2 cm after 3.35 s; final surface 30.00 cm above floor; flagged 2: [Extension plug, School bag]
+I 17:22:12.865 [Preview 1] [Assets/Tests/WaterlineC1LevelsScenario.ts:39] [C1] Alert: "Dec 2021, reported 1.5 m" wall mark drawn=false
+I 17:22:12.867 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state lifting -> choose
+I 17:22:13.614 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] level Warning 80 cm flags [Extension plug, School bag, Rice cooker]
+I 17:22:13.614 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state choose -> rising
+I 17:22:17.685 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: Extension plug
+I 17:22:17.685 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state rising -> lifting
+I 17:22:18.036 [Preview 1] [Assets/Tests/WaterlineC1LevelsScenario.ts:31] [C1] Warning: reached 80±2 cm after 3.59 s; final surface 80.00 cm above floor; flagged 3: [Extension plug, School bag, Rice cooker]
+I 17:22:18.038 [Preview 1] [Assets/Tests/WaterlineC1LevelsScenario.ts:39] [C1] Warning: "Dec 2021, reported 1.5 m" wall mark drawn=false
+I 17:22:18.362 [Preview 1] [Assets/Tests/WaterlineC1LevelsScenario.ts:45] [C1] Warning, standing (eyes 160 cm): "Water here: 80 cm, up to your hips"
+I 17:22:18.362 [Preview 1] [Assets/Tests/WaterlineC1LevelsScenario.ts:52] [C1] PASS
+I 17:22:18.364 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state lifting -> choose
+I 17:22:18.367 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [ 21.790s]PASSED: c1-levels
+I 17:22:18.367 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [ 21.790s][c1-levels] PASSED
+I 17:22:18.368 ${CONFIG_DIR}/Bundle/Plugins/[ChatTool] LEAF Plugin@5.23.0@362f6c78a8b5e47e6431049afb6a7109/dist/main.js:805 log] [LeafPlugin][PluginViewModel] ✅ Scenario c1-levels completed successfully.
+
+==================== c2-body ====================
+I 17:22:26.610 Lens has been reset
+I 17:22:26.627 Lens has been reset
+I 17:22:27.000 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.078s]Register scenario: c5b-quiet-before-level
+I 17:22:27.000 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.078s]Register scenario: c1-levels
+I 17:22:27.000 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.078s]Register scenario: c2-body
+I 17:22:27.000 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.078s]Register scenario: c3-one-thing
+I 17:22:27.000 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.078s]Register scenario: c4-snap
+I 17:22:27.000 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.078s]Register scenario: c5-ending
+I 17:22:27.000 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.078s]Register scenario: playthrough
+I 17:22:27.001 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] found 5 belongings
+I 17:22:27.231 ${CONFIG_DIR}/Bundle/Plugins/[ChatTool] LEAF Plugin@5.23.0@362f6c78a8b5e47e6431049afb6a7109/dist/main.js:805 log] [LeafPlugin][PluginViewModel] Running scenario: c2-body
+I 17:22:27.258 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.000s]RUNS: c2-body with args: []
+I 17:22:27.258 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.001s]Running with runner config: {"__leaf__log_level":"INFO","__leaf__timeout_secs":"600","__leaf__diagnostic_policy":"fallback","__leaf__diagnostic_report_duration_ms":"0"}
+I 17:22:29.218 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Extension plug
+I 17:22:29.551 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged School bag
+I 17:22:29.904 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Rice cooker
+I 17:22:30.259 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Photo album
+I 17:22:30.604 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged IC and document folder
+I 17:22:30.604 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state tagging -> choose
+I 17:22:33.578 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] river-alert card shown
+I 17:22:34.051 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] level Danger 150 cm flags [Extension plug, School bag, Rice cooker, Photo album, IC and document folder]
+I 17:22:34.052 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state choose -> rising
+I 17:22:38.103 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: Extension plug
+I 17:22:38.103 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state rising -> lifting
+I 17:22:42.680 [Preview 1] [Assets/Tests/WaterlineC2BodyScenario.ts:39] [C2] walk 200 cm sideways: worst ring offset from under head = 0.00 cm; ring 0.30 cm from surface
+I 17:22:42.982 [Preview 1] [Assets/Tests/WaterlineC2BodyScenario.ts:48] [C2] standing (eyes 160.0 cm): "Water here: 150 cm, up to your chin" visible=true
+I 17:22:43.294 [Preview 1] [Assets/Tests/WaterlineC2BodyScenario.ts:62] [C2] crouch (eyes 140.0 cm, 10 cm under): tint+muffle on after 0.089 s; tag "Water here: 150 cm, over your head"
+I 17:22:43.399 [Preview 1] [Assets/Tests/WaterlineC2BodyScenario.ts:71] [C2] stand up: tint+muffle off after 0.104 s; floor y=-160.0
+I 17:22:43.399 [Preview 1] [Assets/Tests/WaterlineC2BodyScenario.ts:74] [C2] PASS
+I 17:22:43.402 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state lifting -> choose
+I 17:22:43.404 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [ 16.147s]PASSED: c2-body
+I 17:22:43.404 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [ 16.147s][c2-body] PASSED
+I 17:22:43.405 ${CONFIG_DIR}/Bundle/Plugins/[ChatTool] LEAF Plugin@5.23.0@362f6c78a8b5e47e6431049afb6a7109/dist/main.js:805 log] [LeafPlugin][PluginViewModel] ✅ Scenario c2-body completed successfully.
+
+==================== c3-one-thing ====================
+I 17:22:53.521 Lens has been reset
+I 17:22:53.549 Lens has been reset
+I 17:22:54.041 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: c5b-quiet-before-level
+I 17:22:54.041 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: c1-levels
+I 17:22:54.041 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: c2-body
+I 17:22:54.041 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: c3-one-thing
+I 17:22:54.041 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: c4-snap
+I 17:22:54.041 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: c5-ending
+I 17:22:54.041 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: playthrough
+I 17:22:54.042 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] found 5 belongings
+I 17:22:54.269 ${CONFIG_DIR}/Bundle/Plugins/[ChatTool] LEAF Plugin@5.23.0@362f6c78a8b5e47e6431049afb6a7109/dist/main.js:805 log] [LeafPlugin][PluginViewModel] Running scenario: c3-one-thing
+I 17:22:54.301 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.000s]RUNS: c3-one-thing with args: []
+I 17:22:54.301 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.000s]Running with runner config: {"__leaf__log_level":"INFO","__leaf__timeout_secs":"600","__leaf__diagnostic_policy":"fallback","__leaf__diagnostic_report_duration_ms":"0"}
+I 17:22:56.267 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Extension plug
+I 17:22:56.598 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged School bag
+I 17:22:56.949 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Rice cooker
+I 17:22:57.326 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Photo album
+I 17:22:57.663 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged IC and document folder
+I 17:22:57.663 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state tagging -> choose
+I 17:23:00.593 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] river-alert card shown
+I 17:23:01.056 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] level Danger 150 cm flags [Extension plug, School bag, Rice cooker, Photo album, IC and document folder]
+I 17:23:01.057 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state choose -> rising
+I 17:23:05.152 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: Extension plug
+I 17:23:05.152 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state rising -> lifting
+I 17:23:05.467 [Preview 1] [Assets/Tests/WaterlineC3OneThingScenario.ts:37] [C3] step 1: amber=[Item_ExtensionPlug] pins=[Item_ExtensionPlug] dotted=true target=Item_ExtensionPlug lowest-below-water=Item_ExtensionPlug
+I 17:23:05.770 [Preview 1] [Assets/Tests/WaterlineC3OneThingScenario.ts:55] [C3] step 1: arrow when facing item=false, when facing away=true (side, 12.0° from the centre of view)
+I 17:23:10.458 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 94.8 cm from its safe spot
+I 17:23:14.210 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 49.8 cm from its safe spot
+I 17:23:18.277 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 0.0 cm from its safe spot
+I 17:23:19.339 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: School bag
+I 17:23:20.751 [Preview 1] [Assets/Tests/WaterlineC3OneThingScenario.ts:37] [C3] step 2: amber=[Item_SchoolBag] pins=[Item_SchoolBag] dotted=true target=Item_SchoolBag lowest-below-water=Item_SchoolBag
+I 17:23:21.066 [Preview 1] [Assets/Tests/WaterlineC3OneThingScenario.ts:55] [C3] step 2: arrow when facing item=false, when facing away=true (below, 12.0° from the centre of view)
+I 17:23:26.041 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 119.1 cm from its safe spot
+I 17:23:30.115 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 59.1 cm from its safe spot
+I 17:23:33.881 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 5.1 cm from its safe spot
+I 17:23:34.953 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: Rice cooker
+I 17:23:36.262 [Preview 1] [Assets/Tests/WaterlineC3OneThingScenario.ts:37] [C3] step 3: amber=[Item_RiceCooker] pins=[Item_RiceCooker] dotted=true target=Item_RiceCooker lowest-below-water=Item_RiceCooker
+I 17:23:36.574 [Preview 1] [Assets/Tests/WaterlineC3OneThingScenario.ts:55] [C3] step 3: arrow when facing item=false, when facing away=true (side, 12.0° from the centre of view)
+I 17:23:41.363 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Rice cooker 98.5 cm from its safe spot
+I 17:23:45.106 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Rice cooker 47.5 cm from its safe spot
+I 17:23:48.866 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Rice cooker 0.0 cm from its safe spot
+I 17:23:49.893 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: Photo album
+I 17:23:51.217 [Preview 1] [Assets/Tests/WaterlineC3OneThingScenario.ts:37] [C3] step 4: amber=[Item_PhotoAlbum] pins=[Item_PhotoAlbum] dotted=true target=Item_PhotoAlbum lowest-below-water=Item_PhotoAlbum
+I 17:23:51.535 [Preview 1] [Assets/Tests/WaterlineC3OneThingScenario.ts:55] [C3] step 4: arrow when facing item=false, when facing away=true (side, 12.0° from the centre of view)
+I 17:23:51.681 [Preview 1] [Assets/Tests/WaterlineC3OneThingScenario.ts:66] [C3] album next, facing the cabinet: album in view=false, arrow=true
+I 17:23:53.253 [Preview 1] [Assets/Tests/WaterlineC3OneThingScenario.ts:81] [C3] turned to yaw -60°: album in view, arrow=false; arrow stayed on while out of view=true
+I 17:23:58.210 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Photo album 105.3 cm from its safe spot
+I 17:24:02.068 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Photo album 48.3 cm from its safe spot
+I 17:24:05.832 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Photo album 0.0 cm from its safe spot
+I 17:24:06.878 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: IC and document folder
+I 17:24:08.237 [Preview 1] [Assets/Tests/WaterlineC3OneThingScenario.ts:37] [C3] step 5: amber=[Item_ICFolder] pins=[Item_ICFolder] dotted=true target=Item_ICFolder lowest-below-water=Item_ICFolder
+I 17:24:08.548 [Preview 1] [Assets/Tests/WaterlineC3OneThingScenario.ts:55] [C3] step 5: arrow when facing item=false, when facing away=true (side, 12.0° from the centre of view)
+I 17:24:13.633 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released IC and document folder 107.7 cm from its safe spot
+I 17:24:17.569 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released IC and document folder 53.7 cm from its safe spot
+I 17:24:21.341 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released IC and document folder 2.7 cm from its safe spot
+I 17:24:22.411 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state lifting -> allSafe
+I 17:24:23.797 [Preview 1] [Assets/Tests/WaterlineC3OneThingScenario.ts:89] [C3] lift order: Item_ExtensionPlug -> Item_SchoolBag -> Item_RiceCooker -> Item_PhotoAlbum -> Item_ICFolder
+I 17:24:23.799 [Preview 1] [Assets/Tests/WaterlineC3OneThingScenario.ts:94] [C3] PASS
+I 17:24:23.801 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state allSafe -> choose
+I 17:24:23.803 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [ 89.502s]PASSED: c3-one-thing
+I 17:24:23.803 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [ 89.502s][c3-one-thing] PASSED
+I 17:24:23.807 ${CONFIG_DIR}/Bundle/Plugins/[ChatTool] LEAF Plugin@5.23.0@362f6c78a8b5e47e6431049afb6a7109/dist/main.js:805 log] [LeafPlugin][PluginViewModel] ✅ Scenario c3-one-thing completed successfully.
+
+==================== c4-snap ====================
+I 17:24:32.291 Lens has been reset
+I 17:24:32.321 Lens has been reset
+I 17:24:32.803 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.085s]Register scenario: c5b-quiet-before-level
+I 17:24:32.803 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.085s]Register scenario: c1-levels
+I 17:24:32.803 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.085s]Register scenario: c2-body
+I 17:24:32.804 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.086s]Register scenario: c3-one-thing
+I 17:24:32.804 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.086s]Register scenario: c4-snap
+I 17:24:32.804 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.086s]Register scenario: c5-ending
+I 17:24:32.804 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.086s]Register scenario: playthrough
+I 17:24:32.804 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] found 5 belongings
+I 17:24:33.016 ${CONFIG_DIR}/Bundle/Plugins/[ChatTool] LEAF Plugin@5.23.0@362f6c78a8b5e47e6431049afb6a7109/dist/main.js:805 log] [LeafPlugin][PluginViewModel] Running scenario: c4-snap
+I 17:24:33.053 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.000s]RUNS: c4-snap with args: []
+I 17:24:33.053 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.001s]Running with runner config: {"__leaf__log_level":"INFO","__leaf__timeout_secs":"600","__leaf__diagnostic_policy":"fallback","__leaf__diagnostic_report_duration_ms":"0"}
+I 17:24:35.006 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Extension plug
+I 17:24:35.338 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged School bag
+I 17:24:35.688 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Rice cooker
+I 17:24:36.232 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Photo album
+I 17:24:36.775 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged IC and document folder
+I 17:24:36.775 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state tagging -> choose
+I 17:24:39.721 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] river-alert card shown
+I 17:24:40.356 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] level Warning 80 cm flags [Extension plug, School bag, Rice cooker]
+I 17:24:40.356 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state choose -> rising
+I 17:24:44.444 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: Extension plug
+I 17:24:44.444 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state rising -> lifting
+I 17:24:47.715 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 166.3 cm from its safe spot
+I 17:24:49.019 [Preview 1] [Assets/Tests/WaterlineC4SnapScenario.ts:32] [C4] released elsewhere at (-20.0, -120.0, -115.0) (0.0 cm from the aim), 166.3 cm from its spot: amber=true safe=false target=Extension plug
+I 17:24:52.989 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 82.4 cm from its safe spot
+I 17:24:56.925 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 28.8 cm from its safe spot
+I 17:25:00.712 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 6.0 cm from its safe spot
+I 17:25:01.563 [Preview 1] [Assets/Tests/WaterlineC4SnapScenario.ts:44] [C4] depth tag while holding the plug up to the cabinet (eye level): drawn=false over 64 held frames
+I 17:25:01.737 [Preview 1] [Assets/Tests/WaterlineC4SnapScenario.ts:51] [C4] released 6.0 cm from the aim (aim was 6 cm from the spot): safe=true, now 0.00 cm from the spot, green=true
+I 17:25:01.779 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: School bag
+I 17:25:01.838 [Preview 1] [Assets/Tests/WaterlineC4SnapScenario.ts:56] [C4] next lowest (school bag) lit 0.27 s after release; plug outline still on
+I 17:25:01.840 [Preview 1] [Assets/Tests/WaterlineC4SnapScenario.ts:59] [C4] PASS
+I 17:25:01.842 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state lifting -> choose
+I 17:25:01.844 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [ 28.792s]PASSED: c4-snap
+I 17:25:01.844 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [ 28.792s][c4-snap] PASSED
+I 17:25:01.847 ${CONFIG_DIR}/Bundle/Plugins/[ChatTool] LEAF Plugin@5.23.0@362f6c78a8b5e47e6431049afb6a7109/dist/main.js:805 log] [LeafPlugin][PluginViewModel] ✅ Scenario c4-snap completed successfully.
+
+==================== c5-ending ====================
+I 17:25:11.952 Lens has been reset
+I 17:25:11.968 Lens has been reset
+I 17:25:12.372 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: c5b-quiet-before-level
+I 17:25:12.372 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: c1-levels
+I 17:25:12.372 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: c2-body
+I 17:25:12.372 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: c3-one-thing
+I 17:25:12.372 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: c4-snap
+I 17:25:12.372 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: c5-ending
+I 17:25:12.372 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: playthrough
+I 17:25:12.373 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] found 5 belongings
+I 17:25:12.580 ${CONFIG_DIR}/Bundle/Plugins/[ChatTool] LEAF Plugin@5.23.0@362f6c78a8b5e47e6431049afb6a7109/dist/main.js:805 log] [LeafPlugin][PluginViewModel] Running scenario: c5-ending
+I 17:25:12.615 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.000s]RUNS: c5-ending with args: []
+I 17:25:12.615 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.000s]Running with runner config: {"__leaf__log_level":"INFO","__leaf__timeout_secs":"600","__leaf__diagnostic_policy":"fallback","__leaf__diagnostic_report_duration_ms":"0"}
+I 17:25:14.579 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Extension plug
+I 17:25:14.913 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged School bag
+I 17:25:15.275 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Rice cooker
+I 17:25:15.609 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Photo album
+I 17:25:15.953 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged IC and document folder
+I 17:25:15.953 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state tagging -> choose
+I 17:25:18.883 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] river-alert card shown
+I 17:25:19.347 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] level Alert 30 cm flags [Extension plug, School bag]
+I 17:25:19.347 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state choose -> rising
+I 17:25:23.477 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: Extension plug
+I 17:25:23.477 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state rising -> lifting
+I 17:25:28.349 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 91.8 cm from its safe spot
+I 17:25:32.043 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 40.8 cm from its safe spot
+I 17:25:35.763 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 0.0 cm from its safe spot
+I 17:25:36.825 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: School bag
+I 17:25:43.062 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 119.1 cm from its safe spot
+I 17:25:47.249 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 56.1 cm from its safe spot
+I 17:25:51.057 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 2.1 cm from its safe spot
+I 17:25:52.094 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state lifting -> allSafe
+I 17:25:53.943 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state allSafe -> draining
+I 17:25:56.669 [Preview 1] [Assets/Tests/WaterlineC5EndingScenario.ts:35] [C5] drained to the floor 3.23 s after the switch pinch (level now 0.28 cm)
+I 17:25:56.891 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] summary: 2 of 2 above water, 0:35
+I 17:25:56.891 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state draining -> summary
+I 17:25:56.892 [Preview 1] [Assets/Tests/WaterlineC5EndingScenario.ts:40] [C5] summary shown 3.45 s after the pinch: "2 of 2 above water, 0:35"
+I 17:26:00.888 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state summary -> choose
+I 17:26:00.892 [Preview 1] [Assets/Tests/WaterlineC5EndingScenario.ts:45] [C5] summary hid after 4.00 s on screen
+I 17:26:02.444 [Preview 1] [Assets/Tests/WaterlineC5EndingScenario.ts:51] [C5] 9.00 s after the pinch, visible Lens elements: [LevelCard]
+I 17:26:02.445 [Preview 1] [Assets/Tests/WaterlineC5EndingScenario.ts:53] [C5] PASS
+I 17:26:02.450 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [ 49.834s]PASSED: c5-ending
+I 17:26:02.450 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [ 49.835s][c5-ending] PASSED
+I 17:26:02.453 ${CONFIG_DIR}/Bundle/Plugins/[ChatTool] LEAF Plugin@5.23.0@362f6c78a8b5e47e6431049afb6a7109/dist/main.js:805 log] [LeafPlugin][PluginViewModel] ✅ Scenario c5-ending completed successfully.
+
+==================== playthrough: level=Danger (first-time user, from the Start camera) ====================
+I 17:26:16.451 Lens has been reset
+I 17:26:16.463 Lens has been reset
+I 17:26:16.758 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.078s]Register scenario: c5b-quiet-before-level
+I 17:26:16.758 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.078s]Register scenario: c1-levels
+I 17:26:16.758 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.078s]Register scenario: c2-body
+I 17:26:16.758 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.078s]Register scenario: c3-one-thing
+I 17:26:16.758 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.078s]Register scenario: c4-snap
+I 17:26:16.758 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.078s]Register scenario: c5-ending
+I 17:26:16.758 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.078s]Register scenario: playthrough
+I 17:26:16.759 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] found 5 belongings
+I 17:26:16.960 ${CONFIG_DIR}/Bundle/Plugins/[ChatTool] LEAF Plugin@5.23.0@362f6c78a8b5e47e6431049afb6a7109/dist/main.js:805 log] [LeafPlugin][PluginViewModel] Running scenario: playthrough
+I 17:26:16.994 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.000s]RUNS: playthrough with args: [(level: Danger), (stopAt: none), (view: none)]
+I 17:26:16.994 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.000s]Running with runner config: {"__leaf__log_level":"INFO","__leaf__timeout_secs":"600","__leaf__diagnostic_policy":"fallback","__leaf__diagnostic_report_duration_ms":"0"}
+I 17:26:16.996 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:56] [Play] ===== first-time playthrough at Danger (stopAt=none) =====
+I 17:26:16.996 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:57] [Play] pace model: turn 120°/s, walk 1 m/s, react 0.6 s, search +1.5 s
+I 17:26:18.049 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=0.0s checkpoint start: drawn [StartHint, StartChevron]
+I 17:26:19.158 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=1.1s checkpoint looked-down: drawn [StartHint]
+I 17:26:19.161 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=1.1s REACH pinch Extension plug: 97 cm away, 2 cm above the floor (eyes at 160 cm)
+I 17:26:19.272 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Extension plug
+I 17:26:19.493 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=1.5s checkpoint tag1: drawn [Tick:Extension plug]
+I 17:26:19.918 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=1.9s REACH pinch School bag: 121 cm away, 30 cm above the floor (eyes at 160 cm)
+I 17:26:20.031 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged School bag
+I 17:26:20.684 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=2.6s REACH pinch Rice cooker: 109 cm away, 50 cm above the floor (eyes at 160 cm)
+I 17:26:20.908 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Rice cooker
+I 17:26:21.534 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=3.5s checkpoint tagged-low: drawn [StartChevron, Tick:School bag, Tick:Rice cooker]
+I 17:26:21.542 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:122] [Play] t=3.5s 2 more to tag, out of view; the edge cue (side) points to them
+I 17:26:23.179 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=5.2s REACH pinch Photo album: 90 cm away, 98 cm above the floor (eyes at 160 cm)
+I 17:26:23.342 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Photo album
+I 17:26:24.300 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=6.3s REACH pinch IC and document folder: 84 cm away, 102 cm above the floor (eyes at 160 cm)
+I 17:26:24.416 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged IC and document folder
+I 17:26:24.416 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state tagging -> choose
+I 17:26:25.020 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=7.0s STEP tagging (5 pinches): 7.0 s (at 7.0 s)
+I 17:26:25.047 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=7.0s checkpoint tagged-all: drawn [Tick:Photo album, Tick:IC and document folder]
+I 17:26:27.423 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] river-alert card shown
+I 17:26:27.426 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:143] [Play] t=9.4s the river-alert card appeared 2.4 s after the fifth pinch
+I 17:26:28.655 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=10.6s STEP finding the river-alert card: 3.6 s (at 10.6 s)
+I 17:26:28.686 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=10.6s checkpoint card: drawn [LevelCard]
+I 17:26:29.292 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=11.3s REACH press Danger: 79 cm away, 122 cm above the floor (eyes at 160 cm)
+I 17:26:29.406 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] level Danger 150 cm flags [Extension plug, School bag, Rice cooker, Photo album, IC and document folder]
+I 17:26:29.408 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state choose -> rising
+I 17:26:29.662 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=11.6s STEP choosing a level (Danger): 1.0 s (at 11.6 s)
+I 17:26:30.498 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=12.4s checkpoint rising: drawn [Water, HistoryMark, Ring, DepthTag]
+I 17:26:31.579 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=13.5s checkpoint half: drawn [Water, HistoryMark, Ring, DepthTag]
+I 17:26:33.460 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: Extension plug
+I 17:26:33.461 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state rising -> lifting
+I 17:26:33.515 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=15.4s STEP water rising to 150 cm: 3.8 s (at 15.4 s)
+I 17:26:33.600 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=15.5s checkpoint risen: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:Extension plug, Pin:Extension plug]
+I 17:26:34.213 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:224] [Play] t=16.1s Extension plug is out of view; the edge cue (side) points to it
+I 17:26:34.293 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=16.2s checkpoint lift1-find: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:Extension plug, Pin:Extension plug]
+I 17:26:36.835 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=18.7s checkpoint lift1-at-item: drawn [Water, HistoryMark, Ring, DottedLine, Outline:Extension plug, Pin:Extension plug]
+I 17:26:36.839 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=18.7s REACH grab Extension plug: 70 cm away, 2 cm above the floor (eyes at 160 cm)
+I 17:26:39.048 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 160.8 cm from its safe spot
+I 17:26:40.730 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=22.6s checkpoint lift1-carrying: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:Extension plug, Pin:Extension plug]
+I 17:26:43.054 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 112.8 cm from its safe spot
+I 17:26:45.999 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 70.8 cm from its safe spot
+I 17:26:48.971 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 28.8 cm from its safe spot
+I 17:26:51.920 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 0.0 cm from its safe spot
+I 17:26:52.719 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:281] [Play] t=34.6s carry of Extension plug: LEAF hand took 15.9 s; at the modelled pace (walk 1.5 m + 1 s grab + 1 s place) it is 3.5 s
+I 17:26:52.727 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=34.6s REACH drop Extension plug on its safe spot: 60 cm away, 160 cm above the floor (eyes at 160 cm)
+I 17:26:52.730 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:386] [Play] t=34.6s PROBLEM [reach] drop Extension plug on its safe spot: at 160 cm, level with or above my eyes
+I 17:26:52.730 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=34.6s STEP lift 1: Extension plug (walked 147 cm): 19.2 s (at 34.6 s)
+I 17:26:52.847 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=34.7s checkpoint lift1-placed: drawn [Water, HistoryMark, Ring, Outline:Extension plug]
+I 17:26:52.976 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: School bag
+I 17:26:54.745 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:224] [Play] t=36.6s School bag is out of view; the edge cue (side) points to it
+I 17:26:54.857 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=36.7s checkpoint lift2-find: drawn [Water, HistoryMark, Ring, EdgeArrow, DottedLine, Outline:School bag, Pin:School bag]
+I 17:26:56.707 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=38.6s checkpoint lift2-at-item: drawn [Water, HistoryMark, Ring, DottedLine, Outline:School bag, Pin:School bag]
+I 17:26:56.712 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=38.6s REACH grab School bag: 70 cm away, 30 cm above the floor (eyes at 160 cm)
+I 17:26:58.896 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 179.1 cm from its safe spot
+I 17:27:01.118 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=43.0s checkpoint lift2-carrying: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:School bag, Pin:School bag]
+I 17:27:03.347 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 137.1 cm from its safe spot
+I 17:27:06.335 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 95.1 cm from its safe spot
+I 17:27:09.364 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 47.1 cm from its safe spot
+I 17:27:12.376 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 0.0 cm from its safe spot
+I 17:27:13.128 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:281] [Play] t=55.0s carry of School bag: LEAF hand took 16.4 s; at the modelled pace (walk 0.8 m + 1 s grab + 1 s place) it is 2.8 s
+I 17:27:13.133 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=55.0s REACH drop School bag on its safe spot: 60 cm away, 160 cm above the floor (eyes at 160 cm)
+I 17:27:13.135 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:386] [Play] t=55.0s PROBLEM [reach] drop School bag on its safe spot: at 160 cm, level with or above my eyes
+I 17:27:13.135 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=55.0s STEP lift 2: School bag (walked 84 cm): 20.4 s (at 55.0 s)
+I 17:27:13.220 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=55.1s checkpoint lift2-placed: drawn [Water, HistoryMark, Ring, DepthTag, Outline:School bag]
+I 17:27:13.385 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: Rice cooker
+I 17:27:15.261 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:224] [Play] t=57.1s Rice cooker is out of view; the edge cue (side) points to it
+I 17:27:15.348 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=57.2s checkpoint lift3-find: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:Rice cooker, Pin:Rice cooker]
+I 17:27:17.877 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=59.8s checkpoint lift3-at-item: drawn [Water, HistoryMark, Ring, DottedLine, Outline:Rice cooker, Pin:Rice cooker]
+I 17:27:17.882 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=59.8s REACH grab Rice cooker: 70 cm away, 50 cm above the floor (eyes at 160 cm)
+I 17:27:20.087 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Rice cooker 167.5 cm from its safe spot
+I 17:27:22.165 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=64.0s checkpoint lift3-carrying: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:Rice cooker, Pin:Rice cooker]
+I 17:27:24.462 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Rice cooker 125.5 cm from its safe spot
+I 17:27:27.472 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Rice cooker 83.5 cm from its safe spot
+I 17:27:30.442 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Rice cooker 35.5 cm from its safe spot
+I 17:27:33.365 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Rice cooker 0.0 cm from its safe spot
+I 17:27:34.218 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:281] [Play] t=76.1s carry of Rice cooker: LEAF hand took 16.4 s; at the modelled pace (walk 0.7 m + 1 s grab + 1 s place) it is 2.7 s
+I 17:27:34.223 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=76.1s REACH drop Rice cooker on its safe spot: 60 cm away, 160 cm above the floor (eyes at 160 cm)
+I 17:27:34.225 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:386] [Play] t=76.1s PROBLEM [reach] drop Rice cooker on its safe spot: at 160 cm, level with or above my eyes
+I 17:27:34.225 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=76.1s STEP lift 3: Rice cooker (walked 73 cm): 21.1 s (at 76.1 s)
+I 17:27:34.308 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=76.2s checkpoint lift3-placed: drawn [Water, HistoryMark, Ring, DepthTag, Outline:Rice cooker]
+I 17:27:34.419 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: Photo album
+I 17:27:36.312 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:224] [Play] t=78.2s Photo album is out of view; the edge cue (side) points to it
+I 17:27:36.397 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=78.3s checkpoint lift4-find: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:Photo album, Pin:Photo album]
+I 17:27:39.568 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=81.4s checkpoint lift4-at-item: drawn [Water, HistoryMark, Ring, DottedLine, Outline:Photo album, Pin:Photo album]
+I 17:27:39.573 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=81.4s REACH grab Photo album: 70 cm away, 98 cm above the floor (eyes at 160 cm)
+I 17:27:41.723 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Photo album 183.3 cm from its safe spot
+I 17:27:43.853 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=85.7s checkpoint lift4-carrying: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:Photo album, Pin:Photo album]
+I 17:27:46.153 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Photo album 135.3 cm from its safe spot
+I 17:27:49.273 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Photo album 87.3 cm from its safe spot
+I 17:27:52.284 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Photo album 39.3 cm from its safe spot
+I 17:27:55.315 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Photo album 0.0 cm from its safe spot
+I 17:27:56.119 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:281] [Play] t=98.0s carry of Photo album: LEAF hand took 16.6 s; at the modelled pace (walk 1.1 m + 1 s grab + 1 s place) it is 3.1 s
+I 17:27:56.124 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=98.0s REACH drop Photo album on its safe spot: 60 cm away, 160 cm above the floor (eyes at 160 cm)
+I 17:27:56.126 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:386] [Play] t=98.0s PROBLEM [reach] drop Photo album on its safe spot: at 160 cm, level with or above my eyes
+I 17:27:56.126 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=98.0s STEP lift 4: Photo album (walked 111 cm): 21.9 s (at 98.0 s)
+I 17:27:56.214 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=98.1s checkpoint lift4-placed: drawn [Water, HistoryMark, Ring, DepthTag, Outline:Photo album]
+I 17:27:56.323 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: IC and document folder
+I 17:27:58.238 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:224] [Play] t=100.1s IC and document folder is out of view; the edge cue (side) points to it
+I 17:27:58.324 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=100.2s checkpoint lift5-find: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:IC and document folder, Pin:IC and document folder]
+I 17:28:01.193 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=103.1s checkpoint lift5-at-item: drawn [Water, HistoryMark, Ring, DottedLine, Outline:IC and document folder, Pin:IC and document folder]
+I 17:28:01.198 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=103.1s REACH grab IC and document folder: 70 cm away, 102 cm above the floor (eyes at 160 cm)
+I 17:28:03.366 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released IC and document folder 194.7 cm from its safe spot
+I 17:28:05.570 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=107.4s checkpoint lift5-carrying: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:IC and document folder, Pin:IC and document folder]
+I 17:28:07.868 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released IC and document folder 146.7 cm from its safe spot
+I 17:28:09.784 Lens has been reset
+I 17:28:09.787 Lens has been reset
+I 17:28:09.795 Lens has been reset
+I 17:28:10.126 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: c5b-quiet-before-level
+I 17:28:10.126 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: c1-levels
+I 17:28:10.126 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: c2-body
+I 17:28:10.126 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: c3-one-thing
+I 17:28:10.126 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: c4-snap
+I 17:28:10.126 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: c5-ending
+I 17:28:10.126 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.081s]Register scenario: playthrough
+I 17:28:10.127 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] found 5 belongings
+NOTE: the run above did not finish. At 17:28:08, during the fifth carry, Lens Studio refreshed its sign-in
+tokens ("Requesting tokens refresh") and reset the preview ("Lens has been reset"). The Danger playthrough
+was run again from the start; that run follows.
+
+==================== playthrough: level=Danger, re-run (first-time user, from the Start camera) ====================
+I 17:33:30.040 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.417s]Register scenario: c5b-quiet-before-level
+I 17:33:30.040 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.417s]Register scenario: c1-levels
+I 17:33:30.041 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.417s]Register scenario: c2-body
+I 17:33:30.041 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.418s]Register scenario: c3-one-thing
+I 17:33:30.041 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.418s]Register scenario: c4-snap
+I 17:33:30.041 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.418s]Register scenario: c5-ending
+I 17:33:30.041 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.418s]Register scenario: playthrough
+I 17:33:30.044 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] found 5 belongings
+I 17:33:31.583 Lens has been reset
+I 17:33:31.660 Lens has been reset
+I 17:33:33.234 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.389s]Register scenario: c5b-quiet-before-level
+I 17:33:33.235 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.390s]Register scenario: c1-levels
+I 17:33:33.235 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.390s]Register scenario: c2-body
+I 17:33:33.235 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.390s]Register scenario: c3-one-thing
+I 17:33:33.235 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.390s]Register scenario: c4-snap
+I 17:33:33.236 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.391s]Register scenario: c5-ending
+I 17:33:33.236 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.391s]Register scenario: playthrough
+I 17:33:33.240 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] found 5 belongings
+I 17:33:34.659 ${CONFIG_DIR}/Bundle/Plugins/[ChatTool] LEAF Plugin@5.23.0@362f6c78a8b5e47e6431049afb6a7109/dist/main.js:805 log] [LeafPlugin][PluginViewModel] Running scenario: playthrough
+I 17:33:35.921 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.000s]RUNS: playthrough with args: [(level: Danger), (stopAt: none), (view: none)]
+I 17:33:35.921 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.002s]Running with runner config: {"__leaf__log_level":"INFO","__leaf__timeout_secs":"600","__leaf__diagnostic_policy":"fallback","__leaf__diagnostic_report_duration_ms":"0"}
+I 17:33:35.928 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:56] [Play] ===== first-time playthrough at Danger (stopAt=none) =====
+I 17:33:35.929 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:57] [Play] pace model: turn 120°/s, walk 1 m/s, react 0.6 s, search +1.5 s
+I 17:33:37.133 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=0.1s checkpoint start: drawn [StartHint, StartChevron]
+I 17:33:38.356 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=1.3s checkpoint looked-down: drawn [StartHint]
+I 17:33:38.378 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=1.3s REACH pinch Extension plug: 97 cm away, 2 cm above the floor (eyes at 160 cm)
+I 17:33:38.813 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Extension plug
+I 17:33:39.079 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=2.1s checkpoint tag1: drawn [Tick:Extension plug]
+I 17:33:39.498 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=2.5s REACH pinch School bag: 121 cm away, 30 cm above the floor (eyes at 160 cm)
+I 17:33:39.607 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged School bag
+I 17:33:40.248 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=3.2s REACH pinch Rice cooker: 109 cm away, 50 cm above the floor (eyes at 160 cm)
+I 17:33:40.364 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Rice cooker
+I 17:33:41.020 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=4.0s checkpoint tagged-low: drawn [StartChevron, Tick:School bag, Tick:Rice cooker]
+I 17:33:41.028 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:122] [Play] t=4.0s 2 more to tag, out of view; the edge cue (side) points to them
+I 17:33:42.681 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=5.7s REACH pinch Photo album: 90 cm away, 98 cm above the floor (eyes at 160 cm)
+I 17:33:42.855 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Photo album
+I 17:33:43.776 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=6.8s REACH pinch IC and document folder: 84 cm away, 102 cm above the floor (eyes at 160 cm)
+I 17:33:43.883 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged IC and document folder
+I 17:33:43.883 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state tagging -> choose
+I 17:33:44.503 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=7.5s STEP tagging (5 pinches): 7.5 s (at 7.5 s)
+I 17:33:44.532 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=7.5s checkpoint tagged-all: drawn [Tick:Photo album, Tick:IC and document folder]
+I 17:33:46.861 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] river-alert card shown
+I 17:33:46.862 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:143] [Play] t=9.9s the river-alert card appeared 2.3 s after the fifth pinch
+I 17:33:48.148 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=11.2s STEP finding the river-alert card: 3.6 s (at 11.2 s)
+I 17:33:48.187 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=11.2s checkpoint card: drawn [LevelCard]
+I 17:33:48.792 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=11.8s REACH press Danger: 79 cm away, 122 cm above the floor (eyes at 160 cm)
+I 17:33:48.901 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] level Danger 150 cm flags [Extension plug, School bag, Rice cooker, Photo album, IC and document folder]
+I 17:33:48.903 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state choose -> rising
+I 17:33:49.161 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=12.1s STEP choosing a level (Danger): 1.0 s (at 12.1 s)
+I 17:33:50.080 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=13.0s checkpoint rising: drawn [Water, HistoryMark, Ring, DepthTag]
+I 17:33:51.065 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=14.0s checkpoint half: drawn [Water, HistoryMark, Ring, DepthTag]
+I 17:33:53.036 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: Extension plug
+I 17:33:53.037 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state rising -> lifting
+I 17:33:53.110 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=16.0s STEP water rising to 150 cm: 3.9 s (at 16.0 s)
+I 17:33:53.217 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=16.1s checkpoint risen: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:Extension plug, Pin:Extension plug]
+I 17:33:53.818 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:224] [Play] t=16.7s Extension plug is out of view; the edge cue (side) points to it
+I 17:33:53.949 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=16.9s checkpoint lift1-find: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:Extension plug, Pin:Extension plug]
+I 17:33:56.438 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=19.4s checkpoint lift1-at-item: drawn [Water, HistoryMark, Ring, DottedLine, Outline:Extension plug, Pin:Extension plug]
+I 17:33:56.443 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=19.4s REACH grab Extension plug: 70 cm away, 2 cm above the floor (eyes at 160 cm)
+I 17:33:58.594 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 160.8 cm from its safe spot
+I 17:34:00.243 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=23.2s checkpoint lift1-carrying: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:Extension plug, Pin:Extension plug]
+I 17:34:02.432 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 112.8 cm from its safe spot
+I 17:34:06.105 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 70.8 cm from its safe spot
+I 17:34:09.198 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 28.8 cm from its safe spot
+I 17:34:12.238 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 0.0 cm from its safe spot
+I 17:34:13.058 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:281] [Play] t=36.0s carry of Extension plug: LEAF hand took 16.6 s; at the modelled pace (walk 1.5 m + 1 s grab + 1 s place) it is 3.5 s
+I 17:34:13.064 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=36.0s REACH drop Extension plug on its safe spot: 60 cm away, 160 cm above the floor (eyes at 160 cm)
+I 17:34:13.066 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:386] [Play] t=36.0s PROBLEM [reach] drop Extension plug on its safe spot: at 160 cm, level with or above my eyes
+I 17:34:13.066 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=36.0s STEP lift 1: Extension plug (walked 147 cm): 20.0 s (at 36.0 s)
+I 17:34:13.147 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=36.1s checkpoint lift1-placed: drawn [Water, HistoryMark, Ring, Outline:Extension plug]
+I 17:34:13.256 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: School bag
+I 17:34:15.082 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:224] [Play] t=38.0s School bag is out of view; the edge cue (side) points to it
+I 17:34:15.163 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=38.1s checkpoint lift2-find: drawn [Water, HistoryMark, Ring, EdgeArrow, DottedLine, Outline:School bag, Pin:School bag]
+I 17:34:17.038 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=40.0s checkpoint lift2-at-item: drawn [Water, HistoryMark, Ring, DottedLine, Outline:School bag, Pin:School bag]
+I 17:34:17.042 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=40.0s REACH grab School bag: 70 cm away, 30 cm above the floor (eyes at 160 cm)
+I 17:34:19.125 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 185.1 cm from its safe spot
+I 17:34:21.417 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=44.4s checkpoint lift2-carrying: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:School bag, Pin:School bag]
+I 17:34:23.719 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 155.1 cm from its safe spot
+I 17:34:26.604 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 107.1 cm from its safe spot
+I 17:34:29.580 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 59.1 cm from its safe spot
+I 17:34:32.619 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 11.1 cm from its safe spot
+I 17:34:35.501 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 0.0 cm from its safe spot
+I 17:34:36.359 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:281] [Play] t=59.3s carry of School bag: LEAF hand took 19.3 s; at the modelled pace (walk 0.8 m + 1 s grab + 1 s place) it is 2.8 s
+I 17:34:36.364 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=59.3s REACH drop School bag on its safe spot: 60 cm away, 160 cm above the floor (eyes at 160 cm)
+I 17:34:36.365 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:386] [Play] t=59.3s PROBLEM [reach] drop School bag on its safe spot: at 160 cm, level with or above my eyes
+I 17:34:36.365 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=59.3s STEP lift 2: School bag (walked 84 cm): 23.3 s (at 59.3 s)
+I 17:34:36.471 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=59.4s checkpoint lift2-placed: drawn [Water, HistoryMark, Ring, DepthTag, Outline:School bag]
+I 17:34:36.562 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: Rice cooker
+I 17:34:38.425 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:224] [Play] t=61.4s Rice cooker is out of view; the edge cue (side) points to it
+I 17:34:38.506 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=61.5s checkpoint lift3-find: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:Rice cooker, Pin:Rice cooker]
+I 17:34:41.243 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=64.2s checkpoint lift3-at-item: drawn [Water, HistoryMark, Ring, DottedLine, Outline:Rice cooker, Pin:Rice cooker]
+I 17:34:41.247 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=64.2s REACH grab Rice cooker: 70 cm away, 50 cm above the floor (eyes at 160 cm)
+I 17:34:43.403 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Rice cooker 173.5 cm from its safe spot
+I 17:34:45.548 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=68.5s checkpoint lift3-carrying: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:Rice cooker, Pin:Rice cooker]
+I 17:34:47.749 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Rice cooker 125.5 cm from its safe spot
+I 17:34:50.738 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Rice cooker 77.5 cm from its safe spot
+I 17:34:53.707 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Rice cooker 47.5 cm from its safe spot
+I 17:34:56.664 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Rice cooker 0.0 cm from its safe spot
+I 17:34:57.463 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:281] [Play] t=80.4s carry of Rice cooker: LEAF hand took 16.2 s; at the modelled pace (walk 0.7 m + 1 s grab + 1 s place) it is 2.7 s
+I 17:34:57.469 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=80.4s REACH drop Rice cooker on its safe spot: 60 cm away, 160 cm above the floor (eyes at 160 cm)
+I 17:34:57.471 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:386] [Play] t=80.4s PROBLEM [reach] drop Rice cooker on its safe spot: at 160 cm, level with or above my eyes
+I 17:34:57.471 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=80.4s STEP lift 3: Rice cooker (walked 73 cm): 21.1 s (at 80.4 s)
+I 17:34:57.629 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=80.5s checkpoint lift3-placed: drawn [Water, HistoryMark, Ring, DepthTag, Outline:Rice cooker]
+I 17:34:57.671 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: Photo album
+I 17:34:59.500 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:224] [Play] t=82.5s Photo album is out of view; the edge cue (side) points to it
+I 17:34:59.584 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=82.5s checkpoint lift4-find: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:Photo album, Pin:Photo album]
+I 17:35:02.659 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=85.6s checkpoint lift4-at-item: drawn [Water, HistoryMark, Ring, DottedLine, Outline:Photo album, Pin:Photo album]
+I 17:35:02.663 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=85.6s REACH grab Photo album: 70 cm away, 98 cm above the floor (eyes at 160 cm)
+I 17:35:04.784 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Photo album 183.3 cm from its safe spot
+I 17:35:06.934 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=89.9s checkpoint lift4-carrying: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:Photo album, Pin:Photo album]
+I 17:35:09.323 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Photo album 141.3 cm from its safe spot
+I 17:35:12.276 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Photo album 93.3 cm from its safe spot
+I 17:35:15.202 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Photo album 63.3 cm from its safe spot
+I 17:35:18.158 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Photo album 15.3 cm from its safe spot
+I 17:35:21.043 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Photo album 0.0 cm from its safe spot
+I 17:35:21.926 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:281] [Play] t=104.9s carry of Photo album: LEAF hand took 19.3 s; at the modelled pace (walk 1.1 m + 1 s grab + 1 s place) it is 3.1 s
+I 17:35:21.931 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=104.9s REACH drop Photo album on its safe spot: 60 cm away, 160 cm above the floor (eyes at 160 cm)
+I 17:35:21.933 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:386] [Play] t=104.9s PROBLEM [reach] drop Photo album on its safe spot: at 160 cm, level with or above my eyes
+I 17:35:21.933 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=104.9s STEP lift 4: Photo album (walked 111 cm): 24.5 s (at 104.9 s)
+I 17:35:22.038 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=105.0s checkpoint lift4-placed: drawn [Water, HistoryMark, Ring, DepthTag, Outline:Photo album]
+I 17:35:22.055 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: IC and document folder
+I 17:35:24.095 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:224] [Play] t=107.0s IC and document folder is out of view; the edge cue (side) points to it
+I 17:35:24.181 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=107.1s checkpoint lift5-find: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:IC and document folder, Pin:IC and document folder]
+I 17:35:27.230 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=110.2s checkpoint lift5-at-item: drawn [Water, HistoryMark, Ring, DottedLine, Outline:IC and document folder, Pin:IC and document folder]
+I 17:35:27.234 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=110.2s REACH grab IC and document folder: 70 cm away, 102 cm above the floor (eyes at 160 cm)
+I 17:35:29.283 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released IC and document folder 194.7 cm from its safe spot
+I 17:35:31.440 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=114.4s checkpoint lift5-carrying: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, DottedLine, Outline:IC and document folder, Pin:IC and document folder]
+I 17:35:33.713 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released IC and document folder 146.7 cm from its safe spot
+I 17:35:36.606 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released IC and document folder 98.7 cm from its safe spot
+I 17:35:39.506 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released IC and document folder 50.7 cm from its safe spot
+I 17:35:42.520 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released IC and document folder 2.7 cm from its safe spot
+I 17:35:43.305 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:281] [Play] t=126.3s carry of IC and document folder: LEAF hand took 16.1 s; at the modelled pace (walk 1.1 m + 1 s grab + 1 s place) it is 3.1 s
+I 17:35:43.311 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=126.3s REACH drop IC and document folder on its safe spot: 60 cm away, 160 cm above the floor (eyes at 160 cm)
+I 17:35:43.312 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:386] [Play] t=126.3s PROBLEM [reach] drop IC and document folder on its safe spot: at 160 cm, level with or above my eyes
+I 17:35:43.312 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=126.3s STEP lift 5: IC and document folder (walked 112 cm): 21.4 s (at 126.3 s)
+I 17:35:43.397 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=126.3s checkpoint lift5-placed: drawn [Water, HistoryMark, Ring, DepthTag, Outline:IC and document folder]
+I 17:35:43.585 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state lifting -> allSafe
+I 17:35:44.797 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=127.7s checkpoint all-safe: drawn [Water, HistoryMark, Ring, DepthTag, EdgeArrow, SwitchGlow]
+I 17:35:45.457 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:188] [Play] t=128.4s the switch glows 28° away; the edge cue (side) points to it
+I 17:35:46.491 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=129.4s checkpoint switch: drawn [Water, HistoryMark, Ring, DepthTag, SwitchGlow]
+I 17:35:46.496 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=129.4s REACH pinch the mains switch: 70 cm away, 140 cm above the floor (eyes at 160 cm)
+I 17:35:46.828 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state allSafe -> draining
+I 17:35:47.230 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=130.2s STEP finding and pinching the switch: 3.9 s (at 130.2 s)
+I 17:35:49.770 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] summary: 5 of 5 above water, 1:58
+I 17:35:49.770 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state draining -> summary
+I 17:35:49.771 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=132.8s STEP water draining: 2.6 s (at 132.8 s)
+I 17:35:50.639 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=133.6s checkpoint summary: drawn [HistoryMark, Summary]
+I 17:35:53.749 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state summary -> choose
+I 17:35:53.751 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=136.8s STEP summary line on screen: 4.0 s (at 136.8 s)
+I 17:35:54.314 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=137.3s checkpoint card-again: drawn [LevelCard]
+I 17:35:54.314 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:79] [Play] ---- step times ----
+I 17:35:54.314 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] tagging (5 pinches): 7.5 s (at 7.5 s)
+I 17:35:54.314 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] finding the river-alert card: 3.6 s (at 11.2 s)
+I 17:35:54.314 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] choosing a level (Danger): 1.0 s (at 12.1 s)
+I 17:35:54.314 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] water rising to 150 cm: 3.9 s (at 16.0 s)
+I 17:35:54.314 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] lift 1: Extension plug (walked 147 cm): 20.0 s (at 36.0 s)
+I 17:35:54.314 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] lift 2: School bag (walked 84 cm): 23.3 s (at 59.3 s)
+I 17:35:54.314 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] lift 3: Rice cooker (walked 73 cm): 21.1 s (at 80.4 s)
+I 17:35:54.314 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] lift 4: Photo album (walked 111 cm): 24.5 s (at 104.9 s)
+I 17:35:54.315 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] lift 5: IC and document folder (walked 112 cm): 21.4 s (at 126.3 s)
+I 17:35:54.315 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] finding and pinching the switch: 3.9 s (at 130.2 s)
+I 17:35:54.315 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] water draining: 2.6 s (at 132.8 s)
+I 17:35:54.315 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] summary line on screen: 4.0 s (at 136.8 s)
+I 17:35:54.315 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:81] [Play] ---- problems (5) ----
+I 17:35:54.315 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:82] [Play] PROBLEM [reach] drop Extension plug on its safe spot: at 160 cm, level with or above my eyes
+I 17:35:54.315 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:82] [Play] PROBLEM [reach] drop School bag on its safe spot: at 160 cm, level with or above my eyes
+I 17:35:54.315 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:82] [Play] PROBLEM [reach] drop Rice cooker on its safe spot: at 160 cm, level with or above my eyes
+I 17:35:54.315 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:82] [Play] PROBLEM [reach] drop Photo album on its safe spot: at 160 cm, level with or above my eyes
+I 17:35:54.315 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:82] [Play] PROBLEM [reach] drop IC and document folder on its safe spot: at 160 cm, level with or above my eyes
+I 17:35:54.315 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:84] [Play] total 137.3 s as played; 65.0 s with carries at the modelled pace
+I 17:35:54.317 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [138.398s]PASSED: playthrough
+I 17:35:54.317 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [138.398s][playthrough] PASSED
+I 17:35:54.321 ${CONFIG_DIR}/Bundle/Plugins/[ChatTool] LEAF Plugin@5.23.0@362f6c78a8b5e47e6431049afb6a7109/dist/main.js:805 log] [LeafPlugin][PluginViewModel] ✅ Scenario playthrough completed successfully.
+
+==================== playthrough: level=Alert (first-time user, from the Start camera) ====================
+I 17:36:12.280 Lens has been reset
+I 17:36:12.324 Lens has been reset
+I 17:36:14.098 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.393s]Register scenario: c5b-quiet-before-level
+I 17:36:14.098 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.394s]Register scenario: c1-levels
+I 17:36:14.098 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.394s]Register scenario: c2-body
+I 17:36:14.099 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.394s]Register scenario: c3-one-thing
+I 17:36:14.099 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.395s]Register scenario: c4-snap
+I 17:36:14.099 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.395s]Register scenario: c5-ending
+I 17:36:14.099 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.395s]Register scenario: playthrough
+I 17:36:14.104 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] found 5 belongings
+I 17:36:15.454 ${CONFIG_DIR}/Bundle/Plugins/[ChatTool] LEAF Plugin@5.23.0@362f6c78a8b5e47e6431049afb6a7109/dist/main.js:805 log] [LeafPlugin][PluginViewModel] Running scenario: playthrough
+I 17:36:16.852 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.000s]RUNS: playthrough with args: [(level: Alert), (stopAt: none), (view: none)]
+I 17:36:16.852 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [  0.004s]Running with runner config: {"__leaf__log_level":"INFO","__leaf__timeout_secs":"600","__leaf__diagnostic_policy":"fallback","__leaf__diagnostic_report_duration_ms":"0"}
+I 17:36:16.861 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:56] [Play] ===== first-time playthrough at Alert (stopAt=none) =====
+I 17:36:16.861 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:57] [Play] pace model: turn 120°/s, walk 1 m/s, react 0.6 s, search +1.5 s
+I 17:36:18.011 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=0.1s checkpoint start: drawn [StartHint, StartChevron]
+I 17:36:19.257 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=1.3s checkpoint looked-down: drawn [StartHint]
+I 17:36:19.277 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=1.3s REACH pinch Extension plug: 97 cm away, 2 cm above the floor (eyes at 160 cm)
+I 17:36:19.580 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Extension plug
+I 17:36:19.842 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=1.9s checkpoint tag1: drawn [Tick:Extension plug]
+I 17:36:20.267 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=2.4s REACH pinch School bag: 121 cm away, 30 cm above the floor (eyes at 160 cm)
+I 17:36:20.387 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged School bag
+I 17:36:21.026 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=3.1s REACH pinch Rice cooker: 109 cm away, 50 cm above the floor (eyes at 160 cm)
+I 17:36:21.142 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Rice cooker
+I 17:36:21.778 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=3.9s checkpoint tagged-low: drawn [StartChevron, Tick:School bag, Tick:Rice cooker]
+I 17:36:21.785 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:122] [Play] t=3.9s 2 more to tag, out of view; the edge cue (side) points to them
+I 17:36:23.439 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=5.5s REACH pinch Photo album: 90 cm away, 98 cm above the floor (eyes at 160 cm)
+I 17:36:23.551 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged Photo album
+I 17:36:24.463 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=6.6s REACH pinch IC and document folder: 84 cm away, 102 cm above the floor (eyes at 160 cm)
+I 17:36:24.569 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] tagged IC and document folder
+I 17:36:24.569 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state tagging -> choose
+I 17:36:25.173 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=7.3s STEP tagging (5 pinches): 7.3 s (at 7.3 s)
+I 17:36:25.201 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=7.3s checkpoint tagged-all: drawn [Tick:Photo album, Tick:IC and document folder]
+I 17:36:27.501 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] river-alert card shown
+I 17:36:27.502 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:143] [Play] t=9.6s the river-alert card appeared 2.3 s after the fifth pinch
+I 17:36:28.747 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=10.8s STEP finding the river-alert card: 3.6 s (at 10.8 s)
+I 17:36:28.776 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=10.9s checkpoint card: drawn [LevelCard]
+I 17:36:29.394 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=11.5s REACH press Alert: 79 cm away, 122 cm above the floor (eyes at 160 cm)
+I 17:36:29.513 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] level Alert 30 cm flags [Extension plug, School bag]
+I 17:36:29.514 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state choose -> rising
+I 17:36:29.702 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=11.8s STEP choosing a level (Alert): 1.0 s (at 11.8 s)
+I 17:36:30.715 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=12.7s checkpoint rising: drawn [Water, Ring, DepthTag]
+I 17:36:31.699 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=13.7s checkpoint half: drawn [Water, Ring, DepthTag]
+I 17:36:33.581 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: Extension plug
+I 17:36:33.581 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state rising -> lifting
+I 17:36:33.634 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=15.7s STEP water rising to 30 cm: 3.9 s (at 15.7 s)
+I 17:36:33.737 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=15.7s checkpoint risen: drawn [Water, Ring, DepthTag, EdgeArrow, DottedLine, Outline:Extension plug, Pin:Extension plug]
+I 17:36:34.324 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:224] [Play] t=16.4s Extension plug is out of view; the edge cue (side) points to it
+I 17:36:34.404 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=16.4s checkpoint lift1-find: drawn [Water, Ring, DepthTag, EdgeArrow, DottedLine, Outline:Extension plug, Pin:Extension plug]
+I 17:36:36.753 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=18.8s checkpoint lift1-at-item: drawn [Water, Ring, DottedLine, Outline:Extension plug, Pin:Extension plug]
+I 17:36:36.756 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=18.8s REACH grab Extension plug: 70 cm away, 2 cm above the floor (eyes at 160 cm)
+I 17:36:39.057 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 166.8 cm from its safe spot
+I 17:36:40.769 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=22.8s checkpoint lift1-carrying: drawn [Water, Ring, DepthTag, EdgeArrow, DottedLine, Outline:Extension plug, Pin:Extension plug]
+I 17:36:43.056 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 124.8 cm from its safe spot
+I 17:36:46.006 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 82.8 cm from its safe spot
+I 17:36:49.039 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 46.8 cm from its safe spot
+I 17:36:51.897 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released Extension plug 4.8 cm from its safe spot
+I 17:36:52.691 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:281] [Play] t=34.7s carry of Extension plug: LEAF hand took 16.0 s; at the modelled pace (walk 1.5 m + 1 s grab + 1 s place) it is 3.5 s
+I 17:36:52.697 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=34.7s REACH drop Extension plug on its safe spot: 60 cm away, 160 cm above the floor (eyes at 160 cm)
+I 17:36:52.700 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:386] [Play] t=34.7s PROBLEM [reach] drop Extension plug on its safe spot: at 160 cm, level with or above my eyes
+I 17:36:52.700 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=34.7s STEP lift 1: Extension plug (walked 147 cm): 19.0 s (at 34.7 s)
+I 17:36:52.812 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=34.8s checkpoint lift1-placed: drawn [Water, Ring, Outline:Extension plug]
+I 17:36:52.937 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] next: School bag
+I 17:36:54.764 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:224] [Play] t=36.8s School bag is out of view; the edge cue (side) points to it
+I 17:36:54.852 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=36.9s checkpoint lift2-find: drawn [Water, Ring, EdgeArrow, DottedLine, Outline:School bag, Pin:School bag]
+I 17:36:56.708 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=38.7s checkpoint lift2-at-item: drawn [Water, Ring, DottedLine, Outline:School bag, Pin:School bag]
+I 17:36:56.712 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=38.7s REACH grab School bag: 70 cm away, 30 cm above the floor (eyes at 160 cm)
+I 17:36:59.073 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 179.1 cm from its safe spot
+I 17:37:01.350 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=43.4s checkpoint lift2-carrying: drawn [Water, Ring, DepthTag, EdgeArrow, DottedLine, Outline:School bag, Pin:School bag]
+I 17:37:03.754 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 155.1 cm from its safe spot
+I 17:37:06.673 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 113.1 cm from its safe spot
+I 17:37:09.720 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 65.1 cm from its safe spot
+I 17:37:12.676 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 23.1 cm from its safe spot
+I 17:37:15.785 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] released School bag 0.0 cm from its safe spot
+I 17:37:16.557 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:281] [Play] t=58.6s carry of School bag: LEAF hand took 19.9 s; at the modelled pace (walk 0.8 m + 1 s grab + 1 s place) it is 2.8 s
+I 17:37:16.562 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=58.6s REACH drop School bag on its safe spot: 60 cm away, 160 cm above the floor (eyes at 160 cm)
+I 17:37:16.563 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:386] [Play] t=58.6s PROBLEM [reach] drop School bag on its safe spot: at 160 cm, level with or above my eyes
+I 17:37:16.563 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=58.6s STEP lift 2: School bag (walked 84 cm): 23.9 s (at 58.6 s)
+I 17:37:16.643 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=58.7s checkpoint lift2-placed: drawn [Water, Ring, DepthTag, Outline:School bag]
+I 17:37:16.806 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state lifting -> allSafe
+I 17:37:18.042 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=60.1s checkpoint all-safe: drawn [Water, Ring, DepthTag, EdgeArrow, SwitchGlow]
+I 17:37:18.647 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:188] [Play] t=60.7s the switch glows 51° away; the edge cue (side) points to it
+I 17:37:21.015 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=63.0s checkpoint switch: drawn [Water, Ring, DepthTag, SwitchGlow]
+I 17:37:21.019 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:393] [Play] t=63.0s REACH pinch the mains switch: 70 cm away, 140 cm above the floor (eyes at 160 cm)
+I 17:37:21.377 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state allSafe -> draining
+I 17:37:21.772 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=63.8s STEP finding and pinching the switch: 5.2 s (at 63.8 s)
+I 17:37:24.312 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] summary: 2 of 2 above water, 0:52
+I 17:37:24.312 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state draining -> summary
+I 17:37:24.313 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=66.4s STEP water draining: 2.6 s (at 66.4 s)
+I 17:37:25.167 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=67.3s checkpoint summary: drawn [Summary]
+I 17:37:28.289 [Preview 1] [Assets/Scripts/WaterlineMain.ts:463] [Waterline] state summary -> choose
+I 17:37:28.291 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:379] [Play] t=70.4s STEP summary line on screen: 4.0 s (at 70.4 s)
+I 17:37:28.827 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:414] [Play] t=70.9s checkpoint card-again: drawn [LevelCard]
+I 17:37:28.828 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:79] [Play] ---- step times ----
+I 17:37:28.828 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] tagging (5 pinches): 7.3 s (at 7.3 s)
+I 17:37:28.828 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] finding the river-alert card: 3.6 s (at 10.8 s)
+I 17:37:28.828 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] choosing a level (Alert): 1.0 s (at 11.8 s)
+I 17:37:28.828 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] water rising to 30 cm: 3.9 s (at 15.7 s)
+I 17:37:28.828 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] lift 1: Extension plug (walked 147 cm): 19.0 s (at 34.7 s)
+I 17:37:28.828 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] lift 2: School bag (walked 84 cm): 23.9 s (at 58.6 s)
+I 17:37:28.828 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] finding and pinching the switch: 5.2 s (at 63.8 s)
+I 17:37:28.828 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] water draining: 2.6 s (at 66.4 s)
+I 17:37:28.828 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:80] [Play] summary line on screen: 4.0 s (at 70.4 s)
+I 17:37:28.829 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:81] [Play] ---- problems (2) ----
+I 17:37:28.829 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:82] [Play] PROBLEM [reach] drop Extension plug on its safe spot: at 160 cm, level with or above my eyes
+I 17:37:28.829 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:82] [Play] PROBLEM [reach] drop School bag on its safe spot: at 160 cm, level with or above my eyes
+I 17:37:28.829 [Preview 1] [Assets/Tests/WaterlinePlaythroughScenario.ts:84] [Play] total 70.9 s as played; 41.4 s with carries at the modelled pace
+I 17:37:28.830 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [ 71.982s]PASSED: playthrough
+I 17:37:28.830 [Preview 1] [Packages/Leaf.lspkg/Utils/common/Logger.ts:89] I [DefaultLeafScenarioManager] [ 71.982s][playthrough] PASSED
+I 17:37:28.834 ${CONFIG_DIR}/Bundle/Plugins/[ChatTool] LEAF Plugin@5.23.0@362f6c78a8b5e47e6431049afb6a7109/dist/main.js:805 log] [LeafPlugin][PluginViewModel] ✅ Scenario playthrough completed successfully.
